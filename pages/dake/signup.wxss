@@ -1,0 +1,83 @@
+/* pages/dake/signup.wxss */
+.term_item .title{
+  padding:10px 15px;
+  display: flex;
+}
+.term_item .term{
+  flex: 1;
+}
+.term_item .term text{
+  color: #2BB897;
+  margin-right: 5px;
+}
+.term_item .arrow:after {  
+  content: '';  
+  display: block;  
+  width: 10px;  
+  height: 10px;  
+  border-right: 1px solid #888;  
+  border-top: 1px solid #888;  
+}  
+.term_item .arrow.down:after {  
+  -webkit-transform: rotate(135deg); /*箭头方向可以自由切换角度*/  
+  transform: rotate(135deg);  
+}  
+.term_item .arrow.up:after {  
+  margin-top:8px;
+  -webkit-transform: rotate(-45deg); /*箭头方向可以自由切换角度*/  
+  transform: rotate(-45deg);  
+} 
+.term_item .body {  
+  background-color: #ffffff;  
+}  
+.term_item .body .b_item{  
+  display: flex;  
+  padding: 10px 15px;
+}  
+.term_item .body .b_item .l_time{
+  margin-right: 15px;
+  line-height: 36rpx;
+  font-size: 14px;
+}
+.term_item .body .data_wrap{  
+   flex:1;  
+   display: flex;
+   vertical-align: middle;
+   align-items:center;
+}  
+.term_item .body .data_wrap view{  
+   border:1px solid #1DBA97;
+   width: 80rpx;
+   height: 80rpx;
+   line-height: 80rpx;
+   border-radius: 40rpx;
+   text-align: center;
+   vertical-align: middle;
+   margin-right: 10px;
+   font-size: 18px;
+   color: #1DBA97;
+}  
+.term_item .body .data_wrap view.on{  
+   border:1px solid #1DBA97;
+   background-color: #1DBA97;
+   color: #fff;
+}  
+.term_item .body .line{  
+   height: 1px;
+   background-color: #f5f5f5;
+   margin: 5px 0;
+}  
+.btn_box{
+  padding: 10px 0px;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+.btn_box .btnsubmmit{
+  margin: 10px 20px;
+  border: 0;
+  text-align: center;
+  background-color:#6BB898;
+  color: #ffffff;
+  border-radius: 8rpx;
+}

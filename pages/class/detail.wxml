@@ -1,0 +1,15 @@
+<!--pages/class/detail.wxml-->
+<view class="class_info">
+  <view class="title">{{currClass.ClassName}}</view>
+  <view class="sec">
+    <view class="code clr_grey">{{currClass.ClassCode}}</view>
+    <view class="status s_{{currClass.status}}">{{currClass.ClassStatus==1?"热报":"已报满"}}</view>
+  </view>
+  <view class="sec">{{currClass.TeacherNames}}</view>
+  <view class="sec">{{currClass.PrintAddress}}</view>
+  <view class="sec">{{currClass.BeginDate}} - {{item.EndDate}}</view>
+</view>
+<view class="bottom_pay">
+  <view class="price">¥{{currClass.Fee}}</view>
+  <view class="btnpay" bindtap="toOrder">去下单</view>
+</view>

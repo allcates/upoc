@@ -1,0 +1,25 @@
+/* pages/dake/byGrade.wxss */
+.tips{
+  padding: 10px 15px;
+}
+.mine_cells{
+  background-color: #ffffff;
+  margin-bottom: 10px;
+}
+.mine_cell{
+  padding:10px 15px;
+  position:relative;
+  display:flex;
+  align-items:center;
+  color: #888888;
+}
+.mine_cell.selected{
+  color: #6BB898;
+}
+.mine_cell text{
+  flex: 1;
+}
+.mine_cell_split{
+  height: 1px;
+  background-color: #f5f5f5;
+}

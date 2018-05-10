@@ -1,0 +1,42 @@
+/**app.wxss**/
+@import 'assets/style/weui.wxss';
+@import 'assets/style/iconfont.wxss';
+
+page{
+  background-color: #f5f5f5;
+  font-size: 16px;
+  color:#333333;
+  font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
+}
+
+.clr_black{
+  color:#666666;
+}
+.clr_grey{
+  color:#888888;
+}
+.clr_light{
+  color: #b2b2b2;
+}
+.clr_semi{
+  color: #353535;
+}
+.clr_split{
+  color: #dbdbdb;
+}
+.clr_high{
+  color: #2BB897;
+}
+.placeholder{
+  color: #b2b2b2;
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 200rpx 0;
+  box-sizing: border-box;
+} 

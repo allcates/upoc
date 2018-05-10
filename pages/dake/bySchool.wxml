@@ -1,0 +1,22 @@
+<!--pages/dake/bySchool.wxml-->
+<view class="tips">请选择上课校区，可以选择多个,已选择<text>{{selectedNum}}</text>个</view>
+<view class="list-wrapper">
+    <block wx:if="{{schoolList.length > 0 }}">
+      <scroll-view class="list-scroll" scroll-y="true" style="height:{{scrollview_height}};">
+        <view id="{{'index'+index}}" wx:for="{{schoolList}}" wx:key="key">
+          <view class="list-title">{{item.title}}</view>
+          <view class='list-item {{idx === 0 ?"":"border"}}'  wx:for="{{item.item}}" wx:for-item="school" wx:for-index="idx" wx:key="*school" data-item="{{school}}" bindtap="clickItem">
+            <view class="name">
+              {{school.name}}
+            </view>
+            <view class="icon">
+              <icon type='{{school.selected?"success":"circle"}}' size="18"></icon>
+            </view>
+          </view>
+        </view>
+      </scroll-view>   
+    </block>
+    <block wx:else>
+      <view class="nodata">没有搜索到相关的数据哦</view>
+    </block>
+  </view>

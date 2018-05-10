@@ -1,0 +1,42 @@
+<!--pages/account/register.wxml-->
+<view class="tips">使用中国大陆手机号注册</view>
+<view class="login_input_box">
+  <view class="section">
+    <text class="iconfont icon-account-only"></text>
+    <input placeholder="请输入手机号" placeholder-class="placeholder" value="{{phone}}" maxlength="11" bindinput="phoneInput"/>
+  </view>
+  <view class="line"></view>
+  <view class="section">
+    <text class="iconfont icon-yanzhengma"></text>
+    <input placeholder="请输入验证码" placeholder-class="placeholder" value="{{validcode}}" maxlength="6" bindinput="validcodeInput" />
+    <button class='validcode {{validcode_disabled?"disabled":""}}' disabled="{{validcode_disabled}}" bindtap="sendValidCode">
+      <text wx:if="{{count>0}}">{{count}}秒后发送</text>
+      <text wx:else>获取验证码</text>
+    </button>
+  </view>
+  <view class="line"></view>
+  <view class="section">
+    <text class="iconfont icon-mima"></text>
+    <input placeholder="请输入密码" placeholder-class="placeholder" password="{{!password_show}}" focus="{{password_focus}}" maxlength="20" value="{{password}}" bindinput="passwordInput" />
+    <text class="iconfont icon-delete2" wx:if="{{password_clear_show}}" bindtap="passwordClear"></text>
+    <text class='iconfont @{{password_show?"icon-showpassword":"icon-hiddenpassword"}}' bindtap="passwordShowToggle"></text>
+  </view>
+</view>
+<view class="register_tips">
+  <view  wx:if="{{error.length>0}}">
+    <icon type="warn" size="18"></icon><text>{{error}}</text>
+  </view>
+</view>
+<view class="btn_box">
+  <button type="default" class="btnsubmmit {{disabled?'disabled':''}}" disabled="{{disabled}}" bindtap="doRegister">立即注册</button>
+</view>
+<view class="pass_register">稍后注册</view>
+
+<!-- 弹出注册成功 -->
+<view class="modal-mask" wx:if="{{show_modal}}"></view>
+<view class="modal-dialog" wx:if="{{show_modal}}">
+  <view class="modal-title">注册成功</view>
+  <view class="modal-body color2">您的新东方通行证注册好了，快去帮孩子选课吧！</view>
+  <view class="modal-line"></view>
+  <view class="modal-footer" bindtap="toSelectCourse">我知道了</view>
+</view>

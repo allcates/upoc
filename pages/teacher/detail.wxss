@@ -1,0 +1,77 @@
+/* pages/teacher/detail.wxss */
+.weui-navbar{
+  border-bottom: 0;
+  background-color: #ffffff;
+}
+.weui-tab__panel{
+  background-color: #f5f5f5;
+}
+page,
+.page,
+.page__bd{
+  background-color: #ffffff;
+    height: 100%;
+}
+.page__bd{
+    padding-bottom: 0;
+}
+.weui-tab__content{
+    padding-top: 10px;
+}
+
+.class_item{
+  background-color: #ffffff;
+  margin-bottom: 30rpx;
+  box-shadow: 0px 5px 6px #efefef;
+}
+.class_item .item_top{
+  padding: 10px 15px;
+}
+.class_item .title{
+  font-size: 18px;
+  height: 30px;
+  line-height: 30px;
+  color:#333333;
+}
+.class_item .sec{
+  display: flex;
+  color:#888888;
+  font-size: 14px;
+}
+.class_item .code{
+  margin-right: 5px;
+  width: auto;
+}
+.class_item .status{
+  padding: 0px 6px;
+  border-width: 1px;
+  border-style: solid;
+  height: 18px;
+  line-height: 18px;
+  border-radius: 9px;
+  font-size: 13px;
+}
+.class_item .s_1{
+  border-color:#28BC9D; 
+  color:#28BC9D;
+}
+.class_item .s_2{
+  border-color:#E64944; 
+  color:#E64944; 
+}
+.class_item .line{
+  width: 100%;
+  height: 1px;
+  background-color: #f5f5f5;
+}
+.class_item .item_bottom{
+  padding: 5px 15px;
+  display: flex;
+}
+.class_item .price{
+  color:#E64944;
+}
+.class_item .btn_wrap{
+  flex: 1;
+  text-align: right;
+}

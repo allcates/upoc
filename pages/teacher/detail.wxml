@@ -1,0 +1,72 @@
+<!--pages/teacher/detail.wxml-->
+<view class="page">
+  <view class="page__bd">
+    <view class="weui-tab">
+      <view class="weui-navbar">
+        <block wx:for="{{tabs}}" wx:key="*this">
+          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+            <view class="weui-navbar__title">{{item}}</view>
+          </view>
+        </block>
+        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+      </view>
+      <view class="weui-tab__panel">
+        <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+          <template is="ingItem" data="{{ingList}}"></template>
+        </view>
+        <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+          <template is="willItem" data="{{willList}}"></template>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
+
+
+<template name="ingItem">
+  <block wx:for="{{ingList}}" wx:key="*this">
+    <view class="class_item">
+      <view class="item_top" data-item="{{item}}" bindtap="toClassDetail">
+        <view class="title">{{item.ClassName}}</view>
+        <view class="sec">
+          <view class="code clr_grey">{{item.ClassCode}}</view>
+          <view class="status s_{{item.status}}">{{item.ClassStatus==1?"热报":"已报满"}}</view>
+        </view>
+        <view class="sec">{{item.TeacherNames}}</view>
+        <view class="sec">{{item.PrintAddress}}</view>
+        <view class="sec">{{item.BeginDate}} - {{item.EndDate}}</view>
+      </view>
+      <view class="line"></view>
+      <view class="item_bottom">
+        <view class="price">¥{{item.Fee}}</view>
+        <view class="btn_wrap">
+          <button size="mini">加入选课单</button>
+        </view>
+      </view>
+    </view>
+  </block>
+</template>
+
+<template name="willItem">
+  <block wx:for="{{willList}}" wx:key="*this">
+    <view class="class_item">
+      <view class="item_top" data-item="{{item}}" bindtap="toClassDetail">
+        <view class="title">{{item.ClassName}}</view>
+        <view class="sec">
+          <view class="code clr_grey">{{item.ClassCode}}</view>
+          <view class="status s_{{item.status}}">{{item.ClassStatus==1?"热报":"已报满"}}</view>
+        </view>
+        <view class="sec">{{item.TeacherNames}}</view>
+        <view class="sec">{{item.PrintAddress}}</view>
+        <view class="sec">{{item.BeginDate}} - {{item.EndDate}}</view>
+      </view>
+      <view class="line"></view>
+      <view class="item_bottom">
+        <view class="price">¥{{item.Fee}}</view>
+        <view class="btn_wrap">
+          <button size="mini">加入选课单</button>
+        </view>
+      </view>
+    </view>
+  </block>
+</template>

@@ -1,0 +1,59 @@
+{
+  "pages": [
+    "pages/enroll/signup",
+    "pages/account/login",
+    "pages/enroll/selectCourse",
+    "pages/teacher/list",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/account/register",
+    "pages/my/index",
+    "pages/teacher/search",
+    "pages/pay/pay",
+    "pages/teacher/detail",
+    "pages/test/test",
+    "pages/class/detail",
+    "pages/dake/index",
+    "pages/dake/byQuarter",
+    "pages/dake/byGrade",
+    "pages/dake/bySchool",
+    "pages/dake/signup"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarTitleText": "优播课家长端",
+    "navigationBarBackgroundColor": "#2BB897",
+    "navigationBarTextStyle": "white"
+  },
+  "tabBar": {
+    "color": "#626567",
+    "selectedColor": "#2BB897",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/enroll/signup",
+        "text": "报名",
+        "iconPath": "assets/images/icon_1.png",
+        "selectedIconPath": "assets/images/icon_1_on.png"
+      },
+      {
+        "pagePath": "pages/enroll/selectCourse",
+        "text": "选课单",
+        "iconPath": "assets/images/icon_2.png",
+        "selectedIconPath": "assets/images/icon_2_on.png"
+      },
+      {
+        "pagePath": "pages/my/index",
+        "text": "我",
+        "iconPath": "assets/images/icon_3.png",
+        "selectedIconPath": "assets/images/icon_3_on.png"
+      }
+    ]
+  },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 10000
+  },
+  "debug": true
+}

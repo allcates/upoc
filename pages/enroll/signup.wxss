@@ -1,0 +1,45 @@
+/* pages/enroll/signup.wxss */
+.tips{
+  background-color: #FFECD2; 
+  padding: 20rpx 20rpx;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+}
+.tips text{
+  flex: 1;
+}
+.tips .iconfont{
+  flex: 0;
+}
+.card_wrap{
+  border-radius: 10rpx;
+  box-shadow: 0px 0px 20px #eeeeee;
+  margin:40rpx 30rpx;
+  padding: 30rpx;
+  background-color: #ffffff;
+  display: flex;
+  height: 180rpx;
+}
+.card_wrap_hover{
+  box-shadow: 0px 0px 20px #cccccc;
+}
+.card_wrap .img{
+  flex: 1;
+  display: flex;
+  align-items: center;
+}
+.card_wrap image{
+  width: 100%;
+}
+.card_wrap .line{
+  width: 1px;
+  margin: 15px 20rpx;
+  background-color: #f5f5f5;
+}
+.card_wrap .text{
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

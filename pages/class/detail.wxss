@@ -1,0 +1,61 @@
+/* pages/class/detail.wxss */
+.class_info{
+  background-color: #ffffff;
+  margin-bottom: 20px;
+  box-shadow: 0px 5px 6px #efefef;
+  padding: 10px 15px;
+}
+.class_info .title{
+  font-size: 18px;
+  height: 30px;
+  line-height: 30px;
+  color:#333333;
+}
+.class_info .sec{
+  display: flex;
+  color:#888888;
+  font-size: 14px;
+}
+.class_info .code{
+  margin-right: 5px;
+  width: auto;
+}
+.class_info .status{
+  padding: 0px 6px;
+  border-width: 1px;
+  border-style: solid;
+  height: 18px;
+  line-height: 18px;
+  border-radius: 9px;
+  font-size: 13px;
+}
+.class_info .s_1{
+  border-color:#28BC9D; 
+  color:#28BC9D;
+}
+.class_info .s_2{
+  border-color:#E64944; 
+  color:#E64944; 
+}
+
+.bottom_pay{
+  background-color: #ffffff;
+  box-shadow: 0px 5px 6px #efefef;
+  display: flex;
+  height: 80rpx;
+  line-height: 80rpx;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+}
+.bottom_pay .price{
+  flex: 1;
+  padding-left: 15px;color: #F54D50;
+}
+.bottom_pay .btnpay{
+  width: auto;
+  padding: 0 50rpx;
+  text-align: center;
+  color: #ffffff;
+  background-color: #F54D50;
+}

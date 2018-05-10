@@ -1,0 +1,39 @@
+<!--pages/account/login.wxml-->
+<view class="tips">请使用新东方通行证，登录优播客</view>
+
+<view class="login_input_box">
+  <view class="section">
+    <text class="iconfont icon-account-only"></text>
+    <input placeholder="请输入手机号/邮箱" placeholder-class="placeholder" value="{{phone}}" bindinput="phoneInput" />
+  </view>
+  <view class="line"></view>
+  <view class="section">
+    <text class="iconfont icon-mima"></text>
+    <input placeholder="请输入密码" placeholder-class="placeholder" password="{{!password_show}}" focus="{{password_focus}}" maxlength="20" value="{{password}}" bindinput="passwordInput" />
+    <text class="iconfont icon-delete2" wx:if="{{password_clear_show}}" bindtap="passwordClear"></text>
+    <text class='iconfont @{{password_show?"icon-showpassword":"icon-hiddenpassword"}}' bindtap="passwordShowToggle"></text>
+  </view>
+</view>
+
+<view class="login_tips">
+  <view class="error">
+    <view  wx:if="{{error.length>0}}">
+      <icon type="warn" size="18"></icon><text>{{error}}</text>
+    </view>
+  </view>
+  <view class="forgetpwd" bindtap="forgetPassword">忘记密码?</view>
+</view>
+
+<view class="btn_box">
+  <button type="default" class="btnsubmmit {{disabled?'disabled':''}}" disabled="{{disabled}}" bindtap="doLogin">登 录</button>
+</view>
+<view class="toregister" bindtap="toRegister">注册新东方通行证</view>
+
+<!-- 弹出忘记密码 -->
+<view class="modal-mask" wx:if="{{show_forget_modal}}"></view>
+<view class="modal-dialog" wx:if="{{show_forget_modal}}">
+  <view class="modal-title">忘记密码</view>
+  <view class="modal-body color2">优播课家长端暂不支持找回密码功能，您可以去新东方网www.xdf.cn上找回</view>
+  <view class="modal-line"></view>
+  <view class="modal-footer" bindtap="closeForget">我知道了</view>
+</view>

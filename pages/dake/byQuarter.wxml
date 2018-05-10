@@ -1,0 +1,11 @@
+<!--pages/dake/byQuarter.wxml-->
+<view class="tips">请选择报名的季度</view>
+<view class="mine_cells">
+  <block wx:for="{{quarterList}}" wx:key="*this" wx:for-index="idx" wx:for-item="item">
+    <view class='mine_cell {{item.selected?"selected":""}}' data-item="{{item}}" bindtap="selectItem">
+      <text>{{item.name}}</text>
+      <icon type="success_no_circle" size="16" color='{{item.selected?"#6BB898":"#888888"}}'></icon>
+    </view>
+    <view class="mine_cell_split"></view>
+  </block>
+</view>

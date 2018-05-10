@@ -1,0 +1,51 @@
+/* pages/dake/index.wxss */
+.tips{
+  padding: 10px 15px;
+}
+.mine_cells{
+  background-color: #ffffff;
+  margin-bottom: 10px;
+}
+.mine_cell{
+  padding:10px 15px;
+  position:relative;
+  display:flex;
+  align-items:center;
+}
+.mine_cell .icon{
+  margin-right: 5px;
+}
+.mine_cell .icon image{
+  width: 70rpx;
+  height: 70rpx;
+}
+.mine_cell_hd{
+  flex:1;
+  color:#666666;
+}
+.mine_cell_ft{
+  text-align:right;
+  color:#999;
+}
+.mine_cell_ft_access{
+  padding-right:13px;
+  position:relative;
+}
+.mine_cell_ft_access:after{
+  content:" ";display:inline-block;height:6px;width:6px;border-width:2px 2px 0 0;border-color:#c8c8cd;border-style:solid;-webkit-transform:matrix(.71,.71,-.71,.71,0,0);transform:matrix(.71,.71,-.71,.71,0,0);position:relative;top:-2px;position:absolute;top:50%;margin-top:-4px;right:2px;
+}
+.mine_cell_split{
+  height: 1px;
+  background-color: #f5f5f5;
+}
+
+.btn_box{
+  padding: 10px 20px;
+}
+.btn_box .btnsubmmit{
+  border: 0;
+  text-align: center;
+  background-color:#6BB898;
+  color: #ffffff;
+  border-radius: 8rpx;
+}
