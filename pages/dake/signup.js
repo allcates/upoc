@@ -1,4 +1,5 @@
 // pages/dake/signup.js
+let app = getApp();
 let page;
 
 Page({
@@ -7,44 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    list: [
-      {
-        "title": "第零期",
-        "date": "7月3日--7月11日",
-        "morning": { "label": "上午", "begin": "09:30", "end": "11:30", data: ["语", "数", "英"] },
-        "noon": { "label": "中午", "begin": "12:30", "end": "14:30", data: ["语", "物", "英"] },
-        "afternoon": { "label": "下午", "begin": "15:30", "end": "17:30", data: ["化"] },
-        "night": { "label": "晚上", "begin": "18:30", "end": "20:30", data: ["生", "数", "英"] },
-        "show": true
-      },
-      {
-        "title": "第一期",
-        "date": "7月11日--7月21日",
-        "morning": { "label": "上午", "begin": "09:30", "end": "11:30", data: ["语", "数", "英"] },
-        "noon": { "label": "中午", "begin": "12:30", "end": "14:30", data: ["语", "物", "英"] },
-        "afternoon": { "label": "下午", "begin": "15:30", "end": "17:30", data: ["化"] },
-        "night": { "label": "晚上", "begin": "18:30", "end": "20:30", data: ["生", "数", "英"] },
-        "show": true
-      },
-      {
-        "title": "第二期",
-        "date": "8月3日--8月11日",
-        "morning": { "label": "上午", "begin": "09:30", "end": "11:30", data: ["语", "数", "英"] },
-        "noon": { "label": "中午", "begin": "12:30", "end": "14:30", data: ["语", "物", "英"] },
-        "afternoon": { "label": "下午", "begin": "15:30", "end": "17:30", data: ["化"] },
-        "night": { "label": "晚上", "begin": "18:30", "end": "20:30", data: ["生", "数", "英"] },
-        "show": true
-      },
-      {
-        "title": "第三期",
-        "date": "9月13日--9月11日",
-        "morning": { "label": "上午", "begin": "09:30", "end": "11:30", data: ["语", "数", "英"] },
-        "noon": { "label": "中午", "begin": "12:30", "end": "14:30", data: ["语", "物", "英"] },
-        "afternoon": { "label": "下午", "begin": "15:30", "end": "17:30", data: ["化"] },
-        "night": { "label": "晚上", "begin": "18:30", "end": "20:30", data: ["生", "数", "英"] },
-        "show": true
-      }
-    ]
+    dataList: []
   },
 
   /**
@@ -52,20 +16,52 @@ Page({
    */
   onLoad: function (options) {
     page = this;
+    page.getData();
 
   },
 
-  showToggle:function(e){
+  /*
+  * 获取所有教师列表数据
+  */
+  getData: function () {
+    wx.showNavigationBarLoading();
+    wx.showLoading({
+      title: '加载中',
+    });
+
+    wx.request({
+      url: app.globalData.apiHost + 'home/getCollocationData?schoolid=1&grade=初一&areacodes=京科苑,东四&quarter=2',
+      data: {
+        keywords: '丽'
+      },
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        wx.hideNavigationBarLoading();
+        wx.hideLoading();
+        if (res.data.ErrorCode == 0) {
+          // console.log(res.data.Data);
+          page.setData({
+            dataList: res.data.Data,
+          });
+        }
+      }
+    })
+  },
+
+  showToggle: function (e) {
     var item = e.currentTarget.dataset.item;
-    var list = page.data.list;
-    for (var i = 0; i < list.length; i++) {
-      if (list[i].title == item.title){
-        list[i].show = !list[i].show;
+    var dataList = page.data.dataList;
+    for (var i = 0; i < dataList.length; i++) {
+      if (dataList[i].periodId == item.periodId) {
+        dataList[i].show = !dataList[i].show;
         break;
-      }   
+      }
     }
     page.setData({
-      list: list
+      dataList: dataList
     });
-  }
+  },
+
 })

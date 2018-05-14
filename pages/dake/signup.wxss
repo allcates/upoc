@@ -2,6 +2,7 @@
 .term_item .title{
   padding:10px 15px;
   display: flex;
+  align-items: center;
 }
 .term_item .term{
   flex: 1;
@@ -15,8 +16,8 @@
   display: block;  
   width: 10px;  
   height: 10px;  
-  border-right: 1px solid #888;  
-  border-top: 1px solid #888;  
+  border-right: 1px solid #2BB897;  
+  border-top: 1px solid #2BB897;  
 }  
 .term_item .arrow.down:after {  
   -webkit-transform: rotate(135deg); /*箭头方向可以自由切换角度*/  
@@ -33,6 +34,7 @@
 .term_item .body .b_item{  
   display: flex;  
   padding: 10px 15px;
+  border-bottom:1px solid #f5f5f5;
 }  
 .term_item .body .b_item .l_time{
   margin-right: 15px;

@@ -1,7 +1,6 @@
 // pages/dake/bySchool.js
-
-let schools = require('../../utils/school.js');
-var page;
+let app = getApp();
+let page;
 
 Page({
 
@@ -9,7 +8,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    schoolList: schools,
+    schoolList: [],
     selectedSchoolList: [],
     selectedNum: 0,
     scrollview_height: "100%"
@@ -20,6 +19,7 @@ Page({
    */
   onLoad: function (options) {
     page = this;
+    page.getData();
 
     wx.getSystemInfo({
       success: function (res) {
@@ -30,22 +30,49 @@ Page({
     });
   },
 
+  /*
+  * 获取所有教师列表数据
+  */
+  getData: function () {
+    wx.showNavigationBarLoading();
+    wx.showLoading({
+      title: '加载中',
+    });
+
+    wx.request({
+      url: app.globalData.apiHost + 'home/getschoollist',
+      header: {
+        'content-type': 'application/json'
+      },
+      success: function (res) {
+        wx.hideNavigationBarLoading();
+        wx.hideLoading();
+        if (res.data.ErrorCode == 0) {
+          // console.log(res.data.Data);
+          page.setData({
+            schoolList: res.data.Data,
+          });
+        }
+      }
+    })
+  },
+
   // 点击
   clickItem: function (e) {
     var school = e.currentTarget.dataset.item;
     var schoolList = this.data.schoolList;
     for (var i = 0; i < schoolList.length; i++) {
-      for (var j = 0; j < schoolList[i]['item'].length; j++) {
-        if (schoolList[i]['item'][j].id == school.id) {
-          schoolList[i]['item'][j].selected = !schoolList[i]['item'][j].selected;
+      for (var j = 0; j < schoolList[i]['SchoolList'].length; j++) {
+        if (schoolList[i]['SchoolList'][j].Id == school.Id) {
+          schoolList[i]['SchoolList'][j].selected = !schoolList[i]['SchoolList'][j].selected;
         }
       }
     }
     var selectedSchoolList = [];
     for (var i = 0; i < schoolList.length; i++) {
-      for (var j = 0; j < schoolList[i]['item'].length; j++) {
-        if (schoolList[i]['item'][j].selected) {
-          selectedSchoolList.push(schoolList[i]['item'][j]);
+      for (var j = 0; j < schoolList[i]['SchoolList'].length; j++) {
+        if (schoolList[i]['SchoolList'][j].selected) {
+          selectedSchoolList.push(schoolList[i]['SchoolList'][j]);
         }
       }
     }

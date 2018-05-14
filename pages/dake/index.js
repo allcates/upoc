@@ -35,10 +35,10 @@ Page({
     var schoolNames = '';
     var schools = this.data.schools;
     if (schools.length == 1){
-      schoolNames = schools[0].name;
+      schoolNames = schools[0].Name;
     }
     else if (schools.length > 1) {
-      schoolNames = schools[0].name + '等' + (schools.length )+'个';
+      schoolNames = schools[0].Name + '等' + (schools.length )+'个';
     }
     page.setData({
       schoolNames: schoolNames

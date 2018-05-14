@@ -4,10 +4,10 @@
     <block wx:if="{{schoolList.length > 0 }}">
       <scroll-view class="list-scroll" scroll-y="true" style="height:{{scrollview_height}};">
         <view id="{{'index'+index}}" wx:for="{{schoolList}}" wx:key="key">
-          <view class="list-title">{{item.title}}</view>
-          <view class='list-item {{idx === 0 ?"":"border"}}'  wx:for="{{item.item}}" wx:for-item="school" wx:for-index="idx" wx:key="*school" data-item="{{school}}" bindtap="clickItem">
+          <view class="list-title">{{item.Letter}}</view>
+          <view class='list-item {{idx === 0 ?"":"border"}}'  wx:for="{{item.SchoolList}}" wx:for-item="school" wx:for-index="idx" wx:key="*school" data-item="{{school}}" bindtap="clickItem">
             <view class="name">
-              {{school.name}}
+              {{school.Name}}
             </view>
             <view class="icon">
               <icon type='{{school.selected?"success":"circle"}}' size="18"></icon>
