@@ -3,6 +3,7 @@
   padding:10px 15px;
   display: flex;
   align-items: center;
+  box-shadow:0 .5px 1px #dddddd;
 }
 .term_item .term{
   flex: 1;
@@ -82,4 +83,8 @@
   background-color:#6BB898;
   color: #ffffff;
   border-radius: 8rpx;
+}
+.btn_box .btnsubmmit.btndisabled{
+  background-color:#b0b8bf;
+  color: #ffffff;
 }

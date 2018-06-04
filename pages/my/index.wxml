@@ -3,21 +3,48 @@
   <view class="mine_cells">
     <view class="mine_cell">
       <view class="mine_cell_hd avatar_wrap">
-        <image bindtap="bindViewTap" class="userinfo_avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+        <open-data type="userAvatarUrl" class="userinfo-avatar"></open-data>
       </view>
       <view class="mine_cell_ft userinfo_name">
-        <view class="clr_black">{{userInfo.nickName}}</view>
+        <view class="clr_black">
+          <open-data type="userNickName"></open-data>
+        </view>
         <view class=""></view>
       </view>
     </view>
   </view>
 
-  <view class="mine_cells">
-    <navigator class="mine_cell" url="/pages/account/login">
-      <view class="mine_cell_hd">优播客账号</view>
-      <view class="mine_cell_ft mine_cell_ft_access">去登录</view>
-    </navigator>
-  </view>
+  <block wx:if="{{!hasUserInfo}}">
+    <view class="mine_cells">
+      <navigator class="mine_cell" url="/pages/account/login">
+        <view class="mine_cell_hd">优播客账号</view>
+        <view class="mine_cell_ft mine_cell_ft_access">去登录</view>
+      </navigator>
+    </view>
+  </block>
+  <block wx:if="{{hasUserInfo}}">
+    <view class="mine_cells">
+      <view class="mine_cell">
+        <view class="mine_cell_hd">我的昵称</view>
+        <view class="mine_cell_ft">{{userInfo.NickName}}</view>
+      </view>
+      <view class="mine_cell_split clr_split"></view>
+      <view class="mine_cell">
+        <view class="mine_cell_hd">我的Id</view>
+        <view class="mine_cell_ft">{{userInfo.UserId}}</view>
+      </view>
+      <view class="mine_cell_split clr_split"></view>
+      <view class="mine_cell">
+        <view class="mine_cell_hd">我的电话</view>
+        <view class="mine_cell_ft">{{userInfo.Mobile==null?"":userInfo.Mobile}}</view>
+      </view>
+      <view class="mine_cell_split clr_split"></view>
+      <view class="mine_cell">
+        <view class="mine_cell_hd">我的Email</view>
+        <view class="mine_cell_ft">{{userInfo.Email==null?"":userInfo.Email}}</view>
+      </view>
+    </view>
+  </block>
 
   <view class="mine_cells">
     <view class="mine_cell" bindtap='callServicePhone'>

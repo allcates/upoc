@@ -12,6 +12,8 @@ Page({
       { "id": "4", "name": "高一", "usable": true, "selected": false },
       { "id": "5", "name": "高二", "usable": true, "selected": false },
       { "id": "6", "name": "高考", "usable": false, "selected": false },
+      { "id": "7", "name": "专项", "usable": false, "selected": false },
+      { "id": "8", "name": "英才", "usable": false, "selected": false },
     ]
   },
 

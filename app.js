@@ -1,13 +1,11 @@
 //app.js
+var util = require('utils/util.js');
+var encrypt = require('utils/encrypt.js');
+
 App({
   onLaunch: function () {
 
     var app = this;
-
-    // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
 
     // 登录
     wx.login({
@@ -15,47 +13,51 @@ App({
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
         // console.log(res);
         if (res.code) {
+
+          var code = res.code;
+          var codeEncrpty = encrypt.Encrypt(code);
+          var params = [];
+          params[0] = ['method', 'getOpenId'];
+          params[1] = ['code', codeEncrpty];
+          var signX = encrypt.Sign(params);
           wx.request({
-            url: this.globalData.apiHost+'home/getOpenId?code=' + res.code,
-            data: {},
-            header: {
-              'content-type': 'json'
+            url: app.globalData.apiHost + 'upoc/Index',
+            method: "POST",
+            header: { 'content-type': 'application/x-www-form-urlencoded' },
+            data: {
+              "appid": app.globalData.appId,
+              "method": "getOpenId",
+              "code": (codeEncrpty),
+              "sign": signX
             },
             success: function (res) {
-              // console.log(res);
-              var openid = res.data.Data //返回openid
-              // console.log('openid为' + openid);
-              app.globalData.openId = openid;
-            }
-          })
-        }
-      }
-    })
-    // 获取用户信息
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              // 可以将 res 发送给后台解码出 unionId
-              this.globalData.userInfo = res.userInfo
-
-              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-              // 所以此处加入 callback 以防止这种情况
-              if (this.userInfoReadyCallback) {
-                this.userInfoReadyCallback(res)
+              if (res.data.State == 1) {
+                // 此处服务器端根据openid获取当前用户信息(接口暂不支持)
+                var openid = res.data.Data.OpenId;
+                app.globalData.openId = openid;
+                // app.autoLogin();
               }
+
+              if (app.userOpenIdReadyCallback) {
+                app.userOpenIdReadyCallback(res)
+              }  
             }
           })
         }
       }
     })
   },
+
   globalData: {
+    // 用户信息（在优播课后台的数据信息）
     userInfo: null,
     openId: '',
     apiHost: 'https://xytest.staff.xdf.cn/miniprogram/',
-    appName: '优播课家长端'
+    appName: '优播课家长端',
+    appId: '5001',
+    storageKey_user_account: 'storageKey_user_account',
+    storageKey_user_pwd: 'storageKey_user_pwd',
+    dake_storageKey_classlist: 'dake_storageKey_classlist',
+    dake_storageKey_classlist_all: 'dake_storageKey_classlist_all'
   }
 })

@@ -30,7 +30,7 @@ function Sign(params){
   }
   signString += '&appkey='+appkey;
   signString = signString.toLowerCase();
-
+  console.log(signString);
   var signX = (Md5.MD5(signString) + '').toUpperCase();
 
   return signX;

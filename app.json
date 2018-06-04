@@ -1,7 +1,7 @@
 {
   "pages": [
-    "pages/enroll/signup",
     "pages/account/login",
+    "pages/enroll/signup",
     "pages/enroll/selectCourse",
     "pages/teacher/list",
     "pages/index/index",
@@ -17,7 +17,8 @@
     "pages/dake/byQuarter",
     "pages/dake/byGrade",
     "pages/dake/bySchool",
-    "pages/dake/signup"
+    "pages/dake/signup",
+    "pages/dake/classList"
   ],
   "window": {
     "backgroundTextStyle": "light",

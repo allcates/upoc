@@ -1,15 +1,15 @@
 // pages/account/register.js
-const app = getApp()
+let app = getApp();
+let page;
+
 var util = require('../../utils/util.js');
-//var md5 = require('../../assets/js/cryptojs/md5.js');
 var encrypt = require('../../utils/encrypt.js');
 
-var apiUrl = 'https://xytest.staff.xdf.cn/ApiMiniProgram/Account/Index';
-var appid = '5001';
+var apiUrl = app.globalData.apiHost + 'Account/Index';
+var appid = app.globalData.appId ;
 
-// 计时器
+// 计时器 
 var timer; 
-let page;
 
 Page({
 
@@ -35,6 +35,7 @@ Page({
    */
   onLoad: function (options) {
     page = this;
+
   },
 
   // 账号输入
@@ -86,9 +87,6 @@ Page({
 
   // 登录按钮是否可点
   btnValida: function () {
-    console.log(!util.isPhone(this.data.phone));
-    console.log(this.data.password);
-    console.log(this.data.password);
     this.setData({
       disabled: (!util.isPhone(this.data.phone) || this.data.password == '' || this.data.validcode == ''),
       error: '',
@@ -103,6 +101,7 @@ Page({
     var params = [];
     params[0] = ['method', 'SendSmsCode'];
     params[1] = ['mobile', page.data.phone];
+    // console.log(params);
     var signX = encrypt.Sign(params);
 
     // 向服务器发送请求获取验证码
@@ -136,7 +135,7 @@ Page({
     timer = setInterval(this.countDown, 1000);
     this.setData({
       validcode_disabled: true,
-      count:10
+      count:60
     });
   },
   // 倒计时
@@ -206,28 +205,29 @@ Page({
       method: "POST",
       header: { 'content-type': 'application/x-www-form-urlencoded' },
       complete: function (res) {
-        console.log(res.data);
+        // console.log(res.data);
 
-        if (res == null || res.data == null) {
-          reject(new Error('网络请求失败'))
+        // if (res == null || res.data == null) {
+        //   reject(new Error('网络请求失败'))
+        // }
+
+        if(res.data.State == 0 && res.data.Data !=null){
+          app.globalData.userInfo = res.data.Data;
+          page.setData({
+            show_modal: result
+          });
         }
-
-        var result = false;
-        if(res.data.State == 1&& res.data.Data !=null && res.data.Data.Status == 1){
-          result = true;
-        }
-
-        //todo test
-        result = true;
-
-        page.setData({
-          show_modal: result
-        });
+        else{
+          page.setData({
+            error: res.data.Error
+          })
+        }       
       },
       success: function (res) {
-        if (res.data.code == 0) {
-          resolve(res)
-        }
+
+        page.setData({
+          error: res
+        })
       }
     })
 

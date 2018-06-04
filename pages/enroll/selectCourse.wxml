@@ -4,35 +4,57 @@
   <text class="iconfont icon-delete1" bindtap="tipsHide"></text>
 </view>
 
-<view class="body_wrap">
-  <block wx:for="{{[1,2,3,4,5]}}">
+<view class="body">
+  <template is="willItem" data="{{classList}}"></template>
+</view>
+
+<template name="willItem">
+  <block wx:for="{{classList}}" wx:key="*this">
     <view class="class_item">
-      <view class="item_top" data-item="{{item}}" bindtap="toClassDetail">
-        <view class="title">{{item.ClassName}}</view>
-        <view class="sec">
-          <view class="code clr_grey">{{item.ClassCode}}</view>
-          <view class="status s_{{item.status}}">{{item.ClassStatus==1?"热报":"已报满"}}</view>
+      <view class="item_top">
+        <view class="item_l icon">
+          <icon type='{{item.selected?"success":"circle"}}' size="20" data-code="{{item.ClassCode}}" bindtap="clickItem"></icon>
         </view>
-        <view class="sec">{{item.TeacherNames}}</view>
-        <view class="sec">{{item.PrintAddress}}</view>
-        <view class="sec">{{item.BeginDate}} - {{item.EndDate}}</view>
+        <view class="item_r">
+          <view class="sec">
+            <view class="title" data-item="{{item}}">{{item.ClassName}}</view>
+          </view>
+
+          <view class="sec classcode">
+            <view class="code clr_grey">{{item.ClassCode}}</view>
+            <view class="status s_{{item.Hot}}">{{item.HotStr}}</view>
+          </view>
+
+          <view class="sec">
+            <text class="iconfont icon-touxiang"></text>
+            <text>{{item.TeacherNames}}</text>
+          </view>
+          <view class="sec">
+            <text class="iconfont icon-weizhi"></text>
+            <text>{{item.PrintAddress}}</text>
+          </view>
+          <view class="sec">
+            <text class="iconfont icon-shijian"></text>
+            <text>{{item.BeginDateStr}} - {{item.EndDateStr}}</text>
+          </view>
+          <view class="sec printtime">
+            <text>{{item.PrintTime}}</text>
+          </view>
+        </view>
       </view>
       <view class="line"></view>
       <view class="item_bottom">
         <view class="price">¥{{item.Fee}}</view>
-        <view class="btn_wrap">
-          <button size="mini">加入选课单</button>
-        </view>
+        <view class="delete" data-code="{{item}}" bindtap="removeItem"><text class="iconfont icon-trash"></text></view>
       </view>
     </view>
   </block>
-</view>
-
+</template>
 
 <view class="bottom_pay">
-  <view class="icon">
-    <icon type="{{selectedAll?'success':'circle'}}" size="18"></icon>全选
+  <view class="icon" bindtap="selectAll">
+    <icon type="{{selectedAll?'success':'circle'}}" size="18"></icon><text>全选</text>
   </view>
-  <view class="price">¥1920</view>
-  <view class="btnpay" bindtap="toOrder">找人代付</view>
+  <view class="cente"><text>合计：</text><text class="price">¥{{total}}</text></view>
+  <view class="btnpay {{btn_disabled?'disabled':''}}" bindtap="toOrder">找人代付</view>
 </view>

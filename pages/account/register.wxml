@@ -3,7 +3,7 @@
 <view class="login_input_box">
   <view class="section">
     <text class="iconfont icon-account-only"></text>
-    <input placeholder="请输入手机号" placeholder-class="placeholder" value="{{phone}}" maxlength="11" bindinput="phoneInput"/>
+    <input placeholder="请输入手机号" placeholder-class="placeholder" value="{{phone}}" maxlength="11" bindinput="phoneInput" />
   </view>
   <view class="line"></view>
   <view class="section">
@@ -23,14 +23,15 @@
   </view>
 </view>
 <view class="register_tips">
-  <view  wx:if="{{error.length>0}}">
-    <icon type="warn" size="18"></icon><text>{{error}}</text>
+  <view wx:if="{{error.length>0}}">
+    <icon type="warn" size="18"></icon>
+    <text>{{error}}</text>
   </view>
 </view>
 <view class="btn_box">
   <button type="default" class="btnsubmmit {{disabled?'disabled':''}}" disabled="{{disabled}}" bindtap="doRegister">立即注册</button>
 </view>
-<view class="pass_register">稍后注册</view>
+<view class="pass_register" bindtap="toSelectCourse">稍后注册</view>
 
 <!-- 弹出注册成功 -->
 <view class="modal-mask" wx:if="{{show_modal}}"></view>

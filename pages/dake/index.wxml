@@ -26,5 +26,5 @@
   </navigator>
 </view>
 <view class="btn_box">
-  <button type="default" class="btnsubmmit" disabled="{{btn_disabled}}" bindtap="doSubmit">确 定</button>
+  <button type="default" class="btnsubmmit" disabled="{{!btn_enabled}}" bindtap="doSubmit">确 定</button>
 </view>

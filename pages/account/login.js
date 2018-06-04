@@ -1,10 +1,11 @@
 // pages/account/login.js
-var util = require('../../utils/util.js');
-var md5 = require('../../assets/js/cryptojs/md5.js');
-var aes = require('../../utils/encrypt.js');
 
-const app = getApp();
+let app = getApp();
 let page;
+
+var util = require('../../utils/util.js');
+var encrypt = require('../../utils/encrypt.js');
+
 
 Page({
   /**
@@ -18,7 +19,8 @@ Page({
     password_focus: false,
     disabled: true,
     error: '',
-    show_forget_modal: false
+    show_forget_modal: false,
+    hiddenLoading:false
   },
 
   /**
@@ -26,10 +28,19 @@ Page({
    */
   onLoad: function (options) {
     page = this;
+    console.log(11111);
+    if (app.globalData.openId){
+      page.checkLogin();
+    }
+    else {
+      app.userOpenIdReadyCallback = res => {
+        if (res.data.State == 1) {
+          app.globalData.openId = res.data.Data.OpenId;
 
-    var aa = md5.MD5('123');
-    // var sign = (aes.Encrypt('1231').toLocaleLowerCase())
-    console.log('aa:' + aa);
+          page.checkLogin();
+        }
+      }
+    }
   },
 
   // 账号输入
@@ -78,7 +89,7 @@ Page({
 
   // 登录
   doLogin: function () {
-    console.log('y:' + aes.Encrypt('123'));
+    
     var account = page.data.phone;
     var password = page.data.password;
     if (!util.isEmail(account) && !util.isPhone(account)) {
@@ -87,34 +98,41 @@ Page({
       });
       return;
     }
-
-    var sign = ('appid=5001&method=checklogin&encodeuser=' + (aes.Encrypt(account).toLocaleLowerCase()) + '&encodepwd=' + (aes.Encrypt(password).toLocaleLowerCase()) + '&openid=' + app.globalData.openId.toLocaleLowerCase() +'&appkey=v5appkey_test');
-    console.log(sign);
-    console.log('@:'+md5.MD5(sign)+'');
+    var accountEncrpty = encrypt.Encrypt(page.data.phone);
+    var passwordEncrpty = encrypt.Encrypt(page.data.password);
+    var openIdEncrpty = encrypt.Encrypt(app.globalData.openId);
+    var params = [];
+    params[0] = ['method', 'checklogin'];
+    params[1] = ['encodeUser', accountEncrpty];
+    params[2] = ['encodePwd', passwordEncrpty];
+    params[3] = ['openId', openIdEncrpty];
+    var signX = encrypt.Sign(params); 
+    
     wx.request({
-      url: 'https://xytest.staff.xdf.cn/ApiMiniProgram/Account/Index',
+      url: app.globalData.apiHost + 'Account/Index',
       method: "POST",
       header: { 'content-type': 'application/x-www-form-urlencoded' },
       data: {
-        "appid": "5001",
-        "method": "checkLogin",
-        "encodeUser": aes.Encrypt(account),
-        "encodePwd": aes.Encrypt(password),
-        "openId": app.globalData.openId,
-        "sign": (md5.MD5(sign) + '').toUpperCase()
+        "appid": app.globalData.appId,
+        "method": "checklogin",
+        "encodeUser": (accountEncrpty),
+        "encodePwd": (passwordEncrpty),
+        "openId": openIdEncrpty,
+        "sign": signX
       },
       success: function (res) {
-        console.log(res);
+        // console.log(res);
         if (res.data.State == 1) {
+          // 将当前登录账号和秘密保存起来
+          try {
+            wx.setStorageSync(app.globalData.storageKey_user_account, account);
+            wx.setStorageSync(app.globalData.storageKey_user_pwd, password);
+          } catch (e) {
+          }
+          app.globalData.userInfo = res.data.Data;
           wx.reLaunch({
             url: '/pages/enroll/signup'
           })
-
-        }
-        else{
-          page.setData({
-            error: res.data.Error
-          });
         }
       },
       fail: function () {
@@ -122,6 +140,75 @@ Page({
       }
     })
 
+  },
+
+  checkLogin:function(){
+    if (app.globalData.userInfo) {
+      page.setData({
+        hiddenLoading: true
+      })
+    }
+    else {
+      page.autoLogin();
+    }
+  },
+
+  // 自动登录
+  autoLogin: function () {
+    // 判断是否缓存了登录账号和密码
+    try {
+      var account = wx.getStorageSync(app.globalData.storageKey_user_account);
+      var password = wx.getStorageSync(app.globalData.storageKey_user_pwd);
+      if (util.trim(account) != '' && util.trim(password) != '') {
+        var accountEncrpty = encrypt.Encrypt(account);
+        var passwordEncrpty = encrypt.Encrypt(password);
+        var openIdEncrpty = encrypt.Encrypt(app.globalData.openId);
+        var params = [];
+        params[0] = ['method', 'checklogin'];
+        params[1] = ['encodeUser', accountEncrpty];
+        params[2] = ['encodePwd', passwordEncrpty];
+        params[3] = ['openId', openIdEncrpty];
+        var signX = encrypt.Sign(params);
+        wx.request({
+          url: app.globalData.apiHost + 'Account/Index',
+          method: "POST",
+          header: { 'content-type': 'application/x-www-form-urlencoded' },
+          data: {
+            "appid": app.globalData.appId,
+            "method": "checklogin",
+            "encodeUser": (accountEncrpty),
+            "encodePwd": (passwordEncrpty),
+            "openId": openIdEncrpty,
+            "sign": signX
+          },
+          success: function (res) {
+            // console.log(res);
+            if (res.data.State == 1 && res.data.Data!=null){
+              app.globalData.userInfo = res.data.Data;
+              // console.log(app.globalData.userInfo);
+              wx.reLaunch({
+                url: '/pages/enroll/signup'
+              })
+            }
+          },
+          complete: function () {
+            page.setData({
+              hiddenLoading: true
+            })
+          }
+        })
+      }
+      else{
+        page.setData({
+          hiddenLoading: true
+        })
+      }
+    } catch (e) {
+      console.log(e);
+      page.setData({
+        hiddenLoading: true
+      })
+    }
   },
 
   // 忘记密码

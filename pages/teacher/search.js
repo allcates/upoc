@@ -3,7 +3,10 @@
 let app = getApp();
 let page;
 
-let storageKey = 'storage_search_tacher';
+let storageKey = 'storagekey_search_tacher';
+
+var util = require('../../utils/util.js');
+var encrypt = require('../../utils/encrypt.js');
 
 Page({
   data: {
@@ -81,7 +84,8 @@ Page({
   * 搜索老师
   */
   doSearch: function () {
-    var keywords = page.data.inputVal;
+    var keywords = util.trim(page.data.inputVal) ;
+    console.log(keywords);
     if(keywords.length==0){
       return;
     }
@@ -89,11 +93,11 @@ Page({
     var historyArr = page.data.search_history;
     for (var i = 0; i < historyArr.length; i++) {
       if (historyArr[i] == keywords){
-        historyArr.remove(i);
+        historyArr.slice(i,1);
         break;
       }
     }
-    console.log(historyArr);
+    // console.log(historyArr);
     var historyStr = '';
     for (var i = 0; i < historyArr.length;i++){
       historyStr += historyArr + ';';
@@ -111,18 +115,25 @@ Page({
       title: '加载中',
     });
 
+    var keywordsEncrpty = encrypt.Encrypt(keywords);
+    var params = [];
+    params[0] = ['method', 'getTeacherList'];
+    params[1] = ['keywords', keywordsEncrpty];
+    var signX = encrypt.Sign(params);
     wx.request({
-      url: app.globalData.apiHost + 'home/getteacherlist',
+      url: app.globalData.apiHost + 'upoc/index',
       data: {
-        keywords: keywords
+        "appid": app.globalData.appId,
+        "method": "getTeacherList",
+        "keywords": keywordsEncrpty,
+        "sign": signX
       },
-      header: {
-        'content-type': 'application/json'
-      },
+      method: "POST",
+      header: { 'content-type': 'application/x-www-form-urlencoded' },
       success: function (res) {
         wx.hideNavigationBarLoading();
         wx.hideLoading();
-        if (res.data.ErrorCode == 0) {
+        if (res.data.State == 1) {
           // console.log(res.data.Data);
           var letterList = res.data.Data;
           var teacherList = [];
@@ -138,6 +149,16 @@ Page({
         }
       }
     })
+  },
+
+  // 点击搜索
+  clickHistoryItem:function(e){
+    var keywords = e.currentTarget.dataset.item;
+    page.setData({
+      inputVal: keywords,
+      inputShowed: true
+    });
+    page.doSearch();
   },
 
   // 跳转到教师详情页

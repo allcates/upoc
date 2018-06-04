@@ -1,22 +1,13 @@
-/* pages/teacher/detail.wxss */
-.weui-navbar{
-  border-bottom: 0;
-  background-color: #ffffff;
+/* pages/dake/classList.wxss */
+.tips{
+  background-color: #FFECD2; 
+  padding: 20rpx 20rpx;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
 }
-.weui-tab__panel{
-  background-color: #f5f5f5;
-}
-page,
-.page,
-.page__bd{
-  background-color: #ffffff;
-    height: 100%;
-}
-.page__bd{
-    padding-bottom: 0;
-}
-.weui-tab__content{
-    padding-top: 10px;
+.tips text{
+  flex: 1;
 }
 
 .class_item{
@@ -97,31 +88,4 @@ page,
 }
 .class_item .price{
   color:#E64944;
-}
-.class_item .btn_wrap{
-  flex: 1;
-  text-align: right;
-}
-.class_item .btn_wrap button{
-  border-radius: 5px;
-  background-color: #f49332;
-  color: #ffffff;
-}
-.class_item .btn_wrap button.disabled{
-  background-color: #aebabe;
-}
-
-.nodata{
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color:#999999;
-  margin-top: 150rpx;
-}
-.nodata image{
-  width: 160rpx;
-  height: 160rpx;
-  margin-bottom: 10rpx;
 }

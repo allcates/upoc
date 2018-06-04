@@ -19,6 +19,7 @@ module.exports = {
   trim: trim,
   isEmail: isEmail,
   isPhone: isPhone,
+  removeFromArray: removeFromArray,
 }
 
 
@@ -43,4 +44,21 @@ function isEmail(str) {
 function isPhone(str) {
   var reg = /^1\d{10}$/;
   return reg.test(str);
+}
+
+/**
+ * 移除数组中的指定元素
+*/
+function removeFromArray(array, val) {
+  var index = -1;
+  for (var i = 0; i < array.length; i++) {
+    if (array[i] == val) {
+      index = i;
+      break;
+    }
+  }
+  if (index > -1) {
+    array.splice(index, 1);
+  }
+  return array;
 }

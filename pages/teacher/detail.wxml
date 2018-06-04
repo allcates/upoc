@@ -12,10 +12,26 @@
       </view>
       <view class="weui-tab__panel">
         <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
-          <template is="ingItem" data="{{ingList}}"></template>
+          <block wx:if="{{ingList.length > 0 }}">
+            <template is="ingItem" data="{{ingList}}"></template>
+          </block>
+          <block wx:else>
+            <view class="nodata">
+              <view><image src="../../assets/images/data_empty.png"></image></view>
+              <view>暂无未开课的课程~</view>
+            </view>
+          </block>      
         </view>
         <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
-          <template is="willItem" data="{{willList}}"></template>
+          <block wx:if="{{willList.length > 0 }}">
+            <template is="willItem" data="{{willList}}"></template>
+          </block>
+          <block wx:else>
+            <view class="nodata">
+              <view><image src="../../assets/images/data_empty.png"></image></view>
+              <view>暂无开课中的课程~</view>
+            </view>
+          </block>
         </view>
       </view>
     </view>
@@ -28,19 +44,33 @@
     <view class="class_item">
       <view class="item_top" data-item="{{item}}" bindtap="toClassDetail">
         <view class="title">{{item.ClassName}}</view>
-        <view class="sec">
+        <view class="sec classcode">
           <view class="code clr_grey">{{item.ClassCode}}</view>
-          <view class="status s_{{item.status}}">{{item.ClassStatus==1?"热报":"已报满"}}</view>
+          <view class="status s_{{item.Hot}}">{{item.HotStr}}</view>
         </view>
-        <view class="sec">{{item.TeacherNames}}</view>
-        <view class="sec">{{item.PrintAddress}}</view>
-        <view class="sec">{{item.BeginDate}} - {{item.EndDate}}</view>
+
+        <view class="sec">
+          <text class="iconfont icon-touxiang"></text>
+          <text>{{item.TeacherNames}}</text>
+        </view>
+        <view class="sec">
+          <text class="iconfont icon-weizhi"></text>
+          <text>{{item.PrintAddress}}</text>
+        </view>
+        <view class="sec">
+          <text class="iconfont icon-shijian"></text>
+          <text>{{item.BeginDateStr}} - {{item.EndDateStr}}</text>
+        </view>
+        <view class="sec printtime">
+          <text>{{item.PrintTime}}</text>
+        </view>
+
       </view>
       <view class="line"></view>
       <view class="item_bottom">
         <view class="price">¥{{item.Fee}}</view>
         <view class="btn_wrap">
-          <button size="mini">加入选课单</button>
+          <button size="mini" class="{{item.Hot=='full'?'disabled':''}}" data-item="{{item}}" bindtap="addToFavorite">{{item.InFavorite?'已加入选课单':'加入选课单'}}</button>
         </view>
       </view>
     </view>
@@ -52,19 +82,32 @@
     <view class="class_item">
       <view class="item_top" data-item="{{item}}" bindtap="toClassDetail">
         <view class="title">{{item.ClassName}}</view>
-        <view class="sec">
+        <view class="sec classcode">
           <view class="code clr_grey">{{item.ClassCode}}</view>
-          <view class="status s_{{item.status}}">{{item.ClassStatus==1?"热报":"已报满"}}</view>
+          <view class="status s_{{item.Hot}}">{{item.HotStr}}</view>
         </view>
-        <view class="sec">{{item.TeacherNames}}</view>
-        <view class="sec">{{item.PrintAddress}}</view>
-        <view class="sec">{{item.BeginDate}} - {{item.EndDate}}</view>
+
+        <view class="sec">
+          <text class="iconfont icon-touxiang"></text>
+          <text>{{item.TeacherNames}}</text>
+        </view>
+        <view class="sec">
+          <text class="iconfont icon-weizhi"></text>
+          <text>{{item.PrintAddress}}</text>
+        </view>
+        <view class="sec">
+          <text class="iconfont icon-shijian"></text>
+          <text>{{item.BeginDateStr}} - {{item.EndDateStr}}</text>
+        </view>
+        <view class="sec printtime">
+          <text>{{item.PrintTime}}</text>
+        </view>
       </view>
       <view class="line"></view>
       <view class="item_bottom">
         <view class="price">¥{{item.Fee}}</view>
         <view class="btn_wrap">
-          <button size="mini">加入选课单</button>
+          <button size="mini" class="{{item.Hot=='full'?'disabled':''}}" data-item="{{item}}" bindtap="addToFavorite">{{item.InFavorite?'已加入选课单':'加入选课单'}}</button>
         </view>
       </view>
     </view>

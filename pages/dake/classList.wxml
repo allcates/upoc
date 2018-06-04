@@ -1,0 +1,48 @@
+<!--pages/dake/classList.wxml-->
+<view class="tips">
+  已选条件: <text>{{title}}</text>
+</view>
+
+<view class="body">
+  <template is="willItem" data="{{classList}}"></template>
+</view>
+
+<template name="willItem">
+  <block wx:for="{{classList}}" wx:key="*this">
+    <view class="class_item"> 
+      <view class="item_top">
+        <view class="sec">
+          <view class="title" data-item="{{item}}">{{item.ClassName}}</view>
+          <view class="select icon">
+            <icon type='{{item.selected?"success":"circle"}}' size="20" data-code="{{item.ClassCode}}" bindtap="clickItem"></icon>
+          </view>    
+        </view>
+
+        <view class="sec classcode">
+          <view class="code clr_grey">{{item.ClassCode}}</view>
+          <view class="status s_{{item.Hot}}">{{item.HotStr}}</view>
+        </view>
+
+        <view class="sec">
+          <text class="iconfont icon-touxiang"></text>
+          <text>{{item.TeacherNames}}</text>
+        </view>
+        <view class="sec">
+          <text class="iconfont icon-weizhi"></text>
+          <text>{{item.PrintAddress}}</text>
+        </view>
+        <view class="sec">
+          <text class="iconfont icon-shijian"></text>
+          <text>{{item.BeginDateStr}} - {{item.EndDateStr}}</text>
+        </view>
+        <view class="sec printtime">
+          <text>{{item.PrintTime}}</text>
+        </view>
+      </view>
+      <view class="line"></view>
+      <view class="item_bottom">
+        <view class="price">¥{{item.Fee}}</view>
+      </view>
+    </view>
+  </block>
+</template>

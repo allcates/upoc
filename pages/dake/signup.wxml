@@ -14,7 +14,9 @@
           <text>上午\n09:30\n11:30</text>
         </view>
         <view class="data_wrap">
-          <view class="{{item.selected?'on':''}}" wx:for="{{item.night}}" wx:key="*this" wx:for-index="idx2" wx:for-item="item2">{{item2.name}}</view>
+          <block wx:for="{{item.morning}}" wx:key="*this" wx:for-index="idx2" wx:for-item="item2">
+            <view class="{{item2.selected?'on':''}}" data-item="{{item2}}" data-period="{{item.period}}" bindtap="clickItem">{{item2.name}}</view>
+          </block>
         </view>
       </view>
 
@@ -23,7 +25,9 @@
           <text>中午\n12:30\n13:30</text>
         </view>
         <view class="data_wrap">
-          <view class="{{item.selected?'on':''}}" wx:for="{{item.night}}" wx:key="*this" wx:for-index="idx2" wx:for-item="item2">{{item2.name}}</view>
+          <block wx:for="{{item.noon}}" wx:key="*this" wx:for-index="idx2" wx:for-item="item2">
+            <view class="{{item2.selected?'on':''}}" data-item="{{item2}}" data-period="{{item.period}}" bindtap="clickItem">{{item2.name}}</view>
+          </block>
         </view>
       </view>
 
@@ -32,7 +36,9 @@
           <text>下午\n15:30\n17:30</text>
         </view>
         <view class="data_wrap">
-          <view class="{{item.selected?'on':''}}" wx:for="{{item.night}}" wx:key="*this" wx:for-index="idx2" wx:for-item="item2">{{item2.name}}</view>
+          <block wx:for="{{item.afternoon}}" wx:key="*this" wx:for-index="idx2" wx:for-item="item2">
+            <view class="{{item2.selected?'on':''}}" data-item="{{item2}}" data-period="{{item.period}}" bindtap="clickItem">{{item2.name}}</view>
+          </block>
         </view>
       </view>
 
@@ -41,14 +47,16 @@
           <text>晚上\n18:30\n20:30</text>
         </view>
         <view class="data_wrap">
-          <view class="{{item.selected?'on':''}}" wx:for="{{item.night}}" wx:key="*this" wx:for-index="idx2" wx:for-item="item2">{{item2.name}}</view>
+          <block wx:for="{{item.night}}" wx:key="*this" wx:for-index="idx2" wx:for-item="item2">
+            <view class="{{item2.selected?'on':''}}" data-item="{{item2}}" data-period="{{item.period}}" bindtap="clickItem">{{item2.name}}</view>
+          </block>
         </view>
       </view>
     </view>
   </view>
 </block>
 <view class="btn_box">
-  <button type="default" class="btnsubmmit" disabled="{{disabled}}">加入选课单
-    <text>(2)</text>
+  <button type="default" class="btnsubmmit {{cartNum==0?'btndisabled':''}}" disabled="{{cartNum==0}}" bindtap="addToList">加入选课单
+    <text>({{cartNum}})</text>
   </button>
 </view>

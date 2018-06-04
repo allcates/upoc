@@ -17,6 +17,6 @@
       </scroll-view>   
     </block>
     <block wx:else>
-      <view class="nodata">没有搜索到相关的数据哦</view>
+      <view class="nodata" wx:if="{{!loading}}">没有搜索到相关的数据哦</view>
     </block>
   </view>

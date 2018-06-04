@@ -1,4 +1,7 @@
 // pages/enroll/signup.js
+let app = getApp();
+let page;
+
 Page({
 
   /**
@@ -12,7 +15,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    page = this;
+    // console.log(app.globalData.userInfo);
   },
 
   // 隐藏提示

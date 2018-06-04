@@ -1,4 +1,6 @@
 // pages/dake/index.js
+
+let app = getApp();
 let page;
 
 Page({
@@ -10,8 +12,8 @@ Page({
     quarter: {},
     grade: {},
     schools: [],
-    schoolNames:'',
-    btn_disabled: true,
+    schoolNames: '',
+    btn_enabled: false,
   },
 
   /**
@@ -19,13 +21,14 @@ Page({
    */
   onLoad: function (options) {
     page = this;
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+
   },
 
   /**
@@ -34,11 +37,11 @@ Page({
   onShow: function () {
     var schoolNames = '';
     var schools = this.data.schools;
-    if (schools.length == 1){
+    if (schools.length == 1) {
       schoolNames = schools[0].Name;
     }
     else if (schools.length > 1) {
-      schoolNames = schools[0].Name + '等' + (schools.length )+'个';
+      schoolNames = schools[0].Name + '等' + (schools.length) + '个';
     }
     page.setData({
       schoolNames: schoolNames
@@ -49,12 +52,16 @@ Page({
   // 按钮是否可点
   btnValid: function () {
     page.setData({
-      btn_disabled: (!page.data.quarter.id && !page.data.grade && page.data.schools.length==0)
+      btn_enabled: (typeof (page.data.quarter.id) != 'undefined' && typeof (page.data.grade.id)!='undefined' && page.data.schools.length > 0)
     });
   },
 
-  // 确定报名
-  doSubmit:function(){
+  // 确定
+  doSubmit: function () {
+    // 先清空临时报名选中的班级，然后跳到报名页面重新选择
+    wx.clearStorageSync({
+      key: app.globalData.dake_storageKey_classlist
+    });
     wx.navigateTo({
       url: '/pages/dake/signup',
     })

@@ -1,10 +1,13 @@
 // pages/teacher/list.js
 
+let app = getApp();
+let page;
+
 let grades = require('../../utils/grades.js');
 let subjects = require('../../utils/subjects.js');
 
-let app = getApp();
-let page;
+var util = require('../../utils/util.js');
+var encrypt = require('../../utils/encrypt.js');
 
 Page({
   /**
@@ -16,11 +19,13 @@ Page({
     subjectModal: false,
     gradeList: grades,
     subjectList: subjects,
-    scrollview_height: "100vh"
+    scrollview_height: "100vh",
+    beforeLoaded:true
   },
 
   onLoad:function(){
     page = this;
+
     page.getData();
 
     // 设置滚动高度
@@ -114,23 +119,35 @@ Page({
       title: '加载中',
     });
 
+    var keywordsEncrpty = encrypt.Encrypt('丽');
+    var params = [];
+    params[0] = ['method', 'getTeacherList'];
+    params[1] = ['keywords', keywordsEncrpty];
+    var signX = encrypt.Sign(params);
     wx.request({
-      url: app.globalData.apiHost + 'home/getteacherlist',
+      url: app.globalData.apiHost + 'upoc/index',
       data: {
-        keywords: '丽'
+        "appid": app.globalData.appId,
+        "method": "getTeacherList",
+        "keywords": keywordsEncrpty,
+        "sign": signX
       },
-      header: {
-        'content-type': 'application/json'
-      },
+      method: "POST",
+      header: { 'content-type': 'application/x-www-form-urlencoded' },
       success: function (res) {
         wx.hideNavigationBarLoading();
         wx.hideLoading();
-        if (res.data.ErrorCode == 0) {
+        if (res.data.State == 1) {
           // console.log(res.data.Data);
           page.setData({
             teacherList: res.data.Data,
           });
         }
+      },
+      complete:function(){
+        page.setData({
+          beforeLoaded:false
+        })
       }
     })
   },

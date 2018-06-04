@@ -29,12 +29,15 @@
   flex: 0;
   margin-right: 20px;
 }
-.userinfo_avatar{
-  width: 110rpx;
-  height: 110rpx;
+.userinfo-avatar {
+  width: 140rpx;
+  height: 140rpx;
   border-radius: 50%;
   margin: 20rpx 0;
+  display: block;
+  overflow: hidden;
 }
-.userinfo_name{
-
+.avatar_wrap userinfo_name{
+  font-size: 32rpx;
+  font-weight: bold;
 }

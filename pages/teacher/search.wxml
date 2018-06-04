@@ -27,7 +27,7 @@
       </view>
     </view>
     <view class="list-wrapper" wx:for="{{search_history}}">
-      <view class="list-item border">
+      <view class="list-item border" data-item="{{item}}" bindtap="clickHistoryItem">
         <text>{{item}}</text>
       </view>
     </view>
@@ -46,7 +46,10 @@
       </scroll-view>
     </block>
     <block wx:else>
-      <view class="nodata clr_grey">没有相关的数据哦</view>
+      <view class="nodata">
+        <view><image src="../../assets/images/data_empty.png"></image></view>
+        <view>没有相关的数据哦~</view>
+      </view>
     </block>
   </view>
 
