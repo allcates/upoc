@@ -86,7 +86,7 @@
 }
 .filter-list-box .item{
   border-bottom: 2rpx solid #f5f5f5;
-  padding: 20rpx 30px;
+  padding: 16rpx 30px;
   display: flex;
   align-items: center;
 }
@@ -115,7 +115,7 @@
   background: #f5f5f5;
   color: #888888;
   font-size: 36rpx;
-  padding: 20rpx 30rpx;
+  padding: 16rpx 30rpx;
 }
 .list-item {
   position: relative;

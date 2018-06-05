@@ -64,7 +64,7 @@ Page({
 
     // 选课单
     try {
-      selectedClassListInFavorite = wx.getStorageSync(app.globalData.dake_storageKey_classlist_all);
+      selectedClassListInFavorite = wx.getStorageSync(app.globalData.storageKey_dake_classlist_all);
       if (selectedClassListInFavorite == '') {
         selectedClassListInFavorite = [];
       }
@@ -157,7 +157,7 @@ Page({
     if(!inFavorite){
       selectedClassListInFavorite.push(classinfo);
       wx.setStorage({
-        key: app.globalData.dake_storageKey_classlist_all,
+        key: app.globalData.storageKey_dake_classlist_all,
         data: selectedClassListInFavorite,
         success: function () {
           wx.showToast({

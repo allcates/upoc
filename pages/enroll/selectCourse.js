@@ -31,7 +31,7 @@ Page({
   getData: function () {
     // 获取已选择的班级
     wx.getStorage({
-      key: app.globalData.dake_storageKey_classlist_all,
+      key: app.globalData.storageKey_dake_classlist_all,
       success: function (res) {
         var classList = res.data;
         var total = 0;
@@ -112,7 +112,10 @@ Page({
     var classCodes = '';
     for (var x1 = 0; x1 < classList.length; x1++) {
       if (classList[x1].selected) {
-        classCodes += classList[x1].ClassCode = ',';
+        classCodes += classList[x1].ClassCode;
+      }
+      if (x1 != classList.length-1){
+        classCodes += ',';
       }
     }
     if (classCodes == '') {
@@ -120,6 +123,14 @@ Page({
         title: '您要支付对选课单为空哦～',
         icon: 'none'
       });
+    }
+    else{
+      // wx.redirectTo({
+      //   url: '/pages/pay/order?classCodes=' + classCodes,
+      // })
+      wx.navigateTo({
+        url: '/pages/pay/order?classCodes=' + classCodes,
+      })
     }
   },
 
@@ -144,7 +155,7 @@ Page({
     }
 
     try {
-      wx.setStorageSync(app.globalData.dake_storageKey_classlist_all, classList);
+      wx.setStorageSync(app.globalData.storageKey_dake_classlist_all, classList);
     }
     catch (e) {
     }
@@ -155,6 +166,13 @@ Page({
       selectedAll: selectedAll,
       btn_disabled: selectedNone
     });
+  },
+
+  // 去报名
+  toSignup:function(){
+    wx.switchTab({
+      url: '/pages/enroll/signup'
+    })
   }
 
 })

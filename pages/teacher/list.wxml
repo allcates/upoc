@@ -4,10 +4,10 @@
     <view class="modal-mask" wx:if="{{gradeModal || subjectModal}}" bindtap="hideModal"></view>
     <view class="filter-box">
       <view class='filter-menu {{gradeModal?"selected":""}}' bindtap="filterGrade">
-        <text>年级</text>
+        <text>{{selectedGrade=='全部'?'年级':selectedGrade}}</text>
       </view>
       <view class='filter-menu {{subjectModal?"selected":""}}' bindtap="filterSubject">
-        <text>科目</text>
+        <text>{{selectedCourse=='全部'?'科目':selectedCourse}}</text>
       </view>
       <view class="filter-search">
         <navigator url="/pages/teacher/search">搜索</navigator>
@@ -18,7 +18,7 @@
       <block wx:for="{{gradeList}}">
         <view class="item {{item.selected?'selected':''}}" data-item="{{item}}" bindtap="clickGrade">
           <text class="name">{{item.name}}</text>
-          <icon type="success_no_circle" size="16" color="{{item.selected?'#2BB897':'#333333'}}"></icon>
+          <icon type="success_no_circle" size="16" color="#2BB897" wx:if="{{item.selected}}"></icon>
         </view>
       </block>
     </view>
@@ -26,18 +26,18 @@
       <block wx:for="{{subjectList}}">
         <view class="item {{item.selected?'selected':''}}" data-item="{{item}}" bindtap="clickSubject">
           <text class="name">{{item.name}}</text>
-          <icon type="success_no_circle" size="16" color="{{item.selected?'#2BB897':'#333333'}}"></icon>
+          <icon type="success_no_circle" size="16" color="#2BB897" wx:if="{{item.selected}}"></icon>
         </view>
       </block>
     </view>
 
     <view class="list-wrapper">
       <block wx:if="{{teacherList.length > 0 }}">
-        <scroll-view class="list-scroll" scroll-y="{{!gradeModal && !subjectModal}}" scroll-with-animation="true" style="{{scrollview_height}}">
+        <scroll-view class="list-scroll" scroll-y="{{!gradeModal && !subjectModal}}" scroll-with-animation="true" style="height:{{scrollview_height}}" bindscrolltolower="loadMore" scroll-into-view="{{toView}}">
           <view id="{{'index'+index}}" wx:for="{{teacherList}}" wx:key="key">
             <view class="list-title">{{item.Letter}}</view>
             <view class='list-item {{idx === 0 ?"":"border"}}' wx:for="{{item.TeacherList}}" wx:for-item="teacher" wx:for-index="idx" wx:key="teacher" data-item="{{teacher}}" bindtap="toTeacherDetail">
-              <image class="avatar" src="{{teacher.Avatar}}" lazy-load="true"></image>
+              <image class="avatar" src="{{teacher.Avatar==''?'../../assets/images/avatar.png':teacher.Avatar}}" lazy-load="true"></image>
               <view class="name">{{teacher.Name}}</view>
             </view>
           </view>

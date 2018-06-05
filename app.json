@@ -18,7 +18,8 @@
     "pages/dake/byGrade",
     "pages/dake/bySchool",
     "pages/dake/signup",
-    "pages/dake/classList"
+    "pages/dake/classList",
+    "pages/pay/order"
   ],
   "window": {
     "backgroundTextStyle": "light",

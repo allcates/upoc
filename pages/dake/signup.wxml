@@ -1,62 +1,84 @@
 <!--pages/dake/signup.wxml-->
-<block wx:for="{{dataList}}" wx:key="*this" wx:for-index="idx" wx:for-item="item">
-  <view class="term_item">
-    <view class="title">
-      <view class="term">
-        <text>{{item.period}}</text>({{item.date}})</view>
-      <view class="" data-item="{{item}}" bindtap="showToggle">
-        <text class="arrow {{item.show?'up':'down'}}"></text>
+<block wx:if="{{!beforeLoaded}}">
+  <block wx:if="{{dataList.length > 0}}">
+    <view class="term_wrap">
+      <view class="term_item" wx:for="{{dataList}}" wx:key="*this" wx:for-index="idx" wx:for-item="item">
+        <view class="title">
+          <view class="term">
+            <text>{{item.period}}</text>({{item.date}})</view>
+          <view class="" data-item="{{item}}" bindtap="showToggle">
+            <text class="arrow {{item.show?'up':'down'}}"></text>
+          </view>
+        </view>
+        <view class="body" wx:if="{{item.show}}">
+          <view wx:if="{{item.morning.length>0}}" class="b_item">
+            <view class="l_time">
+              <text>上午\n09:30\n11:30</text>
+            </view>
+            <view class="data_wrap">
+              <scroll-view scroll-x="true">
+                <block wx:for="{{item.morning}}" wx:key="*this" wx:for-index="idx2" wx:for-item="item2">
+                  <view class="item {{item2.selected?'on':''}}" data-item="{{item2}}" data-period="{{item.period}}" bindtap="clickItem">{{item2.name}}</view>
+                </block>
+              </scroll-view>
+            </view>
+          </view>
+
+          <view wx:if="{{item.noon.length>0}}" class="b_item">
+            <view class="l_time">
+              <text>中午\n12:30\n13:30</text>
+            </view>
+            <view class="data_wrap">
+              <scroll-view scroll-x="true">
+                <block wx:for="{{item.noon}}" wx:key="*this" wx:for-index="idx2" wx:for-item="item2">
+                  <view class="item {{item2.selected?'on':''}}" data-item="{{item2}}" data-period="{{item.period}}" bindtap="clickItem">{{item2.name}}</view>
+                </block>
+              </scroll-view>
+            </view>
+          </view>
+
+          <view wx:if="{{item.afternoon.length>0}}" class="b_item">
+            <view class="l_time">
+              <text>下午\n15:30\n17:30</text>
+            </view>
+            <view class="data_wrap">
+              <scroll-view scroll-x="true">
+                <block wx:for="{{item.afternoon}}" wx:key="*this" wx:for-index="idx2" wx:for-item="item2">
+                  <view class="item {{item2.selected?'on':''}}" data-item="{{item2}}" data-period="{{item.period}}" bindtap="clickItem">{{item2.name}}</view>
+                </block>
+              </scroll-view>
+            </view>
+          </view>
+
+          <view wx:if="{{item.night.length>0}}" class="b_item">
+            <view class="l_time">
+              <text>晚上\n18:30\n20:30</text>
+            </view>
+            <view class="data_wrap">
+              <scroll-view scroll-x="true">
+                <block wx:for="{{item.night}}" wx:key="*this" wx:for-index="idx2" wx:for-item="item2">
+                  <view class="item {{item2.selected?'on':''}}" data-item="{{item2}}" data-period="{{item.period}}" bindtap="clickItem">{{item2.name}}</view>
+                </block>
+              </scroll-view>
+            </view>
+          </view>
+        </view>
       </view>
     </view>
-    <view class="body" wx:if="{{item.show}}">
-      <view wx:if="{{item.morning.length>0}}" class="b_item">
-        <view class="l_time">
-          <text>上午\n09:30\n11:30</text>
+    <view class="btn_box">
+      <button type="default" class="btnsubmmit {{cartNum==0?'btndisabled':''}}" disabled="{{cartNum==0}}" bindtap="addToList">加入选课单
+        <text>({{cartNum}})</text>
+      </button>
+    </view>
+  </block>
+  <block wx:else>
+    <view class="nodata_wrap">
+      <view class="nodata">
+        <view>
+          <image src="../../assets/images/data_empty.png"></image>
         </view>
-        <view class="data_wrap">
-          <block wx:for="{{item.morning}}" wx:key="*this" wx:for-index="idx2" wx:for-item="item2">
-            <view class="{{item2.selected?'on':''}}" data-item="{{item2}}" data-period="{{item.period}}" bindtap="clickItem">{{item2.name}}</view>
-          </block>
-        </view>
-      </view>
-
-      <view wx:if="{{item.noon.length>0}}" class="b_item">
-        <view class="l_time">
-          <text>中午\n12:30\n13:30</text>
-        </view>
-        <view class="data_wrap">
-          <block wx:for="{{item.noon}}" wx:key="*this" wx:for-index="idx2" wx:for-item="item2">
-            <view class="{{item2.selected?'on':''}}" data-item="{{item2}}" data-period="{{item.period}}" bindtap="clickItem">{{item2.name}}</view>
-          </block>
-        </view>
-      </view>
-
-      <view wx:if="{{item.afternoon.length>0}}" class="b_item">
-        <view class="l_time">
-          <text>下午\n15:30\n17:30</text>
-        </view>
-        <view class="data_wrap">
-          <block wx:for="{{item.afternoon}}" wx:key="*this" wx:for-index="idx2" wx:for-item="item2">
-            <view class="{{item2.selected?'on':''}}" data-item="{{item2}}" data-period="{{item.period}}" bindtap="clickItem">{{item2.name}}</view>
-          </block>
-        </view>
-      </view>
-
-      <view wx:if="{{item.night.length>0}}" class="b_item">
-        <view class="l_time">
-          <text>晚上\n18:30\n20:30</text>
-        </view>
-        <view class="data_wrap">
-          <block wx:for="{{item.night}}" wx:key="*this" wx:for-index="idx2" wx:for-item="item2">
-            <view class="{{item2.selected?'on':''}}" data-item="{{item2}}" data-period="{{item.period}}" bindtap="clickItem">{{item2.name}}</view>
-          </block>
-        </view>
+        <view>没有相关的数据哦~</view>
       </view>
     </view>
-  </view>
+  </block>
 </block>
-<view class="btn_box">
-  <button type="default" class="btnsubmmit {{cartNum==0?'btndisabled':''}}" disabled="{{cartNum==0}}" bindtap="addToList">加入选课单
-    <text>({{cartNum}})</text>
-  </button>
-</view>

@@ -19,7 +19,7 @@ App({
           var params = [];
           params[0] = ['method', 'getOpenId'];
           params[1] = ['code', codeEncrpty];
-          var signX = encrypt.Sign(params);
+          var signX = encrypt.Sign(params); 
           wx.request({
             url: app.globalData.apiHost + 'upoc/Index',
             method: "POST",
@@ -57,7 +57,7 @@ App({
     appId: '5001',
     storageKey_user_account: 'storageKey_user_account',
     storageKey_user_pwd: 'storageKey_user_pwd',
-    dake_storageKey_classlist: 'dake_storageKey_classlist',
-    dake_storageKey_classlist_all: 'dake_storageKey_classlist_all'
+    storageKey_dake_classlist: 'storageKey_dake_classlist',
+    storageKey_dake_classlist_all: 'storageKey_dake_classlist_all'
   }
 })

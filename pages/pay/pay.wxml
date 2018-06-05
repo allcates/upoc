@@ -1,2 +1,1 @@
-<!--pages/pay/pay.wxml-->
-<text>pages/pay/pay.wxml</text>
+ <web-view src="https://xytest.staff.xdf.cn/WxPayAPI/example/ProductPage.aspx#wechat_redirect"></web-view> 

@@ -8,6 +8,8 @@ let storageKey = 'storagekey_search_tacher';
 var util = require('../../utils/util.js');
 var encrypt = require('../../utils/encrypt.js');
 
+var pageSize = 60;
+
 Page({
   data: {
     inputShowed: false,
@@ -15,7 +17,10 @@ Page({
     teacherList:[],
     search_history:[],
     doSearch: false,
-    scrollview_height: "100vh"
+    scrollview_height: "100vh",
+    page: 1,
+    hasMore: true,
+    toView:''
   },
 
   onLoad:function(){
@@ -83,42 +88,54 @@ Page({
   /*
   * 搜索老师
   */
-  doSearch: function () {
+  getData: function () {
     var keywords = util.trim(page.data.inputVal) ;
-    console.log(keywords);
     if(keywords.length==0){
       return;
     }
 
-    var historyArr = page.data.search_history;
-    for (var i = 0; i < historyArr.length; i++) {
-      if (historyArr[i] == keywords){
-        historyArr.slice(i,1);
-        break;
+    try {
+      var historyArr = wx.getStorageSync(storageKey)||[];
+      for (var i = 0; i < historyArr.length; i++) {
+        if (historyArr[i] == keywords) {
+          historyArr.splice(i, 1);
+          break;
+        }
       }
-    }
-    // console.log(historyArr);
-    var historyStr = '';
-    for (var i = 0; i < historyArr.length;i++){
-      historyStr += historyArr + ';';
-    }
-    historyStr += keywords;
+      historyArr.push(keywords);
+      // 保留最新10个
+      if (historyArr.length>10){
+        for (var i = 0; i < (historyArr.length-10); i++) {
+          historyArr.splice(i, 1);
+        }        
+      }
 
-    // 存储
-    wx.setStorage({
-      key: storageKey,
-      data: historyStr.split(';')
-    })
+      // 存储
+      wx.setStorage({
+        key: storageKey,
+        data: historyArr
+      })
+    } catch (e) {
+    }
+    // var historyArr = page.data.search_history.reverse();
+
 
     wx.showNavigationBarLoading();
     wx.showLoading({
       title: '加载中',
     });
-
     var keywordsEncrpty = encrypt.Encrypt(keywords);
+    var gradeEncrpty = encrypt.Encrypt('');
+    var courseEncrpty = encrypt.Encrypt('');
+    var pageEncrpty = encrypt.Encrypt(page.data.page);
+    var pageSizeEncrpty = encrypt.Encrypt(pageSize);
     var params = [];
     params[0] = ['method', 'getTeacherList'];
     params[1] = ['keywords', keywordsEncrpty];
+    params[2] = ['grade', gradeEncrpty];
+    params[3] = ['course', courseEncrpty];
+    params[4] = ['page', pageEncrpty];
+    params[5] = ['pagesize', pageSizeEncrpty];
     var signX = encrypt.Sign(params);
     wx.request({
       url: app.globalData.apiHost + 'upoc/index',
@@ -126,6 +143,10 @@ Page({
         "appid": app.globalData.appId,
         "method": "getTeacherList",
         "keywords": keywordsEncrpty,
+        "grade": gradeEncrpty,
+        "course": courseEncrpty,
+        "page": pageEncrpty,
+        "pagesize": pageSizeEncrpty,
         "sign": signX
       },
       method: "POST",
@@ -137,15 +158,21 @@ Page({
           // console.log(res.data.Data);
           var letterList = res.data.Data;
           var teacherList = [];
+          if (page.data.page > 1) {
+            teacherList = page.data.teacherList;
+          }
           for (var i = 0; i < letterList.length;i++){
             for (var j = 0; j < letterList[i].TeacherList.length;j++){
               teacherList.push(letterList[i].TeacherList[j]);
             }
           }
+          var dataCount = res.data.DataCount;
           page.setData({
             teacherList: teacherList,
-            doSearch: true
-          });
+            doSearch: true,
+            hasMore: (dataCount == pageSize),
+            toView: (page.data.page == 1?'index0':'')
+          }); 
         }
       }
     })
@@ -156,9 +183,10 @@ Page({
     var keywords = e.currentTarget.dataset.item;
     page.setData({
       inputVal: keywords,
-      inputShowed: true
+      inputShowed: true,
+      page:1
     });
-    page.doSearch();
+    page.getData();
   },
 
   // 跳转到教师详情页
@@ -169,5 +197,17 @@ Page({
     wx.navigateTo({
       url: tourl,
     })
+  },
+
+  // 加载更多
+  loadMore: function () {
+    console.log(this.data.hasMore);
+    if (this.data.hasMore) {
+      var page = this.data.page * 1 + 1;
+      this.setData({
+        page: page
+      });
+      this.getData();
+    }
   },
 });

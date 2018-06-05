@@ -1,12 +1,37 @@
 <!--pages/enroll/selectCourse.wxml-->
-<view class="tips" wx:if="{{tips_show}}">
-  <text>请把选好的课程发给微信好友，让他来帮忙支付～</text>
-  <text class="iconfont icon-delete1" bindtap="tipsHide"></text>
-</view>
+<block wx:if="{{classList.length > 0}}">
+  <view class="tips" wx:if="{{tips_show}}">
+    <text>请把选好的课程发给微信好友，让他来帮忙支付～</text>
+    <text class="iconfont icon-delete1" bindtap="tipsHide"></text>
+  </view>
+  <view class="body">
+    <template is="willItem" data="{{classList}}"></template>
+  </view>
+  <view class="bottom_pay">
+    <view class="icon" bindtap="selectAll">
+      <icon type="{{selectedAll?'success':'circle'}}" size="18"></icon>
+      <text>全选</text>
+    </view>
+    <view class="cente">
+      <text>合计：</text>
+      <text class="price">¥{{total}}</text>
+    </view>
+    <view class="btnpay {{btn_disabled?'disabled':''}}" bindtap="toOrder">去支付</view>
+  </view>
+</block>
 
-<view class="body">
-  <template is="willItem" data="{{classList}}"></template>
-</view>
+<block wx:else>
+  <view class="body">
+    <view class="nodata_wrap">
+      <view class="nodata" bindtap="toSignup">
+        <view>
+          <image src="../../assets/images/data_empty.png"></image>
+        </view>
+        <view>选课单为空哦,立即去报名~</view>
+      </view>
+    </view>
+  </view>
+</block>
 
 <template name="willItem">
   <block wx:for="{{classList}}" wx:key="*this">
@@ -45,16 +70,10 @@
       <view class="line"></view>
       <view class="item_bottom">
         <view class="price">¥{{item.Fee}}</view>
-        <view class="delete" data-code="{{item}}" bindtap="removeItem"><text class="iconfont icon-trash"></text></view>
+        <view class="delete" data-code="{{item}}" bindtap="removeItem">
+          <text class="iconfont icon-trash"></text>
+        </view>
       </view>
     </view>
   </block>
 </template>
-
-<view class="bottom_pay">
-  <view class="icon" bindtap="selectAll">
-    <icon type="{{selectedAll?'success':'circle'}}" size="18"></icon><text>全选</text>
-  </view>
-  <view class="cente"><text>合计：</text><text class="price">¥{{total}}</text></view>
-  <view class="btnpay {{btn_disabled?'disabled':''}}" bindtap="toOrder">找人代付</view>
-</view>

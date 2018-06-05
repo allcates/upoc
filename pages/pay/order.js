@@ -1,11 +1,14 @@
-// pages/test/test.js
+// pages/pay/order.js
+let app = getApp();
+let page;
+//https://testh5bm.staff.xdf.cn/1/html/order.html?U2AT=911fd254-de7d-4468-bdb4-1ca12307d9aa&appId=upocAppletApp&t=20180604&systemSource=?&schoolId=1&studentCode=123&classCodes=PHD6M06,PHD5M06,PHD4M06,PHD3M06#/
+// h5bm.xdf.cn
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    show_view:false,
     url:''
   },
 
@@ -13,9 +16,17 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var url = decodeURIComponent(options.url);
-    console.log(url);
-    this.setData({
+    page = this;
+
+    var classCodes = options.classCodes;
+    var url = 'https://testh5bm.staff.xdf.cn/1/html/order.html?appId=upocAppletApp&t=20180604&systemSource=upocMiniprogrom&schoolId=1';
+    if (app.globalData.userInfo != null) {
+      url += '&U2AT=' + app.globalData.userInfo.AccessToken;
+      url += '&studentCode=' + app.globalData.userInfo.UserId;
+    }
+    url += '&classCodes=' + classCodes;
+
+    page.setData({
       url:url
     });
   },

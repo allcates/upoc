@@ -16,7 +16,8 @@ Page({
     quarter: 1,
     grade: '',
     areacodes: '',
-    cartNum:0
+    cartNum: 0,
+    beforeLoaded: true,
   },
 
   /**
@@ -47,7 +48,7 @@ Page({
     // 获取已选择的班级编号
     var selectedClassList = [];
     wx.getStorage({
-      key: app.globalData.dake_storageKey_classlist,
+      key: app.globalData.storageKey_dake_classlist,
       success: function (res) {
         selectedClassList = res.data;
         page.setData({
@@ -97,6 +98,11 @@ Page({
             dataList: res.data.Data,
           });
         }
+      },
+      complete:function () {
+        page.setData({
+          beforeLoaded: false
+        })
       }
     })
   },
@@ -135,11 +141,11 @@ Page({
     var selectedClassList = [];
     var selectedClassListAll = [];
     try {
-     selectedClassList = wx.getStorageSync(app.globalData.dake_storageKey_classlist);
+     selectedClassList = wx.getStorageSync(app.globalData.storageKey_dake_classlist);
     } catch (e) {
     }
     try {
-      selectedClassListAll = wx.getStorageSync(app.globalData.dake_storageKey_classlist_all);
+      selectedClassListAll = wx.getStorageSync(app.globalData.storageKey_dake_classlist_all);
       if (selectedClassListAll==''){
         selectedClassListAll = [];
       }
@@ -160,11 +166,11 @@ Page({
     }
     
     wx.setStorage({
-      key: app.globalData.dake_storageKey_classlist_all,
+      key: app.globalData.storageKey_dake_classlist_all,
       data: selectedClassListAll,
       success:function(){
         try {
-          wx.removeStorageSync(app.globalData.dake_storageKey_classlist)
+          wx.removeStorageSync(app.globalData.storageKey_dake_classlist)
         } catch (e) {
         }
 

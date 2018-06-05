@@ -7,7 +7,7 @@
 }
 .login_input_box .section{
   display: flex;
-  padding: 20rpx 30rpx;
+  padding: 10rpx 30rpx;
   align-items:center;
 }
 .login_input_box input{
@@ -61,6 +61,9 @@
   background-color: #6BB898;
   color: #ffffff;
   border-radius: 8rpx;
+  font-size: 30rpx;
+  height: 80rpx;
+  line-height: 80rpx;
 }
 .btn_box .btnsubmmit.disabled{
   border: 0;

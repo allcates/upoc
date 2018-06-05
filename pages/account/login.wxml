@@ -4,7 +4,7 @@
 </block>
 <block wx:if="{{hiddenLoading}}">
   <view class="tips">请使用新东方通行证，登录优播客</view>
-  <view class="login_input_box">
+  <view class="login_input_box"> 
     <view class="section">
       <text class="iconfont icon-account-only"></text>
       <input placeholder="请输入手机号/邮箱" placeholder-class="placeholder" value="{{phone}}" bindinput="phoneInput" />

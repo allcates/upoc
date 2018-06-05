@@ -44,5 +44,8 @@ Page({
     prevPage.setData({
       quarter: quarter
     });
+    wx.navigateBack({
+      delta:1
+    });
   }
 })

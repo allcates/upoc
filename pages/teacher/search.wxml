@@ -4,7 +4,7 @@
     <view class="weui-search-bar__form">
       <view class="weui-search-bar__box">
         <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
-        <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" bindconfirm="doSearch" />
+        <input type="text" class="weui-search-bar__input" placeholder="搜索" value="{{inputVal}}" focus="{{inputShowed}}" bindinput="inputTyping" bindconfirm="getData" />
         <view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
           <icon type="clear" size="14"></icon>
         </view>
@@ -26,7 +26,7 @@
         <text class="iconfont icon-trash"></text>
       </view>
     </view>
-    <view class="list-wrapper" wx:for="{{search_history}}">
+    <view class="list-wrapper" wx:for="{{search_history}}" wx:key="*this">
       <view class="list-item border" data-item="{{item}}" bindtap="clickHistoryItem">
         <text>{{item}}</text>
       </view>
@@ -38,9 +38,9 @@
       <text>搜索结果</text>
     </view>
     <block wx:if="{{teacherList.length > 0 }}">
-      <scroll-view class="list-scroll" scroll-y="true" scroll-with-animation="true" style="height:{{scrollview_height}}">
+      <scroll-view class="list-scroll" scroll-y="true" scroll-with-animation="true" style="height:{{scrollview_height}}" bindscrolltolower="loadMore">
         <view id="{{'index'+index}}" class='list-item {{idx === 0 ?"":"border"}}' wx:for="{{teacherList}}" wx:for-item="teacher" wx:for-index="idx" wx:key="teacher" data-item="{{teacher}}" bindtap="toTeacherDetail">
-          <image class="avatar" src="{{teacher.Avatar}}" lazy-load="true"></image>
+          <image class="avatar" src="{{teacher.Avatar==''?'../../assets/images/avatar.png':teacher.Avatar}}" lazy-load="true"></image>
           <view class="name">{{teacher.Name}}</view>
         </view>
       </scroll-view>

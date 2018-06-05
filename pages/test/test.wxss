@@ -1,1 +1,6 @@
 /* pages/test/test.wxss */
+.hor {
+  display: flex;
+  flex-direction: row;
+  width: 600rpx;
+}

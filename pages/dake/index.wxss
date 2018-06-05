@@ -1,23 +1,25 @@
 /* pages/dake/index.wxss */
 .tips{
-  padding: 10px 15px;
+  padding: 20rpx 30rpx;
 }
 .mine_cells{
   background-color: #ffffff;
-  margin-bottom: 10px;
+  margin-bottom: 30px;
 }
 .mine_cell{
-  padding:10px 15px;
+  padding:20rpx 30rpx;
   position:relative;
   display:flex;
   align-items:center;
 }
 .mine_cell .icon{
   margin-right: 5px;
+  display: flex;
+  align-items: center;
 }
 .mine_cell .icon image{
-  width: 70rpx;
-  height: 70rpx;
+  width: 50rpx;
+  height: 50rpx;
 }
 .mine_cell_hd{
   flex:1;
@@ -45,7 +47,15 @@
 .btn_box .btnsubmmit{
   border: 0;
   text-align: center;
-  background-color:#6BB898;
+  background-color:#6BB898; 
   color: #ffffff;
   border-radius: 8rpx;
+  font-size: 30rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+.btn_box .btnsubmmit.disabled{
+  border: 0;
+  background-color:#B6B6B6;
+  color: #ffffff;
 }

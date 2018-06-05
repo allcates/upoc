@@ -1,3 +1,20 @@
 <!--pages/test/test.wxml-->
- <web-view src="https://xytest.staff.xdf.cn/WxPayAPI/example/ProductPage.aspx#wechat_redirect"></web-view> 
+ <web-view wx:if="{{show_view}}" src="https://xytest.staff.xdf.cn/WxPayAPI/example/ProductPage.aspx#wechat_redirect"></web-view> 
 <!-- <web-view src="{{url}}"></web-view> -->
+<scroll-view scroll-x>
+  <view class='hor'>
+    <view>11111</view>
+    <view>211111</view>
+    <view>311111</view>
+    <view>411111</view>
+    <view>511111</view>
+    <view>611111</view>
+    <view>711111</view>
+    <view>811111</view>
+    <view>911111</view>
+    <view>101111</view>
+    <view>11111</view>
+    <view>121111</view>
+    <view>131111</view>
+  </view>
+</scroll-view>

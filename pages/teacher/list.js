@@ -9,6 +9,8 @@ let subjects = require('../../utils/subjects.js');
 var util = require('../../utils/util.js');
 var encrypt = require('../../utils/encrypt.js');
 
+var pageSize = 60;
+
 Page({
   /**
    * 页面的初始数据
@@ -20,10 +22,15 @@ Page({
     gradeList: grades,
     subjectList: subjects,
     scrollview_height: "100vh",
-    beforeLoaded:true
+    beforeLoaded: true,
+    selectedGrade: '全部',
+    selectedCourse: '全部',
+    page: 1,
+    hasMore: true,
+    toView:''
   },
 
-  onLoad:function(){
+  onLoad: function () {
     page = this;
 
     page.getData();
@@ -32,7 +39,7 @@ Page({
     wx.getSystemInfo({
       success: function (res) {
         page.setData({
-          scrollview_height: (res.windowHeight * 1 - res.statusBarHeight * 1 - 40) + "px"
+          scrollview_height: (res.windowHeight * 1 - res.statusBarHeight * 1 - 30) + "px"
         })
       }
     });
@@ -63,20 +70,25 @@ Page({
   },
 
   // 选择年级
-  clickGrade:function(e){
+  clickGrade: function (e) {
     var grade = e.currentTarget.dataset.item;
     var grades = page.data.gradeList;
-    for(var i=0;i<grades.length;i++){
-      if(grades[i].id==grade.id){
+    var selectedGrade = '全部';
+    for (var i = 0; i < grades.length; i++) {
+      if (grades[i].id == grade.id) {
         grades[i].selected = true;
+        selectedGrade = grade.name;
       }
-      else{
+      else {
         grades[i].selected = false;
       }
     }
     page.setData({
       gradeList: grades,
-      gradeModal: false
+      gradeModal: false,
+      selectedGrade: selectedGrade,
+      page: 1,
+      hasMore: true
     });
     page.getData();
   },
@@ -85,9 +97,11 @@ Page({
   clickSubject: function (e) {
     var subject = e.currentTarget.dataset.item;
     var subjects = page.data.subjectList;
+    var selectedCourse = '全部';
     for (var i = 0; i < subjects.length; i++) {
       if (subjects[i].id == subject.id) {
         subjects[i].selected = true;
+        selectedCourse = subjects[i].name;
       }
       else {
         subjects[i].selected = false;
@@ -95,7 +109,10 @@ Page({
     }
     page.setData({
       subjectList: subjects,
-      subjectModal: false
+      subjectModal: false,
+      selectedCourse: selectedCourse,
+      page:1,
+      hasMore:true
     });
     page.getData();
   },
@@ -110,6 +127,17 @@ Page({
     })
   },
 
+  // 加载更多
+  loadMore: function () {
+    if (this.data.hasMore) {
+      var page = this.data.page * 1 + 1;
+      this.setData({
+        page: page
+      });
+      this.getData();
+    }
+  },
+
   /*
   * 获取所有教师列表数据
   */
@@ -119,10 +147,18 @@ Page({
       title: '加载中',
     });
 
-    var keywordsEncrpty = encrypt.Encrypt('丽');
+    var keywordsEncrpty = encrypt.Encrypt('');
+    var gradeEncrpty = encrypt.Encrypt(page.data.selectedGrade);
+    var courseEncrpty = encrypt.Encrypt(page.data.selectedCourse);
+    var pageEncrpty = encrypt.Encrypt(page.data.page);
+    var pageSizeEncrpty = encrypt.Encrypt(pageSize);
     var params = [];
     params[0] = ['method', 'getTeacherList'];
     params[1] = ['keywords', keywordsEncrpty];
+    params[2] = ['grade', gradeEncrpty];
+    params[3] = ['course', courseEncrpty];
+    params[4] = ['page', pageEncrpty];
+    params[5] = ['pagesize', pageSizeEncrpty];
     var signX = encrypt.Sign(params);
     wx.request({
       url: app.globalData.apiHost + 'upoc/index',
@@ -130,6 +166,10 @@ Page({
         "appid": app.globalData.appId,
         "method": "getTeacherList",
         "keywords": keywordsEncrpty,
+        "grade": gradeEncrpty,
+        "course": courseEncrpty,
+        "page": pageEncrpty,
+        "pagesize": pageSizeEncrpty,
         "sign": signX
       },
       method: "POST",
@@ -138,15 +178,46 @@ Page({
         wx.hideNavigationBarLoading();
         wx.hideLoading();
         if (res.data.State == 1) {
-          // console.log(res.data.Data);
+          var dataCount = res.data.DataCount;
+          if (dataCount < pageSize) {
+            page.setData({
+              hasMore: false
+            });
+          }
+          var teacherList = [];
+          if(page.data.page > 1){
+            teacherList = page.data.teacherList;
+          }
+          var pageList = res.data.Data;
+          var lastLetter = '';
+          for (var x1 = 0; x1 < teacherList.length; x1++) {
+            for (var x2 = 0; x2 < pageList.length; x2++) {
+              if (teacherList[x1].Letter == pageList[x2].Letter) {
+                lastLetter = teacherList[x1].Letter;
+                teacherList[x1].TeacherList.push.apply(teacherList[x1].TeacherList, pageList[x2].TeacherList);
+                break;
+              }
+            }
+          }
+          for (var x2 = 0; x2 < pageList.length; x2++) {
+            if (pageList[x2].Letter != lastLetter) {
+              teacherList.push(pageList[x2]);
+            }
+          }
           page.setData({
-            teacherList: res.data.Data,
+            teacherList: teacherList,
           });
+
+          if(page.data.page==1){
+            page.setData({
+              toView:'index0'
+            });
+          }
         }
       },
-      complete:function(){
+      complete: function () {
         page.setData({
-          beforeLoaded:false
+          beforeLoaded: false
         })
       }
     })

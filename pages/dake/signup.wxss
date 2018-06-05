@@ -1,90 +1,147 @@
 /* pages/dake/signup.wxss */
-.term_item .title{
-  padding:10px 15px;
+page{width:100%;overflow-x: hidden}
+
+.term_wrap {
+  margin-bottom: 140rpx;width:100%;overflow-x: hidden
+}
+.term_item{
+  margin-bottom:1px;
+}
+.term_item .title {
+  padding: 10px 15px;
   display: flex;
   align-items: center;
-  box-shadow:0 .5px 1px #dddddd;
+  box-shadow: 0 0.5px 1px #ddd;
 }
-.term_item .term{
+
+.term_item .term {
   flex: 1;
 }
-.term_item .term text{
-  color: #2BB897;
+
+.term_item .term text {
+  color: #2bb897;
   margin-right: 5px;
 }
-.term_item .arrow:after {  
-  content: '';  
-  display: block;  
-  width: 10px;  
-  height: 10px;  
-  border-right: 1px solid #2BB897;  
-  border-top: 1px solid #2BB897;  
-}  
-.term_item .arrow.down:after {  
-  -webkit-transform: rotate(135deg); /*箭头方向可以自由切换角度*/  
-  transform: rotate(135deg);  
-}  
-.term_item .arrow.up:after {  
-  margin-top:8px;
-  -webkit-transform: rotate(-45deg); /*箭头方向可以自由切换角度*/  
-  transform: rotate(-45deg);  
-} 
-.term_item .body {  
-  background-color: #ffffff;  
-}  
-.term_item .body .b_item{  
-  display: flex;  
-  padding: 10px 15px;
-  border-bottom:1px solid #f5f5f5;
-}  
-.term_item .body .b_item .l_time{
+
+.term_item .arrow:after {
+  content: '';
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-right: 1px solid #2bb897;
+  border-top: 1px solid #2bb897;
+}
+
+.term_item .arrow.down:after {
+  -webkit-transform: rotate(135deg); /*箭头方向可以自由切换角度*/
+  transform: rotate(135deg);
+}
+
+.term_item .arrow.up:after {
+  margin-top: 8px;
+  -webkit-transform: rotate(-45deg); /*箭头方向可以自由切换角度*/
+  transform: rotate(-45deg);
+}
+
+.term_item .body {
+  background-color: #fff;
+}
+
+.term_item .body .b_item {
+  display: flex;
+  padding: 20rpx 30rpx;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.term_item .body .b_item .l_time {
   margin-right: 15px;
   line-height: 36rpx;
-  font-size: 14px;
+  font-size: 26rpx;
+  text-align: center;
 }
-.term_item .body .data_wrap{  
-   flex:1;  
-   display: flex;
-   vertical-align: middle;
-   align-items:center;
-}  
-.term_item .body .data_wrap view{  
-   border:1px solid #1DBA97;
-   width: 80rpx;
-   height: 80rpx;
-   line-height: 80rpx;
-   border-radius: 40rpx;
-   text-align: center;
-   vertical-align: middle;
-   margin-right: 10px;
-   font-size: 18px;
-   color: #1DBA97;
-}  
-.term_item .body .data_wrap view.on{  
-   border:1px solid #1DBA97;
-   background-color: #1DBA97;
-   color: #fff;
-}  
-.term_item .body .line{  
-   height: 1px;
-   background-color: #f5f5f5;
-   margin: 5px 0;
-}  
-.btn_box{
+
+.term_item .body .data_wrap {
+  width: 100%;
+  white-space: nowrap;
+  flex: 1;
+  display: flex;
+  vertical-align: middle;
+  align-items: center;
+}
+
+.term_item .body .data_wrap scroll-view {
+  width: auto;
+  overflow: hidden;
+  margin-right: 30px;
+}
+
+.term_item .body .data_wrap  view.item {
+  border: 1px solid #1dba97;
+  width: 70rpx;
+  height: 70rpx;
+  line-height: 70rpx;
+  border-radius: 35rpx;
+  text-align: center;
+  vertical-align: middle;
+  margin-right: 10px;
+  font-size: 36rpx;
+  color: #1dba97;
+  display: inline-block;
+}
+
+.term_item .body .data_wrap view.item.on {
+  border: 1px solid #1dba97;
+  background-color: #1dba97;
+  color: #fff;
+}
+
+.term_item .body .line {
+  height: 1px;
+  background-color: #f5f5f5;
+  margin: 5px 0;
+}
+
+.btn_box {
   padding: 10px 0px;
   position: fixed;
   width: 100%;
   bottom: 0;
 }
-.btn_box .btnsubmmit{
+
+.btn_box .btnsubmmit {
   margin: 10px 20px;
   border: 0;
   text-align: center;
-  background-color:#6BB898;
-  color: #ffffff;
+  background-color: #6bb898;
+  color: #fff;
   border-radius: 8rpx;
+  font-size: 30rpx;
+  height: 80rpx;
+  line-height: 80rpx;
 }
-.btn_box .btnsubmmit.btndisabled{
-  background-color:#b0b8bf;
-  color: #ffffff;
+
+.btn_box .btnsubmmit.btndisabled {
+  background-color: #b6b6b6;
+  color: #fff;
+}
+
+/* 无数据  */
+
+.nodata_wrap {
+  margin-bottom: 150rpx;
+  height: 100vh;
+}
+.nodata {
+  width: 100%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: #999;
+}
+.nodata image {
+  width: 160rpx;
+  height: 160rpx;
+  margin-bottom: 10rpx;
 }

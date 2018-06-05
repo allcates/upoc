@@ -25,7 +25,7 @@ Page({
 
     // 获取已选择的班级编号
     wx.getStorage({
-      key: app.globalData.dake_storageKey_classlist,
+      key: app.globalData.storageKey_dake_classlist,
       success: function (res) {
         page.setData({
           selectedClassList: res.data
@@ -147,7 +147,7 @@ Page({
 
     // 存储
     wx.setStorage({
-      key: app.globalData.dake_storageKey_classlist,
+      key: app.globalData.storageKey_dake_classlist,
       data: selectedClassList
     })
 

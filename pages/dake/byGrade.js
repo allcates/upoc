@@ -48,5 +48,9 @@ Page({
     prevPage.setData({
       grade: grade
     });
+
+    wx.navigateBack({
+      delta: 1
+    });
   }
 })
