@@ -19,15 +19,22 @@ Page({
     page = this;
 
     var classCodes = options.classCodes;
-    var url = 'https://testh5bm.staff.xdf.cn/1/html/order.html?appId=upocAppletApp&t=20180604&systemSource=upocMiniprogrom&schoolId=1';
+    var url = 'https://testh5bm.staff.xdf.cn/1/html/order.html?appId=upocMiniprogrom&t=20180606&systemSource=upocMiniprogrom&schoolId=1';
     if (app.globalData.userInfo != null) {
       url += '&U2AT=' + app.globalData.userInfo.AccessToken;
       url += '&studentCode=' + app.globalData.userInfo.UserId;
     }
     url += '&classCodes=' + classCodes;
-
+    console.log(url);
+    var url2 = 'https://testu2.staff.xdf.cn/apis/usersv2.ashx?method=AppWebV5&appId=90101';
+    if (app.globalData.userInfo != null) {
+      url2 += '&token=' + app.globalData.userInfo.AccessToken;
+      url2 += '&sign=' + app.globalData.userInfo.Sign;
+    }
+    url2 += '&targetUrl=' + url;
+    console.log(url2);
     page.setData({
-      url:url
+      url: url2
     });
   },
 

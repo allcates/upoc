@@ -28,7 +28,6 @@ Page({
    */
   onLoad: function (options) {
     page = this;
-    console.log(11111);
     if (app.globalData.openId){
       page.checkLogin();
     }
@@ -100,12 +99,12 @@ Page({
     }
     var accountEncrpty = encrypt.Encrypt(page.data.phone);
     var passwordEncrpty = encrypt.Encrypt(page.data.password);
-    var openIdEncrpty = encrypt.Encrypt(app.globalData.openId);
+    var openId = app.globalData.openId;
     var params = [];
     params[0] = ['method', 'checklogin'];
     params[1] = ['encodeUser', accountEncrpty];
     params[2] = ['encodePwd', passwordEncrpty];
-    params[3] = ['openId', openIdEncrpty];
+    params[3] = ['openId', openId];
     var signX = encrypt.Sign(params); 
     
     wx.request({
@@ -117,7 +116,7 @@ Page({
         "method": "checklogin",
         "encodeUser": (accountEncrpty),
         "encodePwd": (passwordEncrpty),
-        "openId": openIdEncrpty,
+        "openId": openId,
         "sign": signX
       },
       success: function (res) {
@@ -162,12 +161,12 @@ Page({
       if (util.trim(account) != '' && util.trim(password) != '') {
         var accountEncrpty = encrypt.Encrypt(account);
         var passwordEncrpty = encrypt.Encrypt(password);
-        var openIdEncrpty = encrypt.Encrypt(app.globalData.openId);
+        var openId = (app.globalData.openId);
         var params = [];
         params[0] = ['method', 'checklogin'];
         params[1] = ['encodeUser', accountEncrpty];
         params[2] = ['encodePwd', passwordEncrpty];
-        params[3] = ['openId', openIdEncrpty];
+        params[3] = ['openId', openId];
         var signX = encrypt.Sign(params);
         wx.request({
           url: app.globalData.apiHost + 'Account/Index',
@@ -178,7 +177,7 @@ Page({
             "method": "checklogin",
             "encodeUser": (accountEncrpty),
             "encodePwd": (passwordEncrpty),
-            "openId": openIdEncrpty,
+            "openId": openId,
             "sign": signX
           },
           success: function (res) {
@@ -230,5 +229,10 @@ Page({
     wx.navigateTo({
       url: '/pages/account/register',
     })
+
+    // wx.reLaunch({
+    //   url: '/pages/pay/pay',
+    // })
+
   }
 })

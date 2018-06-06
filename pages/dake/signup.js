@@ -198,10 +198,27 @@ Page({
           cartNum: 0
         });
 
-        wx.showToast({
-          title: '已成功添加到选课单',
-          icon: 'none'
-        });
+        wx.showModal({
+          title: '提示',
+          content: '您已已成功添加到选课单',
+          confirmText:'立即查看',
+          cancelText:'继续报名',
+          success: function (res) {
+            if (res.confirm) {
+              wx.switchTab({
+                url: '/pages/enroll/selectCourse',
+              })
+            } else if (res.cancel) {
+              wx.switchTab({
+                url: '/pages/enroll/signup',
+              })
+            }
+          }
+        })
+        // wx.showToast({
+        //   title: '已成功添加到选课单',
+        //   icon: 'none'
+        // });
       }
     });
 
