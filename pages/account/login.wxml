@@ -3,7 +3,7 @@
   <loading hidden="{{hiddenLoading}}">正在加载</loading>
 </block>
 <block wx:if="{{hiddenLoading}}">
-  <view class="tips">请使用新东方通行证，登录优播客</view>
+  <view class="tips">请使用新东方通行证，登录优播课</view>
   <view class="login_input_box"> 
     <view class="section">
       <text class="iconfont icon-account-only"></text>

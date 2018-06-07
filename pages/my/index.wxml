@@ -17,7 +17,7 @@
   <block wx:if="{{!hasUserInfo}}">
     <view class="mine_cells">
       <navigator class="mine_cell" url="/pages/account/login">
-        <view class="mine_cell_hd">优播客账号</view>
+        <view class="mine_cell_hd">优播课账号</view>
         <view class="mine_cell_ft mine_cell_ft_access">去登录</view>
       </navigator>
     </view>

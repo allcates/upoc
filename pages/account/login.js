@@ -28,6 +28,7 @@ Page({
    */
   onLoad: function (options) {
     page = this;
+    console.log(11111);
     if (app.globalData.openId){
       page.checkLogin();
     }
@@ -106,6 +107,10 @@ Page({
     params[2] = ['encodePwd', passwordEncrpty];
     params[3] = ['openId', openId];
     var signX = encrypt.Sign(params); 
+
+    console.log(accountEncrpty);
+    console.log(passwordEncrpty);
+    console.log(openId);
     
     wx.request({
       url: app.globalData.apiHost + 'Account/Index',
@@ -121,11 +126,20 @@ Page({
       },
       success: function (res) {
         // console.log(res);
+        console.log(res.data.Data.Sign);
+        console.log(res.data.Data.AccessToken);
+
         if (res.data.State == 1) {
           // 将当前登录账号和秘密保存起来
           try {
             wx.setStorageSync(app.globalData.storageKey_user_account, account);
             wx.setStorageSync(app.globalData.storageKey_user_pwd, password);
+            wx.setStorageSync(app.globalData.storageKey_user_sign, res.data.Data.Sign);
+            wx.setStorageSync(app.globalData.storageKey_user_token, res.data.Data.AccessToken);
+
+            var x = wx.getStorageSync(app.globalData.storageKey_user_sign);
+            console.log("sign=====" + x);            
+            
           } catch (e) {
           }
           app.globalData.userInfo = res.data.Data;
@@ -161,12 +175,12 @@ Page({
       if (util.trim(account) != '' && util.trim(password) != '') {
         var accountEncrpty = encrypt.Encrypt(account);
         var passwordEncrpty = encrypt.Encrypt(password);
-        var openId = (app.globalData.openId);
+        var openIdEncrpty = encrypt.Encrypt(app.globalData.openId);
         var params = [];
         params[0] = ['method', 'checklogin'];
         params[1] = ['encodeUser', accountEncrpty];
         params[2] = ['encodePwd', passwordEncrpty];
-        params[3] = ['openId', openId];
+        params[3] = ['openId', openIdEncrpty];
         var signX = encrypt.Sign(params);
         wx.request({
           url: app.globalData.apiHost + 'Account/Index',
@@ -177,7 +191,7 @@ Page({
             "method": "checklogin",
             "encodeUser": (accountEncrpty),
             "encodePwd": (passwordEncrpty),
-            "openId": openId,
+            "openId": openIdEncrpty,
             "sign": signX
           },
           success: function (res) {
@@ -229,10 +243,5 @@ Page({
     wx.navigateTo({
       url: '/pages/account/register',
     })
-
-    // wx.reLaunch({
-    //   url: '/pages/pay/pay',
-    // })
-
   }
 })

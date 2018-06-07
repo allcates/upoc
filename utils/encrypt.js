@@ -36,8 +36,13 @@ function Sign(params){
   return signX;
 }
 
+var u2AppId = "90101";
+var webPayAppId = "upocAppletApp";
+
 module.exports = {
   Decrypt: Decrypt,
   Encrypt: Encrypt,
-  Sign: Sign
+  Sign: Sign,
+  U2AppId: u2AppId,  
+  WebPayAppId: webPayAppId
 }
