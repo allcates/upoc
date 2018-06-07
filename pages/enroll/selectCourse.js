@@ -106,7 +106,7 @@ Page({
     });
   },
 
-  // 找人代付
+  // 支付
   toOrder: function () {
     var classList = page.data.classList;
     var classCodes = '';
@@ -118,7 +118,7 @@ Page({
         classCodes += ',';
       }
     }
-    if (classCodes == '') {
+    if (classCodes == '') { 
       wx.showToast({
         title: '您要支付对选课单为空哦～',
         icon: 'none'

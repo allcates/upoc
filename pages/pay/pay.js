@@ -10,7 +10,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    payOrderId:'',
+    orderId:'',
     count: 0,
     showSuccess:false,
     showCancel: false,
@@ -22,18 +22,24 @@ Page({
    */
   onLoad: function (options) {
     page = this;
-
+console.log('哈哈哈哈哈哈哈');
+console.log(options);
     var getOpenId = options.getOpenId;
-    var payOrderId = options.payOrderId;
+    var orderId = options.orderId;
     if (getOpenId==1){
       wx.redirectTo({
-        url: '/pages/pay/redirect?payOrderId=' + payOrderId,
+        url: '/pages/pay/redirect?payOrderId=' + orderId,
       })
     }
-    
-    page.setData({
-      payParams:options
-    });
+    else {
+      page.setData({
+        payParams: options
+      });
+
+      page.requestPayment();
+
+    }
+
     // console.log(options.timeStamp);
     // console.log(options.paySign);
     // //页面加载调取微信支付（原则上应该对options的携带的参数进行校验）

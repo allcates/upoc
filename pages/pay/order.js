@@ -23,7 +23,13 @@ Page({
     page = this;
 
     var classCodes = options.classCodes;
-
+    console.log('$$$$$$$');
+    try {
+      var sign1 = wx.getStorageSync(app.globalData.storageKey_user_sign);
+      console.log(sign1);
+    } catch (e) {
+      console.log(e);
+    }
     var sign = wx.getStorageSync(app.globalData.storageKey_user_sign);
     var token = wx.getStorageSync(app.globalData.storageKey_user_token);
 

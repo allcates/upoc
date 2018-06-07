@@ -32,7 +32,6 @@ Page({
 
   onLoad: function () {
     page = this;
-
     page.getData();
 
     // 设置滚动高度

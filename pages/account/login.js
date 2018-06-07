@@ -108,9 +108,9 @@ Page({
     params[3] = ['openId', openId];
     var signX = encrypt.Sign(params); 
 
-    console.log(accountEncrpty);
-    console.log(passwordEncrpty);
-    console.log(openId);
+    // console.log(accountEncrpty);
+    // console.log(passwordEncrpty);
+    // console.log(openId);
     
     wx.request({
       url: app.globalData.apiHost + 'Account/Index',
@@ -125,9 +125,9 @@ Page({
         "sign": signX
       },
       success: function (res) {
-        // console.log(res);
-        console.log(res.data.Data.Sign);
-        console.log(res.data.Data.AccessToken);
+        console.log(res);
+        // console.log(res.data.Data.Sign);
+        // console.log(res.data.Data.AccessToken);
 
         if (res.data.State == 1) {
           // 将当前登录账号和秘密保存起来
@@ -195,10 +195,21 @@ Page({
             "sign": signX
           },
           success: function (res) {
-            // console.log(res);
+            console.log(res);
             if (res.data.State == 1 && res.data.Data!=null){
+              try {
+                wx.setStorageSync(app.globalData.storageKey_user_account, account);
+                wx.setStorageSync(app.globalData.storageKey_user_pwd, password);
+                wx.setStorageSync(app.globalData.storageKey_user_sign, res.data.Data.Sign);
+                wx.setStorageSync(app.globalData.storageKey_user_token, res.data.Data.AccessToken);
+
+                var x = wx.getStorageSync(app.globalData.storageKey_user_sign);
+                console.log("sign=====" + x);
+
+              } catch (e) {
+                console.log(e);
+              }
               app.globalData.userInfo = res.data.Data;
-              // console.log(app.globalData.userInfo);
               wx.reLaunch({
                 url: '/pages/enroll/signup'
               })

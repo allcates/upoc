@@ -59,9 +59,11 @@ Page({
   // 确定
   doSubmit: function () {
     // 先清空临时报名选中的班级，然后跳到报名页面重新选择
-    wx.clearStorageSync({
-      key: app.globalData.storageKey_dake_classlist
-    });
+    try {
+      wx.removeStorageSync(app.globalData.storageKey_dake_classlist)
+    } catch (e) {
+      // Do something when catch error
+    }
     wx.navigateTo({
       url: '/pages/dake/signup',
     })

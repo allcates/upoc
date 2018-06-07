@@ -15,8 +15,12 @@ Page({
    */
   onLoad: function (options) {
 
-    var payOrderId = options.payOrderId;
-    var url = app.globalData.apiHost + 'redirect2Wx?geted=1&payOrderId=' + payOrderId + '&openId=' + app.globalData.openId;
+    console.log('哈哈哈哈哈哈哈2222');
+    console.log(options);
+    var orderId = options.orderId;
+    var url = app.globalData.apiHost + 'redirect2Wx?geted=1&payOrderId=' + orderId + '&openId=' + app.globalData.openId;
+
+    console.log(url);
     this.setData({
       url:url
     });
