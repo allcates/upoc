@@ -90,10 +90,10 @@ console.log(options);
         console.log(res);
         var errMsg = res.errMsg;
         if (errMsg == 'requestPayment:fail cancel') {
-          wx.showToast({
-            title: '支付已取消',
-            icon: 'none'
-          });
+          // wx.showToast({
+          //   title: '支付已取消',
+          //   icon: 'none'
+          // });
           page.setData({
             showCancel:true
           });
