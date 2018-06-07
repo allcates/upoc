@@ -57,6 +57,8 @@ App({
     appId: '5001',
     storageKey_user_account: 'storageKey_user_account',
     storageKey_user_pwd: 'storageKey_user_pwd',
+    storageKey_user_sign: 'storageKey_user_sign',
+    storageKey_user_token: 'storageKey_user_token',
     storageKey_dake_classlist: 'storageKey_dake_classlist',
     storageKey_dake_classlist_all: 'storageKey_dake_classlist_all'
   }
