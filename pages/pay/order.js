@@ -48,7 +48,7 @@ Page({
       + "&t=" + Date.now()
       + "&systemSource=upocmini"
       + "&accessToken=" + token
-      + "&schoolId=1&classCodes=" + "BJS6,BJS6"//classCodes
+      + "&schoolId=1&classCodes=" + "BJS6"//classCodes
       + "&studentCode=" + app.globalData.userInfo.UserId;
 
     console.log(targetUrl);
