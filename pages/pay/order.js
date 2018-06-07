@@ -20,37 +20,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
-    
-
     page = this;
 
     var classCodes = options.classCodes;
-<<<<<<< HEAD
-    var url = 'https://testh5bm.staff.xdf.cn/1/html/order.html?appId=upocAppletApp&t=20180606&systemSource=upocmini&schoolId=1';
-    if (app.globalData.userInfo != null) {
-      url += '&U2AT=' + app.globalData.userInfo.AccessToken;
-      url += '&studentCode=' + app.globalData.userInfo.UserId;
-    }
-    url += '&classCodes=' + classCodes;
-    console.log(url);
-    var url2 = 'https://testu2.staff.xdf.cn/apis/usersv2.ashx?method=AppWebV5&appId=90101';
-    if (app.globalData.userInfo != null) {
-      url2 += '&token=' + app.globalData.userInfo.AccessToken;
-      url2 += '&sign=' + app.globalData.userInfo.Sign;
-    }
-    url2 += '&targetUrl=' + url;
-    // url2 += '&targetUrl=https://testh5bm.staff.xdf.cn/1/html/order.html?sign=F9E1A56CA835DAA701DCEA6C22CDD507&appId=upocAppletApp&t=1528339531498&systemSource=upocmini&schoolId=1&classCodes=BJS6&studentCode=xdf0050050136#/';
-    console.log(url2);
-    url2 = 'https://xytest.staff.xdf.cn/miniprogram/redirect2Wx?payOrderId=11952825';
-=======
-    // var url = 'https://testh5bm.staff.xdf.cn/1/html/order.html?appId=upocAppletApp&t=20180604&systemSource=upocMiniprogrom&schoolId=1';
-    // if (app.globalData.userInfo != null) {
-    //   url += '&U2AT=' + app.globalData.userInfo.AccessToken;
-    //   url += '&studentCode=' + app.globalData.userInfo.UserId;
-    // }
-    // url += '&classCodes=' + classCodes;
-
 
     var sign = wx.getStorageSync(app.globalData.storageKey_user_sign);
     var token = wx.getStorageSync(app.globalData.storageKey_user_token);
@@ -77,7 +49,6 @@ Page({
       + "&appId=" + encrypt.U2AppId 
       + "&targetUrl="+ encodeURIComponent(targetUrl);
 
->>>>>>> 926dceca1f5efd9f058cc48fc49b8ab28017aef5
     page.setData({
       url:url
     });

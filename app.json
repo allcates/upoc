@@ -1,6 +1,5 @@
 {
   "pages": [
-    "pages/pay/pay",
     "pages/account/login",
     "pages/enroll/signup",
     "pages/enroll/selectCourse",
@@ -10,6 +9,7 @@
     "pages/account/register",
     "pages/my/index",
     "pages/teacher/search",
+    "pages/pay/pay",
     "pages/teacher/detail",
     "pages/test/test",
     "pages/class/detail",
