@@ -10,9 +10,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    payOrderId:'',
     count: 0,
     showSuccess:false,
-    showCancel: true,
+    showCancel: false,
     payParams:{}
   },
 
