@@ -9,7 +9,7 @@ let page;
 Page({
 
   /**
-   * 页面的初始数据
+   * 页面的初始数据 
    */
   data: {
     title :'',
@@ -127,23 +127,37 @@ Page({
     var code = e.currentTarget.dataset.code;
     var classList = page.data.classList;
     var selectedClassList = page.data.selectedClassList;
+
+    console.log(selectedClassList);
     for (var i = 0; i < classList.length; i++) {
       if (classList[i].ClassCode == code){
-        // 如果选课单中去存在，先删除
+        // 如果选课单中存在，先删除，再插入
         for (var x1 = 0; x1 < selectedClassList.length;x1++){
           if (selectedClassList[x1].ClassCode == code){
             selectedClassList.splice(x1, 1);
             break;
           }
         }
-        selectedClassList = util.removeFromArray(selectedClassList, classList[i]);
+
         if (!classList[i].selected){
           selectedClassList.push(classList[i]);
         }
         classList[i].selected = !classList[i].selected;
-        break;
+      }
+      else{
+        if (classList[i].selected) {
+          classList[i].selected = false;
+          // 如果选课单中存在，先删除
+          for (var x1 = 0; x1 < selectedClassList.length; x1++) {
+            if (selectedClassList[x1].ClassCode == classList[i].ClassCode) {
+              selectedClassList.splice(x1, 1);
+              break;
+            }
+          }
+        }
       }
     }
+    console.log(selectedClassList);
 
     // 存储
     wx.setStorage({
@@ -155,7 +169,6 @@ Page({
       classList: classList,
       selectedClassList: selectedClassList
     });
-    console.log(selectedClassList);
 
     var itemSelected = false;
     var selectedCodes = [];
