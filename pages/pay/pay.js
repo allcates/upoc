@@ -28,7 +28,7 @@ console.log(options);
     var orderId = options.orderId;
     if (getOpenId==1){
       wx.redirectTo({
-        url: '/pages/pay/redirect?payOrderId=' + orderId,
+        url: '/pages/pay/redirect?orderId=' + orderId,
       })
     }
     else {
@@ -71,15 +71,12 @@ console.log(options);
   requestPayment: function () {
 
     var obj = page.data.payParams;
-    console.log(obj);
-    //获取options的订单Id
-    var orderId = '10001';//obj.orderId;
     //调起微信支付
     wx.requestPayment({
       //相关支付参数
       'timeStamp': obj.timeStamp + '',
       'nonceStr': obj.nonceStr,
-      'package': obj.package,
+      'package': decodeURIComponent(obj.package),
       'signType': obj.signType,
       'paySign': obj.paySign,
       //小程序微信支付成功的回调通知

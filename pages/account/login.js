@@ -28,7 +28,7 @@ Page({
    */
   onLoad: function (options) {
     page = this;
-    console.log(11111);
+
     if (app.globalData.openId){
       page.checkLogin();
     }
