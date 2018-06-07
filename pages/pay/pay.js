@@ -12,7 +12,7 @@ Page({
   data: {
     count: 0,
     showSuccess:false,
-    showCancel: false,
+    showCancel: true,
     payParams:{}
   },
 
@@ -21,6 +21,14 @@ Page({
    */
   onLoad: function (options) {
     page = this;
+
+    var getOpenId = options.getOpenId;
+    var payOrderId = options.payOrderId;
+    if (getOpenId==1){
+      wx.redirectTo({
+        url: '/pages/pay/redirect?payOrderId=' + payOrderId,
+      })
+    }
     
     page.setData({
       payParams:options

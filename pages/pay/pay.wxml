@@ -1,13 +1,18 @@
 <view class="wrap" wx:if="{{showSuccess}}">
-  <view class="icon_wrap"><icon type="success" size="80"></icon></view>
+  <view class="icon_wrap">
+    <icon type="success" size="80"></icon>
+  </view>
   <view class="text1">支付成功</view>
   <view class="text2">您已报名成功,订单号:12312213</view>
   <view class="text2">{{count}}秒后自动返回到首页</view>
-
-  <button bindtap="toSignup">继续报名</button>
+  <view class="btn_wrap">
+    <button bindtap="toSignup">继续报名</button>
+  </view>
 </view>
 <view class="wrap" wx:if="{{showCancel}}">
-  <view class="icon_wrap"><icon type="cancel" size="80"></icon></view>
+  <view class="icon_wrap">
+    <icon type="cancel" size="80"></icon>
+  </view>
   <view class="text1">支付已取消</view>
   <view class="text2">您的报名已取消,订单号:12312213</view>
   <view class="btn_wrap">

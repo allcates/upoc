@@ -1,7 +1,9 @@
 {
   "pages": [
+    "pages/pay/order",
     "pages/account/login",
     "pages/enroll/signup",
+    "pages/pay/pay",
     "pages/enroll/selectCourse",
     "pages/teacher/list",
     "pages/index/index",
@@ -9,7 +11,6 @@
     "pages/account/register",
     "pages/my/index",
     "pages/teacher/search",
-    "pages/pay/pay",
     "pages/teacher/detail",
     "pages/test/test",
     "pages/class/detail",
@@ -19,7 +20,7 @@
     "pages/dake/bySchool",
     "pages/dake/signup",
     "pages/dake/classList",
-    "pages/pay/order"
+    "pages/pay/redirect"
   ],
   "window": {
     "backgroundTextStyle": "light",
