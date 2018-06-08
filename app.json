@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/pay/order",
     "pages/account/login",
     "pages/enroll/signup",
     "pages/pay/pay",
@@ -19,7 +20,6 @@
     "pages/dake/bySchool",
     "pages/dake/signup",
     "pages/dake/classList",
-    "pages/pay/order",
     "pages/pay/redirect"
   ],
   "window": {

@@ -131,13 +131,14 @@ Page({
 
   // 跳到班级详情页
   toClassDetail:function(e){
-    var classinfo = e.currentTarget.dataset.item;
-    page.setData({
-      selectedClass: classinfo
-    });
-    wx.navigateTo({
-      url: '/pages/class/detail?classCode=' + classinfo.ClassCode,
-    })
+    ////不显示班级详情页
+    // var classinfo = e.currentTarget.dataset.item;
+    // page.setData({
+    //   selectedClass: classinfo
+    // });
+    // wx.navigateTo({
+    //   url: '/pages/class/detail?classCode=' + classinfo.ClassCode,
+    // })
   },
 
   // 加入选课单

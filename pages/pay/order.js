@@ -13,7 +13,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    url:''
+    url:'',
+    show_tologin_modal: false
   },
 
   /**
@@ -33,31 +34,63 @@ Page({
     var sign = wx.getStorageSync(app.globalData.storageKey_user_sign);
     var token = wx.getStorageSync(app.globalData.storageKey_user_token);
 
-    console.log(sign);
-    console.log(token);
+    console.log("order-sign===="+sign);
+    console.log("order-token====" +token);
     console.log(encrypt.WebPayAppId);
     console.log(classCodes);
-    console.log(app.globalData.userInfo.UserId);
+    //console.log(app.globalData.userInfo.UserId);
 
-    var targetUrl = "https://testh5bm.staff.xdf.cn/1/html/order.html?sign=" + sign
-      + "&appId=" + encrypt.WebPayAppId 
-      + "&t=" + Date.now()
-      + "&systemSource=upocmini"
-      + "&accessToken=" + token
-      + "&schoolId=1&classCodes=" + "BJS6"//classCodes
-      + "&studentCode=" + app.globalData.userInfo.UserId;
+    try
+    {   
+      if (sign == null || sign == "" || sign == undefined) {
+      
+        wx.showModal({
+          title: '提示',
+          content: '请先登录再去选课单支付',
+          confirmText: '去登录',
+          cancelText: '我再想想',
+          success: function (res) {
+            if (res.confirm) {
+              // wx.switchTab({
+              //   url: '/pages/account/login',
+              // })
+              wx.navigateTo({
+                url: '/pages/account/login',
+              })
+            } else if (res.cancel) {
+              wx.switchTab({
+                url: '/pages/enroll/selectCourse',
+              })
+            }
+          }
+        })
+      }
+      else {
+        var targetUrl = "https://testh5bm.staff.xdf.cn/1/html/order.html?sign=" + sign
+          + "&appId=" + encrypt.WebPayAppId
+          + "&t=" + Date.now()
+          + "&systemSource=upocmini"
+          + "&accessToken=" + token
+          + "&schoolId=1&classCodes=" + "BJS6"//classCodes
+          + "&studentCode=" + app.globalData.userInfo.UserId;
 
-    console.log(targetUrl);
-    console.log(encodeURIComponent(targetUrl));
+        console.log(targetUrl);
+        console.log(encodeURIComponent(targetUrl));
 
-    var url = "https://testu2.staff.xdf.cn/apis/usersv2.ashx?method=AppWebV5&token=" + token 
-          + "&sign=" + sign 
-      + "&appId=" + encrypt.U2AppId 
-      + "&targetUrl="+ encodeURIComponent(targetUrl);
+        var url = "https://testu2.staff.xdf.cn/apis/usersv2.ashx?method=AppWebV5&token=" + token
+          + "&sign=" + sign
+          + "&appId=" + encrypt.U2AppId
+          + "&targetUrl=" + encodeURIComponent(targetUrl);
 
-    page.setData({
-      url:url
-    });
+        page.setData({
+          url: url
+        });
+      }
+    }
+    catch(e){
+      console.log(e);
+    }
+    
   },
 
   /**
