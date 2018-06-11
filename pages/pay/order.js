@@ -24,7 +24,6 @@ Page({
     page = this;
 
     var classCodes = options.classCodes;
-    console.log('$$$$$$$');
     try {
       var sign1 = wx.getStorageSync(app.globalData.storageKey_user_sign);
       console.log(sign1);
@@ -34,10 +33,10 @@ Page({
     var sign = wx.getStorageSync(app.globalData.storageKey_user_sign);
     var token = wx.getStorageSync(app.globalData.storageKey_user_token);
 
-    console.log("order-sign===="+sign);
-    console.log("order-token====" +token);
-    console.log(encrypt.WebPayAppId);
-    console.log(classCodes);
+    // console.log("order-sign===="+sign);
+    // console.log("order-token====" +token);
+    // console.log(encrypt.WebPayAppId);
+    // console.log(classCodes);
     //console.log(app.globalData.userInfo.UserId);
 
     try
@@ -66,12 +65,16 @@ Page({
         })
       }
       else {
+        var date = new Date();
+        var year = date.getFullYear();
+        var month = date.getMonth() + 1;
+        var day = date.getDate();
         var targetUrl = "https://testh5bm.staff.xdf.cn/1/html/order.html?sign=" + sign
           + "&appId=" + encrypt.WebPayAppId
-          + "&t=" + Date.now()
+          + "&t=" + year+(month<10?'0'+month:month)+(day<10?'0'+day:day)
           + "&systemSource=upocmini"
           + "&accessToken=" + token
-          + "&schoolId=1&classCodes=" + "BJS6"//classCodes
+          + "&schoolId=1&classCodes=" + "BJS6"// classCodes  //"BJS6"
           + "&studentCode=" + app.globalData.userInfo.UserId;
 
         console.log(targetUrl);

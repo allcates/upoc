@@ -33,6 +33,7 @@ console.log(options);
     }
     else {
       page.setData({
+        orderId: options.orderId,
         payParams: options
       });
 
@@ -107,7 +108,7 @@ console.log(options);
     wx.switchTab({
       url: '/pages/enroll/signup',
     });
-  },
+  }, 
 
   startCountdown:function(minutes){
     //计时器

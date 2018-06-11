@@ -13,7 +13,7 @@ Page({
     selectedAll: true,
     btn_disabled: false,
     tips_show: true,
-  },
+  }, 
 
   /**
    * 生命周期函数--监听页面加载
@@ -120,7 +120,7 @@ Page({
     }
     if (classCodes == '') { 
       wx.showToast({
-        title: '您要支付对选课单为空哦～',
+        title: '您要支付的选课单为空哦～',
         icon: 'none'
       });
     }
@@ -128,6 +128,18 @@ Page({
       // wx.redirectTo({
       //   url: '/pages/pay/order?classCodes=' + classCodes,
       // })
+
+      for (var x1 = classList.length-1; x1 >= 0 ; x1--) {
+        if (classList[x1].selected) {
+          classList.splice(x1, 1);
+        }  
+      }
+      try {
+        wx.setStorageSync(app.globalData.storageKey_dake_classlist_all, classList);
+      }
+      catch (e) {
+      }
+
       wx.navigateTo({
         url: '/pages/pay/order?classCodes=' + classCodes,
       })

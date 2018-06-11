@@ -22,7 +22,7 @@ Page({
     gradeList: grades,
     subjectList: subjects,
     scrollview_height: "100vh",
-    beforeLoaded: true,
+    beforeLoaded: true, 
     selectedGrade: '全部',
     selectedCourse: '全部',
     page: 1,
@@ -33,6 +33,16 @@ Page({
   onLoad: function () {
     page = this;
     page.getData();
+
+    // 年纪|科目 数组各插入一个[全部]
+    var gradeList = page.data.gradeList || [];
+    var subjectList = page.data.subjectList || [];
+    gradeList.unshift({ "id": "0", "name": "全部", "selected": true });
+    subjectList.unshift({ "id": "0", "name": "全部", "selected": true });
+    page.setData({
+      gradeList: gradeList,
+      subjectList: subjectList
+    });
 
     // 设置滚动高度
     wx.getSystemInfo({

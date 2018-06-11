@@ -35,6 +35,10 @@ App({
                 // 此处服务器端根据openid获取当前用户信息(接口暂不支持)
                 var openid = res.data.Data.OpenId;
                 app.globalData.openId = openid;
+                try {
+                  wx.setStorageSync(app.globalData.storageKey_openid, openid);
+                } catch (e) {
+                }
                 // app.autoLogin();
               }
 
@@ -55,6 +59,7 @@ App({
     apiHost: 'https://xytest.staff.xdf.cn/miniprogram/',
     appName: '优播课家长端',
     appId: '5001',
+    storageKey_openid: 'storageKey_openid',
     storageKey_user_account: 'storageKey_user_account',
     storageKey_user_pwd: 'storageKey_user_pwd',
     storageKey_user_sign: 'storageKey_user_sign',

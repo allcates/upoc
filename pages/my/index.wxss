@@ -37,7 +37,7 @@
   display: block;
   overflow: hidden;
 }
-.avatar_wrap userinfo_name{
+.userinfo_name{
   font-size: 32rpx;
   font-weight: bold;
 }

@@ -19,6 +19,7 @@ Page({
     ingList: [],
     willList: [],
     selectedClass: {},  // 当前选中要查看详情的班级信息
+    beforeLoaded: true, 
   },
 
   onLoad: function (options) {
@@ -72,12 +73,11 @@ Page({
       selectedClassListInFavorite = [];
     }
 
-    var schoolIdEncrpty = encrypt.Encrypt(1);
-    var codeEncrpty = encrypt.Encrypt(code);
+    var schoolId = 1;
     var params = [];
     params[0] = ['method', 'getClassListByTeacher'];
-    params[1] = ['schoolId', schoolIdEncrpty];
-    params[2] = ['teacherCode', codeEncrpty];
+    params[1] = ['schoolId', schoolId];
+    params[2] = ['teacherCode', code];
     var signX = encrypt.Sign(params); 
 
     wx.request({
@@ -87,8 +87,8 @@ Page({
       data: {
         "appid": app.globalData.appId,
         "method": "getClassListByTeacher",
-        "schoolId": (schoolIdEncrpty),
-        "teacherCode": (codeEncrpty),
+        "schoolId": schoolId,
+        "teacherCode": code,
         "sign": signX
       },
       success: function (res) {
@@ -118,13 +118,17 @@ Page({
                 }
               }
             }
-
           }
           page.setData({
             ingList: noList,
             willList: willList,
           });
         }
+      },
+      complete: function () {
+        page.setData({
+          beforeLoaded: false
+        })
       }
     })
   },
@@ -166,6 +170,26 @@ Page({
             icon: 'none'
           });
         }
+      });
+
+      var ingList = page.data.ingList;
+      var willList = page.data.willList;
+      //判断是否已在选课单
+      for (var x1 = 0; x1 < ingList.length; x1++) {
+        if (ingList[x1].ClassCode == classinfo.ClassCode) {
+          ingList[x1].InFavorite = true;
+          break;
+        }
+      }
+      for (var x1 = 0; x1 < willList.length; x1++) {
+        if (willList[x1].ClassCode == classinfo.ClassCode) {
+          willList[x1].InFavorite = true;
+          break;
+        }
+      }
+      page.setData({
+        ingList: ingList,
+        willList: willList
       });
     }
 

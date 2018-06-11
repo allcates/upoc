@@ -157,7 +157,7 @@ Page({
         }
       }
     }
-    console.log(selectedClassList);
+    // console.log(selectedClassList);
 
     // 存储
     wx.setStorage({
@@ -228,6 +228,10 @@ Page({
     prevPage.setData({
       dataList: dataList
     });
+
+    wx.navigateBack({
+      delta:1
+    })
   },
 
   // 跳到班级详情页

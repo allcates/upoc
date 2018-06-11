@@ -28,11 +28,11 @@
         <view class="mine_cell_hd">我的昵称</view>
         <view class="mine_cell_ft">{{userInfo.NickName}}</view>
       </view>
-      <view class="mine_cell_split clr_split"></view>
+      <!-- <view class="mine_cell_split clr_split"></view>
       <view class="mine_cell">
         <view class="mine_cell_hd">我的Id</view>
         <view class="mine_cell_ft">{{userInfo.UserId}}</view>
-      </view>
+      </view> -->
       <view class="mine_cell_split clr_split"></view>
       <view class="mine_cell">
         <view class="mine_cell_hd">我的电话</view>

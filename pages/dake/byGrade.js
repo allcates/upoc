@@ -1,10 +1,12 @@
 // pages/dake/byGrade.js
 
+let grades = require('../../utils/grades.js');
+
 Page({
   /**
    * 页面的初始数据
    */
-  data: {
+  data: { 
     gradeList: [
       { "id": "1", "name": "初一", "usable": true, "selected": false },
       { "id": "2", "name": "初二", "usable": true, "selected": false },

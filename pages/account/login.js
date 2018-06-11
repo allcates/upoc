@@ -36,7 +36,10 @@ Page({
       app.userOpenIdReadyCallback = res => {
         if (res.data.State == 1) {
           app.globalData.openId = res.data.Data.OpenId;
-
+          try {
+            wx.setStorageSync(app.globalData.storageKey_openid, res.data.Data.OpenId);
+          } catch (e) {
+          }
           page.checkLogin();
         }
       }
