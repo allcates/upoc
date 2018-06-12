@@ -4,7 +4,6 @@
 }
 .mine_cells{
   background-color: #ffffff;
-  margin-bottom: 30px;
 }
 .mine_cell{
   padding:20rpx 30rpx;
@@ -58,4 +57,16 @@
   border: 0;
   background-color:#B6B6B6;
   color: #ffffff;
+}
+
+.error_tips{
+  display: flex;
+  padding: 30rpx;
+  height: 40rpx;
+  align-items: center;
+  color: #F76260;
+  font-size: 28rpx;
+}
+.error_tips icon{
+  margin-right: 10rpx;
 }

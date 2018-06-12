@@ -20,15 +20,15 @@ function Encrypt(word) {
   return encrypted.toString();
 }
 
-var appid = '5001';
-var appkey = 'v5appkey_test';
+var api_appid = '5001';//'; //1004
+var api_appkey = 'v5appkey_test';//';  // v5appkey_xf_865fn$xa
 //服务端接口验签
 function Sign(params){
-  var signString = 'appid='+appid;
+  var signString = 'appid=' + api_appid;
   for (var i = 0; i < params.length; i++) {
     signString += '&'+ params[i][0] + '=' + params[i][1];
   }
-  signString += '&appkey='+appkey;
+  signString += '&appkey=' + api_appkey;
   signString = signString.toLowerCase();
   console.log(signString);
   var signX = (Md5.MD5(signString) + '').toUpperCase();
@@ -44,5 +44,6 @@ module.exports = {
   Encrypt: Encrypt,
   Sign: Sign,
   U2AppId: u2AppId,  
-  WebPayAppId: webPayAppId
+  WebPayAppId: webPayAppId,
+  ApiAppId: api_appid
 }

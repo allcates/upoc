@@ -19,7 +19,7 @@
   font-size: 42rpx;
 }
 .login_input_box .icon-delete2{
-  margin-right: 20rpx;
+  margin-right: 30rpx;
 }
 .login_input_box .line{
   height: 1px;

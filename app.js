@@ -58,7 +58,7 @@ App({
     openId: '',
     apiHost: 'https://xytest.staff.xdf.cn/miniprogram/',
     appName: '优播课家长端',
-    appId: '5001',
+    appId: encrypt.ApiAppId,
     storageKey_openid: 'storageKey_openid',
     storageKey_user_account: 'storageKey_user_account',
     storageKey_user_pwd: 'storageKey_user_pwd',

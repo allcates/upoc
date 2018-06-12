@@ -86,11 +86,12 @@ Page({
     page.resetData(classList);
   },
 
-  // 全选或取消
+  // 全选或取消 
   selectAll: function () {
+    var selectedAll = page.data.selectedAll;
     var classList = page.data.classList;
     for (var x1 = 0; x1 < classList.length; x1++) {
-      classList[x1].selected = true;
+      classList[x1].selected = !selectedAll;
     }
     var total = 0;
     for (var x1 = 0; x1 < classList.length; x1++) {
@@ -101,8 +102,8 @@ Page({
     page.setData({
       classList: classList,
       total: total,
-      selectedAll: true,
-      btn_disabled: false
+      selectedAll: !selectedAll,
+      btn_disabled: total==0
     });
   },
 
@@ -112,11 +113,11 @@ Page({
     var classCodes = '';
     for (var x1 = 0; x1 < classList.length; x1++) {
       if (classList[x1].selected) {
-        classCodes += classList[x1].ClassCode;
+        classCodes += classList[x1].ClassCode+',';
       }
-      if (x1 != classList.length-1){
-        classCodes += ',';
-      }
+    }
+    if (classCodes.length>0){
+      classCodes = classCodes.substr(0, classCodes.length-1);
     }
     if (classCodes == '') { 
       wx.showToast({

@@ -95,9 +95,6 @@ Page({
 
   // 发送验证码 
   sendValidCode: function () {
-    // var signString = ('appid=5001&method=SendSmsCode&mobile=' + page.data.phone + '&appkey=v5appkey_test').toLowerCase();
-    // var signX = (md5.MD5(signString) + '').toUpperCase();
-
     var params = [];
     params[0] = ['method', 'SendSmsCode'];
     params[1] = ['mobile', page.data.phone];
@@ -173,15 +170,6 @@ Page({
     var phoneEncrpty = encrypt.Encrypt(page.data.phone);
     var passwordEncrpty = encrypt.Encrypt(page.data.password);
     var smscode = page.data.smscode;
-
-    // var signString = ('appid=5001&method=Register&encodeUser=' + phoneEncrpty + '&encodePwd=' + passwordEncrpty +'&smsCode=' + smscode + '&appkey=v5appkey_test').toLowerCase();
-    // var signX = (md5.MD5(signString) + '').toUpperCase();
-
-    // console.log(signString);
-    // console.log(signX);
-
-    // console.log(phoneEncrpty);
-    // console.log(passwordEncrpty);
 
     var params = [];
     params[0] = ['method','Register'];

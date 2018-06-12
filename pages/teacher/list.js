@@ -156,29 +156,28 @@ Page({
       title: '加载中',
     });
 
-    var keywordsEncrpty = encrypt.Encrypt('');
-    var gradeEncrpty = encrypt.Encrypt(page.data.selectedGrade);
-    var courseEncrpty = encrypt.Encrypt(page.data.selectedCourse);
-    var pageEncrpty = encrypt.Encrypt(page.data.page);
-    var pageSizeEncrpty = encrypt.Encrypt(pageSize);
+    var keywords = '';
+    var grade = page.data.selectedGrade;
+    var course = page.data.selectedCourse;
+    var pageIndex = page.data.page;
     var params = [];
     params[0] = ['method', 'getTeacherList'];
-    params[1] = ['keywords', keywordsEncrpty];
-    params[2] = ['grade', gradeEncrpty];
-    params[3] = ['course', courseEncrpty];
-    params[4] = ['page', pageEncrpty];
-    params[5] = ['pagesize', pageSizeEncrpty];
+    params[1] = ['keywords', keywords];
+    params[2] = ['grade', grade];
+    params[3] = ['course', course];
+    params[4] = ['page', pageIndex];
+    params[5] = ['pagesize', pageSize];
     var signX = encrypt.Sign(params);
     wx.request({
       url: app.globalData.apiHost + 'upoc/index',
       data: {
         "appid": app.globalData.appId,
         "method": "getTeacherList",
-        "keywords": keywordsEncrpty,
-        "grade": gradeEncrpty,
-        "course": courseEncrpty,
-        "page": pageEncrpty,
-        "pagesize": pageSizeEncrpty,
+        "keywords": keywords,
+        "grade": grade,
+        "course": course,
+        "page": pageIndex,
+        "pagesize": pageSize,
         "sign": signX
       },
       method: "POST",

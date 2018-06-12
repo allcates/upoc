@@ -11,7 +11,7 @@ Page({
   /**
    * 页面的初始数据
    */
-  data: {
+  data: { 
     phone: '',
     password: '',
     password_show: false,
@@ -68,7 +68,8 @@ Page({
   passwordClear: function () {
     page.setData({
       password: '',
-      password_clear_show: false
+      password_clear_show: false,
+      password_focus:true
     });
     page.btnValid();
   },
@@ -90,6 +91,13 @@ Page({
     });
   },
 
+  // 聚焦到密码输入框
+  toPsdInput:function(){
+    page.setData({
+      password_focus: true
+    });
+  },
+
   // 登录
   doLogin: function () {
     
@@ -101,6 +109,11 @@ Page({
       });
       return;
     }
+
+    wx.showNavigationBarLoading();
+    wx.showLoading({
+      title: '登录中',
+    });
     var accountEncrpty = encrypt.Encrypt(page.data.phone);
     var passwordEncrpty = encrypt.Encrypt(page.data.password);
     var openId = app.globalData.openId;
@@ -150,9 +163,19 @@ Page({
             url: '/pages/enroll/signup'
           })
         }
+        else{
+          page.setData({
+            error: res.data.Error
+          });
+        }
       },
       fail: function () {
 
+      },
+      complete:function(){
+
+        wx.hideNavigationBarLoading();
+        wx.hideLoading();
       }
     })
 

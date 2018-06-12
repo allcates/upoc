@@ -25,6 +25,12 @@
     <view class="mine_cell_ft mine_cell_ft_access">{{schoolNames.length>0?schoolNames:"未选择"}}</view>
   </navigator>
 </view>
+<view class="error_tips">
+  <view wx:if="{{error.length>0}}">
+    <icon type="warn" size="18"></icon>
+    <text>{{error}}</text>
+  </view>
+</view>
 <view class="btn_box">
-  <button type="default" class="btnsubmmit {{btn_enabled?'':'disabled'}}" disabled="{{!btn_enabled}}" bindtap="doSubmit">确 定</button>
+  <button type="default" class="btnsubmmit {{btn_enabled?'':'disabled'}}" bindtap="doSubmit">确 定</button>
 </view>

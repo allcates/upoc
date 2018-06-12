@@ -200,7 +200,7 @@ Page({
 
         wx.showModal({
           title: '提示',
-          content: '您已已成功添加到选课单',
+          content: '您已成功添加到选课单',
           confirmText:'立即查看',
           cancelText:'继续报名',
           success: function (res) {
@@ -209,9 +209,9 @@ Page({
                 url: '/pages/enroll/selectCourse',
               })
             } else if (res.cancel) {
-              wx.switchTab({
-                url: '/pages/enroll/signup',
-              })
+              // wx.switchTab({
+              //   url: '/pages/enroll/signup',
+              // })
             }
           }
         })

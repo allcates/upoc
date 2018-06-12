@@ -2,7 +2,7 @@
 page{width:100%;overflow-x: hidden}
 
 .term_wrap {
-  margin-bottom: 140rpx;width:100%;overflow-x: hidden
+  padding-bottom: 150rpx;width:100%;overflow-x: hidden
 }
 .term_item{
   margin-bottom:1px;

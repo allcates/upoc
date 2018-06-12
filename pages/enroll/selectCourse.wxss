@@ -1,8 +1,7 @@
 /* pages/enroll/selectCourse.wxss */
 .tips{
   background-color: #FFECD2; 
-  padding: 20rpx 20rpx;
-  font-size: 14px;
+  padding: 10rpx 30rpx;
   display: flex;
   align-items: center;
 }
@@ -11,6 +10,7 @@
 }
 .tips .iconfont{
   flex: 0;
+  margin-left: 10rpx;
 }
 
 .bottom_pay{

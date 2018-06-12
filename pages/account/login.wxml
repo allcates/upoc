@@ -7,12 +7,12 @@
   <view class="login_input_box"> 
     <view class="section">
       <text class="iconfont icon-account-only"></text>
-      <input placeholder="请输入手机号/邮箱" placeholder-class="placeholder" value="{{phone}}" bindinput="phoneInput" />
+      <input placeholder="请输入手机号/邮箱" placeholder-class="placeholder" value="{{phone}}" confirm-type="next" bindinput="phoneInput" bindconfirm="toPsdInput" />
     </view>
     <view class="line"></view>
     <view class="section">
       <text class="iconfont icon-mima"></text>
-      <input placeholder="请输入密码" placeholder-class="placeholder" password="{{!password_show}}" focus="{{password_focus}}" maxlength="20" value="{{password}}" bindinput="passwordInput" />
+      <input placeholder="请输入密码" placeholder-class="placeholder" password="{{!password_show}}" confirm-type="go" focus="{{password_focus}}" maxlength="20" value="{{password}}" bindinput="passwordInput" bindconfirm="doLogin" />
       <text class="iconfont icon-delete2" wx:if="{{password_clear_show}}" bindtap="passwordClear"></text>
       <text class='iconfont @{{password_show?"icon-showpassword":"icon-hiddenpassword"}}' bindtap="passwordShowToggle"></text>
     </view>

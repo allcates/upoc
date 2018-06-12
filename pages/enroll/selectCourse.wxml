@@ -1,7 +1,7 @@
 <!--pages/enroll/selectCourse.wxml-->
 <block wx:if="{{classList.length > 0}}">
   <view class="tips" wx:if="{{tips_show}}">
-    <text>请把选好的课程发给微信好友，让他来帮忙支付～</text>
+    <text>选课单里的课程价格不包含优惠,优惠价请提交支付后查看!</text>
     <text class="iconfont icon-delete1" bindtap="tipsHide"></text>
   </view>
   <view class="body">

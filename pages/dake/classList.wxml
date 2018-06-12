@@ -9,12 +9,12 @@
 
 <template name="willItem">
   <block wx:for="{{classList}}" wx:key="*this">
-    <view class="class_item"> 
+    <view class="class_item" data-code="{{item.ClassCode}}" bindtap="clickItem"> 
       <view class="item_top">
         <view class="sec">
           <view class="title" data-item="{{item}}">{{item.ClassName}}</view>
           <view class="select icon">
-            <icon type='{{item.selected?"success":"circle"}}' size="20" data-code="{{item.ClassCode}}" bindtap="clickItem"></icon>
+            <icon type='{{item.selected?"success":"circle"}}' size="20" ></icon>
           </view>    
         </view>
 
