@@ -41,3 +41,7 @@
   font-size: 32rpx;
   font-weight: bold;
 }
+.logout{
+  color:#db0000;
+  text-align: center;
+}

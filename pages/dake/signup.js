@@ -47,19 +47,83 @@ Page({
   onShow:function(){
     // 获取已选择的班级编号
     var selectedClassList = [];
+    var dataList = page.data.dataList;
     wx.getStorage({
       key: app.globalData.storageKey_dake_classlist,
       success: function (res) {
         selectedClassList = res.data;
+        // 待优化
+        for (var i = 0; i < dataList.length; i++) {
+          // 上午
+          for (var j = 0; j < dataList[i].morning.length; j++) {
+            dataList[i].morning[j].selected = false;
+          }
+          for (var j = 0; j < dataList[i].morning.length; j++) {
+            var id = dataList[i].morning[j].id;
+            for (var x1 = 0; x1 < selectedClassList.length; x1++) {
+              if (id == selectedClassList[x1].pid) {
+                dataList[i].morning[j].selected = true;
+                break;
+              }
+            }
+          }
+          
+          // 中午
+          for (var j = 0; j < dataList[i].noon.length; j++) {
+            dataList[i].noon[j].selected = false;
+          }
+          for (var j = 0; j < dataList[i].noon.length; j++) {
+            var id = dataList[i].noon[j].id;
+            for (var x1 = 0; x1 < selectedClassList.length; x1++) {
+              if (id == selectedClassList[x1].pid) {
+                dataList[i].noon[j].selected = true;
+                break;
+              }
+            }
+          }
+
+          // 下午
+          for (var j = 0; j < dataList[i].afternoon.length; j++) {
+            dataList[i].afternoon[j].selected = false;
+          }
+          for (var j = 0; j < dataList[i].afternoon.length; j++) {
+            var id = dataList[i].afternoon[j].id;
+            for (var x1 = 0; x1 < selectedClassList.length; x1++) {
+              if (id == selectedClassList[x1].pid) {
+                dataList[i].afternoon[j].selected = true;
+                break;
+              }
+            }
+          }
+
+          // 晚上
+          for (var j = 0; j < dataList[i].night.length; j++) {
+            dataList[i].night[j].selected = false;
+          }
+          for (var j = 0; j < dataList[i].night.length; j++) {
+            var id = dataList[i].night[j].id;
+            for (var x1 = 0; x1 < selectedClassList.length; x1++) {
+              if (id == selectedClassList[x1].pid) {
+                dataList[i].night[j].selected = true;
+                break;
+              }
+            }
+          }
+        }
+
         page.setData({
+          dataList: dataList,
           cartNum: selectedClassList.length
         });
       }
     })
+
+
+
   },
 
   /*
-  * 获取所有教师列表数据
+  * 获取所有列表数据
   */
   getData: function (quarter, grade, areacodes) {
     wx.showNavigationBarLoading();
@@ -67,24 +131,20 @@ Page({
       title: '加载中',
     });
 
-
-    var quarterEncrpty = encrypt.Encrypt(quarter);
-    var gradeEncrpty = encrypt.Encrypt(grade);
-    var areacodesEncrpty = encrypt.Encrypt(areacodes);
     var params = [];
     params[0] = ['method', 'getCollocationData'];
-    params[1] = ['quarter', quarterEncrpty];
-    params[2] = ['grade', gradeEncrpty];
-    params[3] = ['areacodes', areacodesEncrpty];
+    params[1] = ['quarter', quarter];
+    params[2] = ['grade', grade];
+    params[3] = ['areacodes', areacodes];
     var signX = encrypt.Sign(params);
     wx.request({
       url: app.globalData.apiHost + 'upoc/index',
       data: {
         "appid": app.globalData.appId,
         "method": "getCollocationData",
-        "quarter": quarterEncrpty,
-        "grade": gradeEncrpty,
-        "areacodes": areacodesEncrpty,
+        "quarter": quarter,
+        "grade": grade,
+        "areacodes": areacodes,
         "sign": signX
       },
       method: "POST",
@@ -93,7 +153,7 @@ Page({
         wx.hideNavigationBarLoading();
         wx.hideLoading();
         if (res.data.State == 1) {
-          // console.log(res.data.Data);
+          console.log(res.data.Data);
           page.setData({
             dataList: res.data.Data,
           });
@@ -135,7 +195,7 @@ Page({
       complete: function (res) { },
     })
   },
-
+ 
   // 加入选课单
   addToList:function(e){
     var selectedClassList = [];

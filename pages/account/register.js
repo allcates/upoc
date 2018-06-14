@@ -22,6 +22,7 @@ Page({
     password_show: false,
     password_clear_show: false,
     password_focus:false,
+    validcode_focus:false,
     validcode: '',
     validcode_disabled: true,
     disabled: true,
@@ -90,6 +91,20 @@ Page({
     this.setData({
       disabled: (!util.isPhone(this.data.phone) || this.data.password == '' || this.data.validcode == ''),
       error: '',
+    });
+  },
+
+  // 聚焦到验证码输入框
+  toValidcodeInput: function () {
+    page.setData({
+      validcode_focus: true
+    });
+  },
+
+  // 聚焦到密码输入框
+  toPsdInput: function () {
+    page.setData({
+      password_focus: true
     });
   },
 
@@ -165,11 +180,16 @@ Page({
       this.setData({
         error:'手机号码错误'
       });
+      return;
     }
 
+    wx.showNavigationBarLoading();
+    wx.showLoading({
+      title: '注册中',
+    });
     var phoneEncrpty = encrypt.Encrypt(page.data.phone);
     var passwordEncrpty = encrypt.Encrypt(page.data.password);
-    var smscode = page.data.smscode;
+    var smscode = page.data.validcode;
 
     var params = [];
     params[0] = ['method','Register'];
@@ -216,6 +236,10 @@ Page({
         page.setData({
           error: res
         })
+      },
+      complete: function () {
+        wx.hideNavigationBarLoading();
+        wx.hideLoading();
       }
     })
 

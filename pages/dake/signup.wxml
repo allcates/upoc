@@ -3,7 +3,7 @@
   <block wx:if="{{dataList.length > 0}}">
     <view class="term_wrap">
       <view class="term_item" wx:for="{{dataList}}" wx:key="*this" wx:for-index="idx" wx:for-item="item">
-        <view class="title">
+        <view class="title"> 
           <view class="term">
             <text>{{item.period}}</text>({{item.date}})</view>
           <view class="" data-item="{{item}}" bindtap="showToggle">

@@ -21,8 +21,6 @@ Page({
 
   onShow: function () {
 
-    console.log(app.globalData.userInfo);
-    console.log(page.data.hasUserInfo);
     if (app.globalData.userInfo) {
       page.setData({
         userInfo: app.globalData.userInfo,
@@ -35,7 +33,31 @@ Page({
   // 拨打客服电话
   callServicePhone: function(){
     wx.makePhoneCall({
-      phoneNumber: '15210303288',
+      phoneNumber: '010-82611818',
+    })
+  },
+
+  // 退出登录
+  logout:function(){
+    wx.showModal({
+      title: '提示',
+      content: '您确定要退出当前优播课登录吗?',
+      success: function (res) {
+        if (res.confirm) {
+          try {
+            app.globalData.userInfo = null;
+            wx.setStorageSync(app.globalData.storageKey_user_account, '');
+            wx.setStorageSync(app.globalData.storageKey_user_pwd, '');
+            wx.setStorageSync(app.globalData.storageKey_user_sign, '');
+            wx.setStorageSync(app.globalData.storageKey_user_token, '');
+          } catch (e) {
+          }
+          page.setData({
+            userInfo: null,
+            hasUserInfo: false
+          })
+        }
+      }
     })
   }
 })

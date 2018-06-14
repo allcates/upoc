@@ -100,7 +100,6 @@ Page({
 
   // 登录
   doLogin: function () {
-    
     var account = page.data.phone;
     var password = page.data.password;
     if (!util.isEmail(account) && !util.isPhone(account)) {

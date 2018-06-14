@@ -1,6 +1,5 @@
 // pages/pay/order.js
 
-
 var encrypt = require('../../utils/encrypt.js');
 
 let app = getApp();
@@ -13,7 +12,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    url:'',
+    url: '',
     show_tologin_modal: false
   },
 
@@ -39,109 +38,84 @@ Page({
     // console.log(classCodes);
     //console.log(app.globalData.userInfo.UserId);
 
-    try
-    {   
-      if (sign == null || sign == "" || sign == undefined) {
-      
-        wx.showModal({
-          title: '提示',
-          content: '请先登录再去选课单支付',
-          confirmText: '去登录',
-          cancelText: '我再想想',
-          success: function (res) {
-            if (res.confirm) {
-              // wx.switchTab({
-              //   url: '/pages/account/login',
-              // })
-              wx.navigateTo({
-                url: '/pages/account/login',
-              })
-            } else if (res.cancel) {
-              wx.switchTab({
-                url: '/pages/enroll/selectCourse',
-              })
-            }
-          }
-        })
-      }
-      else {
-        var date = new Date();
-        var year = date.getFullYear();
-        var month = date.getMonth() + 1;
-        var day = date.getDate();
-        var targetUrl = "https://testh5bm.staff.xdf.cn/1/html/order.html?sign=" + sign
-          + "&appId=" + encrypt.WebPayAppId
-          + "&t=" + year+(month<10?'0'+month:month)+(day<10?'0'+day:day)
-          + "&systemSource=upocmini"
-          + "&accessToken=" + token
-          + "&schoolId=1&classCodes=" + "BJS6"// classCodes  //"BJS6"
-          + "&studentCode=" + app.globalData.userInfo.UserId;
+    try {
+      var date = new Date();
+      var year = date.getFullYear();
+      var month = date.getMonth() + 1;
+      var day = date.getDate();
+      var targetUrl = "https://testh5bm.staff.xdf.cn/1/html/order.html?sign=" + sign
+        + "&appId=" + encrypt.WebPayAppId
+        + "&t=" + year + (month < 10 ? '0' + month : month) + (day < 10 ? '0' + day : day)
+        + "&systemSource=upocmini"
+        + "&accessToken=" + token
+        + "&schoolId=1&classCodes=" + "BJS6"// classCodes  //"BJS6"
+        + "&studentCode=" + app.globalData.userInfo.UserId;
 
-        console.log(targetUrl);
-        console.log(encodeURIComponent(targetUrl));
+      console.log(targetUrl);
+      console.log(encodeURIComponent(targetUrl));
 
-        var url = "https://testu2.staff.xdf.cn/apis/usersv2.ashx?method=AppWebV5&token=" + token
-          + "&sign=" + sign
-          + "&appId=" + encrypt.U2AppId
-          + "&targetUrl=" + encodeURIComponent(targetUrl);
+      var url = "https://testu2.staff.xdf.cn/apis/usersv2.ashx?method=AppWebV5&token=" + token
+        + "&sign=" + sign
+        + "&appId=" + encrypt.U2AppId
+        + "&targetUrl=" + encodeURIComponent(targetUrl);
 
-        page.setData({
-          url: url
-        });
-      }
+      page.setData({
+        url: url
+      });
+
     }
-    catch(e){
+    catch (e) {
       console.log(e);
     }
-    
+
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+
   },
 
   /**
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+
   }
 })

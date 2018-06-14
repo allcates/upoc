@@ -3,12 +3,12 @@
 <view class="login_input_box">
   <view class="section">
     <text class="iconfont icon-account-only"></text>
-    <input placeholder="请输入手机号" placeholder-class="placeholder" value="{{phone}}" maxlength="11" bindinput="phoneInput" />
+    <input placeholder="请输入手机号" placeholder-class="placeholder" value="{{phone}}" maxlength="11" bindinput="phoneInput"  bindconfirm="toValidcodeInput" confirm-type="next" />
   </view>
   <view class="line"></view>
   <view class="section">
     <text class="iconfont icon-yanzhengma"></text>
-    <input placeholder="请输入验证码" placeholder-class="placeholder" value="{{validcode}}" maxlength="6" bindinput="validcodeInput" />
+    <input placeholder="请输入验证码" placeholder-class="placeholder" value="{{validcode}}" maxlength="6" focus="{{validcode_focus}}" bindinput="validcodeInput" bindconfirm="toPsdInput" confirm-type="next" />
     <button class='validcode {{validcode_disabled?"disabled":""}}' disabled="{{validcode_disabled}}" bindtap="sendValidCode">
       <text wx:if="{{count>0}}">{{count}}秒后发送</text>
       <text wx:else>获取验证码</text>
@@ -17,7 +17,7 @@
   <view class="line"></view>
   <view class="section">
     <text class="iconfont icon-mima"></text>
-    <input placeholder="请输入密码" placeholder-class="placeholder" password="{{!password_show}}" focus="{{password_focus}}" maxlength="20" value="{{password}}" bindinput="passwordInput" />
+    <input placeholder="请输入密码" placeholder-class="placeholder" password="{{!password_show}}" focus="{{password_focus}}" maxlength="20" value="{{password}}" bindinput="passwordInput" bindconfirm="doRegister" />
     <text class="iconfont icon-delete2" wx:if="{{password_clear_show}}" bindtap="passwordClear"></text>
     <text class='iconfont @{{password_show?"icon-showpassword":"icon-hiddenpassword"}}' bindtap="passwordShowToggle"></text>
   </view>

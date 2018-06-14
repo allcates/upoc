@@ -56,7 +56,7 @@ App({
     // 用户信息（在优播课后台的数据信息）
     userInfo: null,
     openId: '',
-    apiHost: 'https://xytest.staff.xdf.cn/miniprogram/',
+    apiHost: 'https://xuban.xdf.cn/mini/',//https://xytest.staff.xdf.cn/miniprogram/',
     appName: '优播课家长端',
     appId: encrypt.ApiAppId,
     storageKey_openid: 'storageKey_openid',

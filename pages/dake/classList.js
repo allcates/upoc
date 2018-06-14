@@ -12,9 +12,10 @@ Page({
    * 页面的初始数据 
    */
   data: {
-    title :'',
-    classList:[],
-    selectedClassList:[]
+    title: '',
+    classList: [],
+    selectedClassList: [],
+    pid:'',
   },
 
   /**
@@ -40,11 +41,13 @@ Page({
     var areacodes = prevPage.data.areacodes;
     var selectedItem = prevPage.data.currClickItem;
     var condition = options.period + '、';
-    if(selectedItem!=null){
+    var pid = '';
+    if (selectedItem != null) {
       // console.log(selectedItem.id);
-      var time = selectedItem.id.split('_')[1]*1;
-      if(time==1){
-        condition+= '上午9:30-11:30、';
+      pid = selectedItem.id;
+      var time = selectedItem.id.split('_')[1] * 1;
+      if (time == 1) {
+        condition += '上午9:30-11:30、';
       }
       else if (time == 2) {
         condition += '中午12:30-13:30、';
@@ -60,7 +63,8 @@ Page({
       page.getClassList(selectedItem.ClassCodes, quarter, grade, areacodes);
     }
     page.setData({
-      title: condition
+      title: condition,
+      pid: pid
     });
   },
 
@@ -73,26 +77,22 @@ Page({
       title: '加载中',
     });
 
-    var classCodesEncrpty = encrypt.Encrypt(classCodes);
-    var quarterEncrpty = encrypt.Encrypt(quarter);
-    var gradeEncrpty = encrypt.Encrypt(grade);
-    var areacodesEncrpty = encrypt.Encrypt(areacodes);
     var params = [];
     params[0] = ['method', 'getClassListByCodes'];
-    params[1] = ['classCodes', classCodesEncrpty];
-    params[2] = ['quarter', quarterEncrpty];
-    params[3] = ['grade', gradeEncrpty];
-    params[4] = ['areacodes', areacodesEncrpty];
+    params[1] = ['classCodes', classCodes];
+    params[2] = ['quarter', quarter];
+    params[3] = ['grade', grade];
+    params[4] = ['areacodes', areacodes];
     var signX = encrypt.Sign(params);
     wx.request({
       url: app.globalData.apiHost + 'upoc/index',
       data: {
         "appid": app.globalData.appId,
         "method": "getClassListByCodes",
-        "classCodes": classCodesEncrpty,
-        "quarter": quarterEncrpty,
-        "grade": gradeEncrpty,
-        "areacodes": areacodesEncrpty,
+        "classCodes": classCodes,
+        "quarter": quarter,
+        "grade": grade,
+        "areacodes": areacodes,
         "sign": signX
       },
       method: "POST",
@@ -102,15 +102,21 @@ Page({
         wx.hideLoading();
         if (res.data.State == 1) {
           var classList = res.data.Data;
-          // console.log(classList);
-          if(classList.length > 0){
+          if (classList.length > 0) {
             var selectedClassList = page.data.selectedClassList;
-            for (var x1 = 0; x1 < selectedClassList.length;x1++){
-              for (var x2 = 0; x2 < classList.length; x2++){
-                if (classList[x2].ClassCode == selectedClassList[x1].ClassCode){
+            for (var x1 = 0; x1 < selectedClassList.length; x1++) {
+              for (var x2 = 0; x2 < classList.length; x2++) {
+                if (classList[x2].ClassCode == selectedClassList[x1].ClassCode) {
                   classList[x2].selected = true;
                   break;
                 }
+              }
+            }
+
+            var pid = page.data.pid;
+            for (var x2 = 0; x2 < classList.length; x2++) {
+              if (typeof (classList[x2].pid) == 'undefined' ) {
+                classList[x2].pid = pid;
               }
             }
           }
@@ -125,26 +131,68 @@ Page({
   // 点击
   clickItem: function (e) {
     var code = e.currentTarget.dataset.code;
-    var classList = page.data.classList;
     var selectedClassList = page.data.selectedClassList;
 
-    console.log(selectedClassList);
+    // 判断同一时段只能选择单科目下的一个班级
+    var pid = page.data.pid;
+    var existInTime = false;
+    if (pid.split('_').length == 3){
+      for (var x1 = 0; x1 < selectedClassList.length; x1++) {
+        var item_pid = selectedClassList[x1].pid;
+        if (typeof (item_pid) != 'undefined' && item_pid.split('_').length == 3){
+          if (pid != item_pid && (pid.split('_')[0] == item_pid.split('_')[0]) && (pid.split('_')[1] == item_pid.split('_')[1])){
+            existInTime = true;
+            break;          
+          }
+        }
+      }
+    }
+    if (existInTime){
+      wx.showModal({
+        title: '提示',
+        content: '同一时段只能选择单科目下的一个班级，确定要更换班级?',
+        success: function (res) {
+          if (res.confirm) {
+            for (var x1 = selectedClassList.length - 1; x1 >=0 ; x1--) {
+              var item_pid = selectedClassList[x1].pid;
+              if (typeof (item_pid) != 'undefined' && item_pid.split('_').length == 3) {
+                if (pid != item_pid && (pid.split('_')[0] == item_pid.split('_')[0]) && (pid.split('_')[1] == item_pid.split('_')[1])) {
+                  selectedClassList.splice(x1, 1);
+                }
+              }
+            }
+
+            page.selectClass(code, selectedClassList);
+          }
+        }
+      })
+    }
+    else{
+      page.selectClass(code, selectedClassList);
+    }
+  },
+
+  // 选择班级
+  selectClass: function (code, selectedClassList) {
+    var classList = page.data.classList;
+
+    // console.log(selectedClassList);
     for (var i = 0; i < classList.length; i++) {
-      if (classList[i].ClassCode == code){
+      if (classList[i].ClassCode == code) {
         // 如果选课单中存在，先删除，再插入
-        for (var x1 = 0; x1 < selectedClassList.length;x1++){
-          if (selectedClassList[x1].ClassCode == code){
+        for (var x1 = 0; x1 < selectedClassList.length; x1++) {
+          if (selectedClassList[x1].ClassCode == code) {
             selectedClassList.splice(x1, 1);
             break;
           }
         }
 
-        if (!classList[i].selected){
+        if (!classList[i].selected) {
           selectedClassList.push(classList[i]);
         }
         classList[i].selected = !classList[i].selected;
       }
-      else{
+      else {
         if (classList[i].selected) {
           classList[i].selected = false;
           // 如果选课单中存在，先删除
@@ -178,59 +226,9 @@ Page({
         selectedCodes.push(classList[i].ClassCode);
       }
     }
-    // console.log('itemSelected:' + itemSelected);
-    var pages = getCurrentPages();
-    var prevPage = pages[pages.length - 2];
-    var selectedItem = prevPage.data.currClickItem;
-    var dataList = prevPage.data.dataList;
-    // console.log(selectedItem);
-    // console.log(dataList);
-    if (selectedItem != null && dataList.length>0) {
-      for (var i = 0; i < dataList.length;i++){
-        // console.log(selectedItem.id);
-        var time = selectedItem.id.split('_')[1] * 1;
-        if (time == 1) {
-          for (var j = 0; j < dataList[i].morning.length; j++){
-            if (dataList[i].morning[j].id == selectedItem.id){
-              dataList[i].morning[j].selected = itemSelected;
-              break;
-            }
-          }
-        }
-        else if (time == 2) {
-          for (var j = 0; j < dataList[i].noon.length; j++) {
-            if (dataList[i].noon[j].id == selectedItem.id) {
-              dataList[i].noon[j].selected = itemSelected;
-              break;
-            }
-          }
-        }
-        else if (time == 3) {
-          for (var j = 0; j < dataList[i].afternoon.length; j++) {
-            if (dataList[i].afternoon[j].id == selectedItem.id) {
-              dataList[i].afternoon[j].selected = itemSelected;
-              break;
-            }
-          }
-        }
-        else if (time == 4) {
-          for (var j = 0; j < dataList[i].night.length; j++) {
-            if (dataList[i].night[j].id == selectedItem.id) {
-              dataList[i].night[j].selected = itemSelected;
-              break;
-            }
-          }
-        }
-      }
-    }
-
-    // console.log(dataList);
-    prevPage.setData({
-      dataList: dataList
-    });
 
     wx.navigateBack({
-      delta:1
+      delta: 1
     })
   },
 

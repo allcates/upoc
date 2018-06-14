@@ -1,8 +1,13 @@
+// 上线前替换TODO
+var u2AesKey ='en32-i-4315787-4c87-436a-9c89-kv';   //  'u2_test_aesK_test_test_test_test';// 
+
+var api_appid = '1004'; // '5001';  //
+var api_appkey = 'v5appkey_xf_865fn$xa';//'v5appkey_test';  // 
+
+
 var CryptoJS = require('../assets/js/cryptojs/aes.js');  //引用AES源码js
 var Md5 = require('../assets/js/cryptojs/md5.js');  //引用Md5源码js
 
-// 上线前替换TODO
-var u2AesKey = 'u2_test_aesK_test_test_test_test'; // 'en32-i-4315787-4c87-436a-9c89-kv'
 var key = CryptoJS.enc.Utf8.parse(u2AesKey);
 var iv = CryptoJS.enc.Utf8.parse(u2AesKey);
 
@@ -22,9 +27,7 @@ function Encrypt(word) {
   return encrypted.toString();
 }
 
-// 上线前替换TODO
-var api_appid = '5001';  // '1004'
-var api_appkey = 'v5appkey_test';  // 'v5appkey_xf_865fn$xa'
+
 //服务端接口验签
 function Sign(params){
   var signString = 'appid=' + api_appid;

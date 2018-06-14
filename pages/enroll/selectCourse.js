@@ -13,7 +13,7 @@ Page({
     selectedAll: true,
     btn_disabled: false,
     tips_show: true,
-  }, 
+  },
 
   /**
    * 生命周期函数--监听页面加载
@@ -23,7 +23,7 @@ Page({
 
   },
 
-  onShow:function(options){
+  onShow: function (options) {
     page.getData();
   },
 
@@ -103,7 +103,7 @@ Page({
       classList: classList,
       total: total,
       selectedAll: !selectedAll,
-      btn_disabled: total==0
+      btn_disabled: total == 0
     });
   },
 
@@ -113,37 +113,60 @@ Page({
     var classCodes = '';
     for (var x1 = 0; x1 < classList.length; x1++) {
       if (classList[x1].selected) {
-        classCodes += classList[x1].ClassCode+',';
+        classCodes += classList[x1].ClassCode + ',';
       }
     }
-    if (classCodes.length>0){
-      classCodes = classCodes.substr(0, classCodes.length-1);
+    if (classCodes.length > 0) {
+      classCodes = classCodes.substr(0, classCodes.length - 1);
     }
-    if (classCodes == '') { 
+    if (classCodes == '') {
       wx.showToast({
         title: '您要支付的选课单为空哦～',
         icon: 'none'
       });
     }
-    else{
-      // wx.redirectTo({
-      //   url: '/pages/pay/order?classCodes=' + classCodes,
-      // })
+    else {
+      var sign = wx.getStorageSync(app.globalData.storageKey_user_sign)||'';
+      var token = wx.getStorageSync(app.globalData.storageKey_user_token) || '';
+      if (sign == "" || token == '') {
 
-      for (var x1 = classList.length-1; x1 >= 0 ; x1--) {
-        if (classList[x1].selected) {
-          classList.splice(x1, 1);
-        }  
+        wx.showModal({
+          title: '提示',
+          content: '请先登录再去选课单支付',
+          confirmText: '去登录',
+          cancelText: '我再想想',
+          success: function (res) {
+            if (res.confirm) {
+              // wx.switchTab({
+              //   url: '/pages/account/login',
+              // })
+              wx.navigateTo({
+                url: '/pages/account/login',
+              })
+            } else if (res.cancel) {
+              wx.switchTab({
+                url: '/pages/enroll/selectCourse',
+              })
+            }
+          }
+        })
       }
-      try {
-        wx.setStorageSync(app.globalData.storageKey_dake_classlist_all, classList);
-      }
-      catch (e) {
-      }
+      else {
+        for (var x1 = classList.length - 1; x1 >= 0; x1--) {
+          if (classList[x1].selected) {
+            classList.splice(x1, 1);
+          }
+        }
+        try {
+          wx.setStorageSync(app.globalData.storageKey_dake_classlist_all, classList);
+        }
+        catch (e) {
+        }
 
-      wx.navigateTo({
-        url: '/pages/pay/order?classCodes=' + classCodes,
-      })
+        wx.navigateTo({
+          url: '/pages/pay/order?classCodes=' + classCodes,
+        })
+      }
     }
   },
 
@@ -182,7 +205,7 @@ Page({
   },
 
   // 去报名
-  toSignup:function(){
+  toSignup: function () {
     wx.switchTab({
       url: '/pages/enroll/signup'
     })

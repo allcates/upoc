@@ -54,7 +54,13 @@
     <view class="mine_cell_split clr_split"></view>
     <view class="mine_cell">
       <view class="mine_cell_hd">版本号</view>
-      <view class="mine_cell_ft">V_1.0</view>
+      <view class="mine_cell_ft">1.0.0</view>
+    </view>
+  </view>
+
+  <view class="mine_cells" wx:if="{{hasUserInfo}}">
+    <view class="mine_cell" bindtap="logout">
+      <view class="mine_cell_hd logout">退出登录</view>
     </view>
   </view>
 </view>
