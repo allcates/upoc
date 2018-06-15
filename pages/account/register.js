@@ -212,30 +212,21 @@ Page({
       },
       method: "POST",
       header: { 'content-type': 'application/x-www-form-urlencoded' },
-      complete: function (res) {
-        // console.log(res.data);
+      success: function (res) {
+        console.log(res);
+        console.log(res.data.State);
 
-        // if (res == null || res.data == null) {
-        //   reject(new Error('网络请求失败'))
-        // }
-
-        if(res.data.State == 0 && res.data.Data !=null){
+        if (res.data.State == 0 && res.data.Data != null) {
           app.globalData.userInfo = res.data.Data;
           page.setData({
-            show_modal: result
+            show_modal: true
           });
         }
-        else{
+        else {
           page.setData({
             error: res.data.Error
           })
-        }       
-      },
-      success: function (res) {
-
-        page.setData({
-          error: res
-        })
+        } 
       },
       complete: function () {
         wx.hideNavigationBarLoading();
