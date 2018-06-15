@@ -236,20 +236,7 @@ Page({
       method: "POST",
       header: { 'content-type': 'application/x-www-form-urlencoded' },
       success: function (res) {
-<<<<<<< HEAD
-<<<<<<< HEAD
-        if (res.data.State == 1 && res.data.Data != null) {
-=======
-=======
->>>>>>> 5a796a6428bba49c525d31b8819e2d3e93d6d15c
-        console.log(res);
-        console.log(res.data.State);
-
         if (res.data.State == 0 && res.data.Data != null) {
-<<<<<<< HEAD
->>>>>>> 5a796a6428bba49c525d31b8819e2d3e93d6d15c
-=======
->>>>>>> 5a796a6428bba49c525d31b8819e2d3e93d6d15c
           app.globalData.userInfo = res.data.Data;
           page.setData({
             show_modal: true
@@ -259,15 +246,7 @@ Page({
           page.setData({
             error: res.data.Error
           })
-<<<<<<< HEAD
-<<<<<<< HEAD
         }  
-=======
-        } 
->>>>>>> 5a796a6428bba49c525d31b8819e2d3e93d6d15c
-=======
-        } 
->>>>>>> 5a796a6428bba49c525d31b8819e2d3e93d6d15c
       },
       complete: function () {
         wx.hideNavigationBarLoading();
