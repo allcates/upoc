@@ -23,6 +23,7 @@
   font-size: 28rpx;
   align-items:center;
   margin-bottom: 4rpx;
+  overflow:hidden;
 }
 .class_item .sec.classcode{
   margin-bottom: 10rpx;

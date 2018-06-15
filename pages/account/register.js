@@ -150,19 +150,23 @@ Page({
       },
       method: "POST",
       header: { 'content-type': 'application/x-www-form-urlencoded' },
-      complete: function (res) {
-        console.log(res.data);
-        page.setData({
-          //res.data.data
-        });
-        if (res == null || res.data == null) {
-          reject(new Error('网络请求失败'))
+      success: function (res) {
+        if (res.data.code == 1) {
+          wx.showToast({
+            title: '验证码已发送到您的手机',
+            icon: 'none'
+          });
+        }
+        else{
+          page.setData({
+            error: res.Error
+          });
         }
       },
-      success: function (res) {
-        if (res.data.code == 0) {
-          resolve(res)
-        }
+      fail:function(res){
+        page.setData({
+          error: '验证码发送失败'
+        });
       }
     })
     
@@ -196,12 +200,30 @@ Page({
 
   // 注册
   doRegister: function () {
-    this.setData({
+    page.setData({
       error: ''
     });
     if (!util.isPhone(page.data.phone)){
-      this.setData({
-        error:'手机号码错误'
+      page.setData({
+        error: '手机号码错误',
+        phone_focus: false
+      });
+      return;
+    }
+
+    var validcode = page.data.validcode;
+    if (validcode.length != 5) {
+      page.setData({
+        error: '手机验证码错误',
+        validcode_focus: false
+      });
+      return;
+    }
+    var password = page.data.password;
+    if (password.length < 6 || password.length >16) {
+      page.setData({
+        error: '密码应在6--16位之间',
+        password_focus: false
       });
       return;
     }
@@ -236,7 +258,7 @@ Page({
       method: "POST",
       header: { 'content-type': 'application/x-www-form-urlencoded' },
       success: function (res) {
-        if (res.data.State == 0 && res.data.Data != null) {
+        if (res.data.State == 1 && res.data.Data != null) {
           app.globalData.userInfo = res.data.Data;
           page.setData({
             show_modal: true

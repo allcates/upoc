@@ -3,7 +3,7 @@
 <view class="login_input_box">
   <view class="section">
     <text class="iconfont icon-account-only"></text>
-    <input placeholder="请输入手机号" placeholder-class="placeholder" value="{{phone}}" maxlength="11" bindinput="phoneInput" bindconfirm="toValidcodeInput" confirm-type="next" bindfocus="showPhoneTips" />
+    <input placeholder="请输入手机号" placeholder-class="placeholder" value="{{phone}}" maxlength="11" bindinput="phoneInput" bindconfirm="toValidcodeInput" confirm-type="next" bindfocus="showPhoneTips" focus="{{phone_focus}}" />
   </view>
   <view class="line"></view>
   <view class="section">
