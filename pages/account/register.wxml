@@ -3,12 +3,12 @@
 <view class="login_input_box">
   <view class="section">
     <text class="iconfont icon-account-only"></text>
-    <input placeholder="请输入手机号" placeholder-class="placeholder" value="{{phone}}" maxlength="11" bindinput="phoneInput"  bindconfirm="toValidcodeInput" confirm-type="next" />
+    <input placeholder="请输入手机号" placeholder-class="placeholder" value="{{phone}}" maxlength="11" bindinput="phoneInput" bindconfirm="toValidcodeInput" confirm-type="next" bindfocus="showPhoneTips" />
   </view>
   <view class="line"></view>
   <view class="section">
     <text class="iconfont icon-yanzhengma"></text>
-    <input placeholder="请输入验证码" placeholder-class="placeholder" value="{{validcode}}" maxlength="6" focus="{{validcode_focus}}" bindinput="validcodeInput" bindconfirm="toPsdInput" confirm-type="next" />
+    <input placeholder="请输入5位验证码" placeholder-class="placeholder" value="{{validcode}}" maxlength="5" focus="{{validcode_focus}}" bindinput="validcodeInput" bindconfirm="toPsdInput" confirm-type="next" bindfocus="showValidCodeTips" />
     <button class='validcode {{validcode_disabled?"disabled":""}}' disabled="{{validcode_disabled}}" bindtap="sendValidCode">
       <text wx:if="{{count>0}}">{{count}}秒后发送</text>
       <text wx:else>获取验证码</text>
@@ -17,16 +17,24 @@
   <view class="line"></view>
   <view class="section">
     <text class="iconfont icon-mima"></text>
-    <input placeholder="请输入密码" placeholder-class="placeholder" password="{{!password_show}}" focus="{{password_focus}}" maxlength="20" value="{{password}}" bindinput="passwordInput" bindconfirm="doRegister" />
+    <input placeholder="请输入密码" placeholder-class="placeholder" password="{{!password_show}}" focus="{{password_focus}}" maxlength="20" value="{{password}}" bindinput="passwordInput" bindconfirm="doRegister" bindfocus="showPsdTips" />
     <text class="iconfont icon-delete2" wx:if="{{password_clear_show}}" bindtap="passwordClear"></text>
     <text class='iconfont @{{password_show?"icon-showpassword":"icon-hiddenpassword"}}' bindtap="passwordShowToggle"></text>
   </view>
 </view>
-<view class="register_tips">
-  <view wx:if="{{error.length>0}}">
+<view class="tip_wrap">
+<view wx:if="{{error.length>0}}">
+  <view class="register_tips error">
     <icon type="warn" size="18"></icon>
     <text>{{error}}</text>
   </view>
+</view>
+<view wx:elif="{{tips.length > 0}}">
+  <view class="register_tips info">
+    <icon type="info" size="18"></icon>
+    <text>{{tips}}</text>
+  </view>
+</view>
 </view>
 <view class="btn_box">
   <button type="default" class="btnsubmmit {{disabled?'disabled':''}}" disabled="{{disabled}}" bindtap="doRegister">立即注册</button>

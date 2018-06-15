@@ -42,7 +42,7 @@ function isEmail(str) {
 * 验证是否手机号码
 */
 function isPhone(str) {
-  var reg = /^1\d{10}$/;
+  var reg = /^1[3456789]\d{9}$/;
   return reg.test(str);
 }
 

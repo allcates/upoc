@@ -39,11 +39,19 @@
   background-color: #aaaaaa;
   color: #efefef;
 }
+.tip_wrap{
+  height: 100rpx;
+  padding: 0 30rpx;
+  display: flex;
+  align-items: center;
+}
 .register_tips{
   display: flex;
-  padding: 30rpx;
   align-items: center;
   color: #F76260;
+}
+.register_tips.info{
+  color: #888888;
 }
 .register_tips view{
   display: flex;

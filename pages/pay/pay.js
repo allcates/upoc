@@ -2,7 +2,7 @@
 let app = getApp();
 let page;
 // 计时器 
-var timer; 
+var timer;
 
 Page({
 
@@ -10,11 +10,11 @@ Page({
    * 页面的初始数据
    */
   data: {
-    orderId:'',
+    orderId: '',
     count: 0,
-    showSuccess:false,
+    showSuccess: false,
     showCancel: false,
-    payParams:{}
+    payParams: {}
   },
 
   /**
@@ -22,11 +22,11 @@ Page({
    */
   onLoad: function (options) {
     page = this;
-console.log('哈哈哈哈哈哈哈');
-console.log(options);
+    console.log('哈哈哈哈哈哈哈');
+    console.log(options);
     var getOpenId = options.getOpenId;
     var orderId = options.orderId;
-    if (getOpenId==1){
+    if (getOpenId == 1) {
       wx.redirectTo({
         url: '/pages/pay/redirect?orderId=' + orderId,
       })
@@ -64,8 +64,7 @@ console.log(options);
     //   }
     // })
 
-    
-    // page.startCountdown(3);
+
   },
 
   //根据 obj 的参数请求wx 支付
@@ -84,7 +83,7 @@ console.log(options);
       'success': function (res) {
         console.log(res);
         // 启动定时器
-        page.startCoundown(3);
+        page.startCountdown(5);
       },
       //小程序支付失败的回调通知
       'fail': function (res) {
@@ -96,7 +95,7 @@ console.log(options);
           //   icon: 'none'
           // });
           page.setData({
-            showCancel:true
+            showCancel: true
           });
         }
       }
@@ -104,18 +103,18 @@ console.log(options);
   },
 
   // 跳到报名页面
-  toSignup:function(){
+  toSignup: function () {
     wx.switchTab({
       url: '/pages/enroll/signup',
     });
-  }, 
+  },
 
-  startCountdown:function(minutes){
+  startCountdown: function (minutes) {
     //计时器
     timer = setInterval(page.countDown, 1000);
     page.setData({
       count: minutes,
-      showSuccess:true
+      showSuccess: true
     });
   },
 
@@ -133,7 +132,7 @@ console.log(options);
       count: currCount
     });
 
-    if (currCount==0){
+    if (currCount == 0) {
       page.toSignup();
     }
   },

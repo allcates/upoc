@@ -28,6 +28,7 @@ Page({
     disabled: true,
     count: 0,
     error: '',
+    tips: '',
     show_modal:false
   },
 
@@ -101,10 +102,32 @@ Page({
     });
   },
 
+  // 显示提示
+  showPhoneTips: function () {
+    page.setData({
+      tips: '请输入正确的大陆手机号码',
+      error: ''
+    });
+  },
+  showValidCodeTips: function () {
+    page.setData({
+      tips: '请输入5位验证码',
+      error: ''
+    });
+  },
+
   // 聚焦到密码输入框
   toPsdInput: function () {
     page.setData({
-      password_focus: true
+      password_focus: true,
+      error: ''
+    });
+  },
+
+  // 显示提示
+  showPsdTips: function () {
+    page.setData({
+      tips: '请输入6--16位密码'
     });
   },
 
@@ -212,30 +235,39 @@ Page({
       },
       method: "POST",
       header: { 'content-type': 'application/x-www-form-urlencoded' },
-      complete: function (res) {
-        // console.log(res.data);
+      success: function (res) {
+<<<<<<< HEAD
+<<<<<<< HEAD
+        if (res.data.State == 1 && res.data.Data != null) {
+=======
+=======
+>>>>>>> 5a796a6428bba49c525d31b8819e2d3e93d6d15c
+        console.log(res);
+        console.log(res.data.State);
 
-        // if (res == null || res.data == null) {
-        //   reject(new Error('网络请求失败'))
-        // }
-
-        if(res.data.State == 0 && res.data.Data !=null){
+        if (res.data.State == 0 && res.data.Data != null) {
+<<<<<<< HEAD
+>>>>>>> 5a796a6428bba49c525d31b8819e2d3e93d6d15c
+=======
+>>>>>>> 5a796a6428bba49c525d31b8819e2d3e93d6d15c
           app.globalData.userInfo = res.data.Data;
           page.setData({
-            show_modal: result
+            show_modal: true
           });
         }
-        else{
+        else {
           page.setData({
             error: res.data.Error
           })
-        }       
-      },
-      success: function (res) {
-
-        page.setData({
-          error: res
-        })
+<<<<<<< HEAD
+<<<<<<< HEAD
+        }  
+=======
+        } 
+>>>>>>> 5a796a6428bba49c525d31b8819e2d3e93d6d15c
+=======
+        } 
+>>>>>>> 5a796a6428bba49c525d31b8819e2d3e93d6d15c
       },
       complete: function () {
         wx.hideNavigationBarLoading();

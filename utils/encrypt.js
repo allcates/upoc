@@ -1,8 +1,10 @@
 // 上线前替换TODO
 var u2AesKey ='en32-i-4315787-4c87-436a-9c89-kv';   //  'u2_test_aesK_test_test_test_test';// 
-
-var api_appid = '1004'; // '5001';  //
+var api_appid ='1004'; // '5001';  // 
 var api_appkey = 'v5appkey_xf_865fn$xa';//'v5appkey_test';  // 
+var u2AppId = '90210'; // "90101";  // 
+
+var webPayAppId = "upocAppletApp";
 
 
 var CryptoJS = require('../assets/js/cryptojs/aes.js');  //引用AES源码js
@@ -41,9 +43,6 @@ function Sign(params){
 
   return signX;
 }
-
-var u2AppId = "90101";
-var webPayAppId = "upocAppletApp";
 
 module.exports = {
   Decrypt: Decrypt,
