@@ -107,8 +107,11 @@ Page({
     });
   },
 
-  // 支付
-  toOrder: function () {
+  // 去支付
+  toOrder: function (e) {
+    // 支付类型
+    var paytype = e.currentTarget.dataset.paytype;
+
     var classList = page.data.classList;
     var classCodes = '';
     for (var x1 = 0; x1 < classList.length; x1++) {
@@ -126,10 +129,18 @@ Page({
       });
     }
     else {
-      var sign = wx.getStorageSync(app.globalData.storageKey_user_sign)||'';
-      var token = wx.getStorageSync(app.globalData.storageKey_user_token) || '';
-      if (sign == "" || token == '') {
 
+      if (!app.globalData.isNetWork) {
+        wx.showToast({
+          title: '当前网络未连接',
+          icon: 'none'
+        });
+        return;
+      }
+
+      var sign = wx.getStorageSync(app.globalData.storageKey_user_sign) || '';
+      var token = wx.getStorageSync(app.globalData.storageKey_user_token) || '';
+      if ((paytype==1) && (sign == "" || token == '')) {
         wx.showModal({
           title: '提示',
           content: '请先登录再去选课单支付',
@@ -164,18 +175,20 @@ Page({
         }
 
         wx.navigateTo({
-          url: '/pages/pay/order?classCodes=' + classCodes,
+          url: '/pages/pay/order?paytype=' + paytype+'&classCodes=' + classCodes,
         })
       }
     }
   },
 
+  // 隐藏提示语
   tipsHide: function () {
     page.setData({
       tips_show: false
     });
   },
 
+  // 重置
   resetData: function (classList) {
     var total = 0;
     var selectedAll = true;

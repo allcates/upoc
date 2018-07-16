@@ -33,7 +33,7 @@ Page({
   toOrder: function () {
     wx.navigateTo({
       // url: '/pages/test/test?url=' + encodeURIComponent('https://testh5bm.staff.xdf.cn/1/html/order.html?schoolId=1&StudentCode=BJ1675051&classCodes=PHD6M06&appId=bmApp'),
-      url: '/pages/test/test?url=' + encodeURIComponent('https://testh5bm.staff.xdf.cn/1/html/order.html?schoolId=1&StudentCode=BJ1675051&classCodes=' + (page.data.currClass.ClassCode)+'&appId=bmApp'),
+      url: '/pages/test/test?url=' + encodeURIComponent(app.globalData.order_url + '?schoolId=1&StudentCode=BJ1675051&classCodes=' + (page.data.currClass.ClassCode) + '&appId=' + encrypt.WebPayAppId),
     })
   }
 })

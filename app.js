@@ -7,6 +7,11 @@ App({
 
     var app = this;
 
+    // 检测网络
+    wx.onNetworkStatusChange(function (res) {
+      app.globalData.isNetWork = res.isConnected;
+    })
+
     // 登录
     wx.login({
       success: res => {
@@ -53,18 +58,22 @@ App({
   },
 
   globalData: {
+    // 上线前替换TODO
     // 用户信息（在优播课后台的数据信息）
     userInfo: null,
     openId: '',
-    apiHost: 'https://xuban.xdf.cn/mini/',//'https://xytest.staff.xdf.cn/miniprogram/',
+    apiHost: 'https://xuban.xdf.cn/mini/',//'https://xytest.staff.xdf.cn/miniprogram/',//
     appName: '优播课家长端',
     appId: encrypt.ApiAppId,
+    isNetWork: true,
     storageKey_openid: 'storageKey_openid',
     storageKey_user_account: 'storageKey_user_account',
     storageKey_user_pwd: 'storageKey_user_pwd',
     storageKey_user_sign: 'storageKey_user_sign',
     storageKey_user_token: 'storageKey_user_token',
     storageKey_dake_classlist: 'storageKey_dake_classlist',
-    storageKey_dake_classlist_all: 'storageKey_dake_classlist_all'
+    storageKey_dake_classlist_all: 'storageKey_dake_classlist_all',
+    order_url: 'https://h5bm.xdf.cn/1/html/order.html', //'https://testh5bm.staff.xdf.cn/1/html/order.html',//
+    u2login_url:'https://passport.xdf.cn/apis/usersv2.ashx', //   'https://testu2.staff.xdf.cn/apis/usersv2.ashx',//
   }
 })

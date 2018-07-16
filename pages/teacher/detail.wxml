@@ -76,12 +76,12 @@
       <view class="item_bottom">
         <view class="price">¥{{item.Fee}}</view>
         <view class="btn_wrap">
-          <button size="mini" class="{{item.Hot=='full'?'disabled':''}}" data-item="{{item}}" bindtap="addToFavorite" disabled="{{item.Hot=='full'}}">{{item.InFavorite?'已加入选课单':'加入选课单'}}</button>
+          <button size="mini" class="{{(item.Hot=='full' || item.Hot=='close')?'disabled':''}}" data-item="{{item}}" bindtap="addToFavorite" disabled="{{(item.Hot=='full' || item.Hot=='close')}}">{{item.InFavorite?'已加入选课单':'加入选课单'}}</button>
         </view>
       </view>
     </view>
   </block>
-</template>
+</template> 
 
 <template name="willTemplate">
   <block wx:for="{{willList}}" wx:key="Code">
@@ -113,7 +113,7 @@
       <view class="item_bottom">
         <view class="price">¥{{item.Fee}}</view>
         <view class="btn_wrap">
-          <button size="mini" class="{{item.Hot=='full'?'disabled':''}}" data-item="{{item}}" bindtap="addToFavorite" disabled="{{item.Hot=='full'}}">{{item.InFavorite?'已加入选课单':'加入选课单'}}</button>
+          <button size="mini" class="{{(item.Hot=='full' || item.Hot=='close')?'disabled':''}}" data-item="{{item}}" bindtap="addToFavorite" disabled="{{(item.Hot=='full' || item.Hot=='close')}}">{{item.InFavorite?'已加入选课单':'加入选课单'}}</button>
         </view>
       </view>
     </view>

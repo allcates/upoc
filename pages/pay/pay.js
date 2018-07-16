@@ -22,8 +22,6 @@ Page({
    */
   onLoad: function (options) {
     page = this;
-    console.log('哈哈哈哈哈哈哈');
-    console.log(options);
     var getOpenId = options.getOpenId;
     var orderId = options.orderId;
     if (getOpenId == 1) {
@@ -38,33 +36,8 @@ Page({
       });
 
       page.requestPayment();
-
     }
-
-    // console.log(options.timeStamp);
-    // console.log(options.paySign);
-    // //页面加载调取微信支付（原则上应该对options的携带的参数进行校验）
-    // page.requestPayment(options);
-
-    // wx.request({
-    //   url: app.globalData.apiHost + 'test/getPayParameters?openId=' + app.globalData.openId,
-    //   method: "POST",
-    //   header: { 'content-type': 'application/x-www-form-urlencoded' },
-    //   data: {
-    //     "openId": app.globalData.openId
-    //   },
-    //   success: function (res) {
-    //     console.log(res);
-    //     if (res.data.State == 1) {
-    //       page.requestPayment(res.data.Data);
-    //     }
-    //   },
-    //   fail: function () {
-
-    //   }
-    // })
-
-
+    
   },
 
   //根据 obj 的参数请求wx 支付
@@ -81,9 +54,9 @@ Page({
       'paySign': obj.paySign,
       //小程序微信支付成功的回调通知
       'success': function (res) {
-        console.log(res);
+        // console.log(res);
         // 启动定时器
-        page.startCountdown(5);
+        page.startCountdown(6);
       },
       //小程序支付失败的回调通知
       'fail': function (res) {
@@ -94,6 +67,7 @@ Page({
           //   title: '支付已取消',
           //   icon: 'none'
           // });
+          clearInterval(timer);
           page.setData({
             showCancel: true
           });

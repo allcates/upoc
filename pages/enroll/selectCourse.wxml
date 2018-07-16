@@ -16,7 +16,8 @@
       <text>合计：</text>
       <text class="price">¥{{total}}</text>
     </view>
-    <view class="btnpay {{btn_disabled?'disabled':''}}" bindtap="toOrder">去支付</view>
+    <!-- <view class="anotherpay {{btn_disabled?'disabled':''}}" data-paytype="2" bindtap="toOrder">找人代付</view> -->
+    <view class="btnpay {{btn_disabled?'disabled':''}}" data-paytype="1" bindtap="toOrder">去支付</view>
   </view>
 </block>
 

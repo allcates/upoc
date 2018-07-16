@@ -4,13 +4,13 @@
   <text class="iconfont icon-delete1" bindtap="tipsHide"></text>
 </view>
 <view class="body_wrap">
-  <navigator class="card_wrap" hover-class="card_wrap_hover" url="/pages/teacher/list">
+  <!-- <navigator class="card_wrap" hover-class="card_wrap_hover" url="/pages/teacher/list">
     <view class="img">
       <image src="/assets/images/select_teacher.png" mode="widthFix"></image>
     </view>
     <view class="line"></view>
     <view class="text clr_high">按老师选课</view>
-  </navigator>
+  </navigator> -->
   <navigator class="card_wrap" hover-class="card_wrap_hover" url="/pages/dake/index">
     <view class="img">
       <image src="/assets/images/select_dake.png" mode="widthFix"></image>

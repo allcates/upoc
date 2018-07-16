@@ -31,8 +31,9 @@
   align-items: center;
 }
 .wrap .btn_wrap button{
-  margin-right: 18rpx;
-  margin-left: 18rpx;
+  margin-right: 16rpx;
+  margin-left: 16rpx;
+  border: 1rpx solid #dddddd;
 }
 .topay{
   background-color: #6BB898;

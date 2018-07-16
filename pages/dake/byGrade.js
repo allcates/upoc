@@ -7,16 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: { 
-    gradeList: [
-      { "id": "1", "name": "初一", "usable": true, "selected": false },
-      { "id": "2", "name": "初二", "usable": true, "selected": false },
-      { "id": "3", "name": "中考", "usable": true, "selected": false },
-      { "id": "4", "name": "高一", "usable": true, "selected": false },
-      { "id": "5", "name": "高二", "usable": true, "selected": false },
-      { "id": "6", "name": "高考", "usable": false, "selected": false },
-      { "id": "7", "name": "专项", "usable": false, "selected": false },
-      { "id": "8", "name": "英才", "usable": false, "selected": false },
-    ]
+    gradeList: grades
   },
 
   /**

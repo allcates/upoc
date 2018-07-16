@@ -9,8 +9,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    quarter: {},
-    grade: {},
+    quarter: { "id": "2", "name": "暑假", "usable": true, "selected": false },
+    grade: { "id": "1", "name": "初一" },
     schools: [],
     schoolNames: '',
     btn_enabled: false,
@@ -76,6 +76,14 @@ Page({
       });
     }
     else {
+      if (!app.globalData.isNetWork) {
+        wx.showToast({
+          title: '当前网络未连接',
+          icon: 'none'
+        });
+        return;
+      }
+
       // 先清空临时报名选中的班级，然后跳到报名页面重新选择
       try {
         wx.removeStorageSync(app.globalData.storageKey_dake_classlist)

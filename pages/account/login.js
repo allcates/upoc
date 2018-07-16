@@ -27,7 +27,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    page = this;
+    page = this; 
 
     if (app.globalData.openId){
       page.checkLogin();
@@ -108,6 +108,14 @@ Page({
       });
       return;
     }
+    
+    if (!app.globalData.isNetWork){
+      wx.showToast({
+        title: '当前网络未连接',
+        icon: 'none'
+      });
+      return;
+    }
 
     wx.showNavigationBarLoading();
     wx.showLoading({
@@ -140,7 +148,7 @@ Page({
         "sign": signX
       },
       success: function (res) {
-        console.log(res);
+        // console.log(res);
         // console.log(res.data.Data.Sign);
         // console.log(res.data.Data.AccessToken);
 
@@ -150,10 +158,7 @@ Page({
             wx.setStorageSync(app.globalData.storageKey_user_account, account);
             wx.setStorageSync(app.globalData.storageKey_user_pwd, password);
             wx.setStorageSync(app.globalData.storageKey_user_sign, res.data.Data.Sign);
-            wx.setStorageSync(app.globalData.storageKey_user_token, res.data.Data.AccessToken);
-
-            var x = wx.getStorageSync(app.globalData.storageKey_user_sign);
-            console.log("sign=====" + x);            
+            wx.setStorageSync(app.globalData.storageKey_user_token, res.data.Data.AccessToken);           
             
           } catch (e) {
           }
@@ -220,7 +225,6 @@ Page({
             "sign": signX
           },
           success: function (res) {
-            console.log(res);
             if (res.data.State == 1 && res.data.Data!=null){
               try {
                 wx.setStorageSync(app.globalData.storageKey_user_account, account);
@@ -228,8 +232,8 @@ Page({
                 wx.setStorageSync(app.globalData.storageKey_user_sign, res.data.Data.Sign);
                 wx.setStorageSync(app.globalData.storageKey_user_token, res.data.Data.AccessToken);
 
-                var x = wx.getStorageSync(app.globalData.storageKey_user_sign);
-                console.log("sign=====" + x);
+                // var x = wx.getStorageSync(app.globalData.storageKey_user_sign);
+                // console.log("sign=====" + x);
 
               } catch (e) {
                 console.log(e);

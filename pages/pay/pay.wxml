@@ -3,9 +3,9 @@
     <icon type="success" size="80"></icon>
   </view>
   <view class="text1">支付成功</view>
-  <view class="text2">您已报名成功,订单号:{{orderId}}</view>
+  <view class="text2">您已报名成功,交易号:{{orderId}}</view>
   <view class="text2">{{count}}秒后自动返回到首页</view>
-  <view class="btn_wrap">
+  <view class="btn_wrap"> 
     <button bindtap="toSignup">继续报名</button>
   </view>
 </view>
@@ -14,7 +14,7 @@
     <icon type="cancel" size="80"></icon>
   </view>
   <view class="text1">支付已取消</view>
-  <view class="text2">您的报名已取消,订单号:{{orderId}}</view>
+  <view class="text2">您的报名已取消,交易号:{{orderId}}</view>
   <view class="btn_wrap">
     <button bindtap="toSignup">返回报名</button>
     <button bindtap="requestPayment" class="topay">继续支付</button>

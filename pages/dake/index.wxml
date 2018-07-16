@@ -1,21 +1,23 @@
 <!--pages/dake/index.wxml-->
 <view class="tips">请选择报名条件</view>
 <view class="mine_cells">
-  <navigator class="mine_cell" url="/pages/dake/byQuarter?quarterId={{quarter.id}}">
+  <!-- <navigator class="mine_cell" url="/pages/dake/byQuarter?quarterId={{quarter.id}}"> -->
+  <view class="mine_cell">
     <view class="icon">
       <image src="/assets/images/icon_jidu.png"></image>
     </view>
     <view class="mine_cell_hd">季度</view>
-    <view class="mine_cell_ft mine_cell_ft_access">{{quarter.name?quarter.name:"未选择"}}</view>
-  </navigator>
+    <view class="mine_cell_ft mine_cell_ft_access_">{{quarter.name?quarter.name:"未选择"}}</view>
+  </view>
   <view class="mine_cell_split clr_split"></view>
-  <navigator class="mine_cell" url="/pages/dake/byGrade?gradeId={{grade.id}}">
+  <!-- <navigator class="mine_cell" url="/pages/dake/byGrade?gradeId={{grade.id}}"> -->
+  <view class="mine_cell">
     <view class="icon">
       <image src="/assets/images/icon_nianji.png"></image>
     </view>
     <view class="mine_cell_hd">年级</view>
-    <view class="mine_cell_ft mine_cell_ft_access">{{grade.name?grade.name:"未选择"}}</view>
-  </navigator>
+    <view class="mine_cell_ft mine_cell_ft_access_">{{grade.name?grade.name:"未选择"}}</view>
+  </view>
   <view class="mine_cell_split clr_split"></view>
   <navigator class="mine_cell" url="/pages/dake/bySchool">
     <view class="icon">

@@ -14,9 +14,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
-    console.log('哈哈哈哈哈哈哈2222');
-    console.log(options);
+    // console.log(options);
     var orderId = options.orderId;
     var url = app.globalData.apiHost + 'redirect2Wx?geted=1&payOrderId=' + orderId + '&openId=' + app.globalData.openId;
 

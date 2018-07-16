@@ -89,6 +89,14 @@ Page({
   * 搜索老师
   */
   getData: function () {
+    if (!app.globalData.isNetWork) {
+      wx.showToast({
+        title: '当前网络未连接',
+        icon: 'none'
+      });
+      return;
+    }
+    
     var keywords = util.trim(page.data.inputVal) ;
     if(keywords.length==0){
       return;

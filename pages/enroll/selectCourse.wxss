@@ -49,19 +49,26 @@
 }
 .bottom_pay .btnpay{
   width: auto;
-  padding: 0 50rpx;
+  padding: 0 30rpx;
   text-align: center;
   color: #ffffff;
   background-color: #F54D50;
 }
-.bottom_pay .btnpay.disabled{
+.bottom_pay .anotherpay{
+  width: auto;
+  padding: 0 30rpx;
+  text-align: center;
+  color: #ffffff;
+  background-color: #fda829;
+}
+.bottom_pay .btnpay.disabled,.bottom_pay .anotherpay.disabled{
   color: #ffffff;
   background-color: #cccccc;
 }
 
 
 .body{
-  margin-bottom: 100px;
+  padding-bottom: 70rpx;
 }
 .class_item{
   background-color: #ffffff;
@@ -84,6 +91,7 @@
   font-size: 28rpx;
   align-items:center;
   margin-bottom: 4rpx;
+  overflow: hidden;
 }
 .class_item .sec.classcode{
   margin-bottom: 10rpx;

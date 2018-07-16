@@ -3,12 +3,12 @@
 <view class="login_input_box">
   <view class="section">
     <text class="iconfont icon-account-only"></text>
-    <input placeholder="请输入手机号" placeholder-class="placeholder" value="{{phone}}" maxlength="11" bindinput="phoneInput" bindconfirm="toValidcodeInput" confirm-type="next" bindfocus="showPhoneTips" focus="{{phone_focus}}" />
+    <input placeholder="请输入手机号" placeholder-class="placeholder" value="{{phone}}" type="number" maxlength="11" bindinput="phoneInput" bindconfirm="toValidcodeInput" confirm-type="next" bindfocus="showPhoneTips" focus="{{phone_focus}}" />
   </view>
   <view class="line"></view>
   <view class="section">
     <text class="iconfont icon-yanzhengma"></text>
-    <input placeholder="请输入5位验证码" placeholder-class="placeholder" value="{{validcode}}" maxlength="5" focus="{{validcode_focus}}" bindinput="validcodeInput" bindconfirm="toPsdInput" confirm-type="next" bindfocus="showValidCodeTips" />
+    <input placeholder="请输入5位验证码" placeholder-class="placeholder" value="{{validcode}}" type="number" maxlength="5" focus="{{validcode_focus}}" bindinput="validcodeInput" bindconfirm="toPsdInput" confirm-type="next" bindfocus="showValidCodeTips" />
     <button class='validcode {{validcode_disabled?"disabled":""}}' disabled="{{validcode_disabled}}" bindtap="sendValidCode">
       <text wx:if="{{count>0}}">{{count}}秒后发送</text>
       <text wx:else>获取验证码</text>

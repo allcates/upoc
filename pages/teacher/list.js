@@ -151,6 +151,14 @@ Page({
   * 获取所有教师列表数据
   */
   getData: function () {
+    if (!app.globalData.isNetWork) {
+      wx.showToast({
+        title: '当前网络未连接',
+        icon: 'none'
+      });
+      return;
+    }
+    
     wx.showNavigationBarLoading();
     wx.showLoading({
       title: '加载中',

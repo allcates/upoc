@@ -126,6 +126,14 @@ Page({
   * 获取所有列表数据
   */
   getData: function (quarter, grade, areacodes) {
+    if (!app.globalData.isNetWork) {
+      wx.showToast({
+        title: '当前网络未连接',
+        icon: 'none'
+      });
+      return;
+    }
+
     wx.showNavigationBarLoading();
     wx.showLoading({
       title: '加载中',
@@ -183,6 +191,14 @@ Page({
 
   // 点击
   clickItem: function (e) {
+    if (!app.globalData.isNetWork) {
+      wx.showToast({
+        title: '当前网络未连接',
+        icon: 'none'
+      });
+      return;
+    }
+    
     var item = e.currentTarget.dataset.item;
     var period = e.currentTarget.dataset.period;
     page.setData({

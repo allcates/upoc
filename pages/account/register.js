@@ -73,7 +73,8 @@ Page({
   passwordClear: function () {
     this.setData({
       password: '',
-      password_clear_show: false
+      password_clear_show: false,
+      password_focus: true
     });
     this.btnValida();
   },
@@ -138,6 +139,14 @@ Page({
     params[1] = ['mobile', page.data.phone];
     // console.log(params);
     var signX = encrypt.Sign(params);
+
+    if (!app.globalData.isNetWork) {
+      wx.showToast({
+        title: '当前网络未连接',
+        icon: 'none'
+      });
+      return;
+    }
 
     // 向服务器发送请求获取验证码
     wx.request({
@@ -224,6 +233,14 @@ Page({
       page.setData({
         error: '密码应在6--16位之间',
         password_focus: false
+      });
+      return;
+    } 
+    
+    if (!app.globalData.isNetWork) {
+      wx.showToast({
+        title: '当前网络未连接',
+        icon: 'none'
       });
       return;
     }

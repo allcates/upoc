@@ -6,10 +6,10 @@ Page({
    */
   data: {
     quarterList: [
-      { "id": "1", "name": "春季", "usable": true, "selected": false },
+      // { "id": "1", "name": "春季", "usable": true, "selected": false },
       { "id": "2", "name": "暑假", "usable": true, "selected": false },
-      { "id": "3", "name": "秋季", "usable": true, "selected": false },
-      { "id": "4", "name": "寒假", "usable": false, "selected": false },
+      // { "id": "3", "name": "秋季", "usable": true, "selected": false },
+      // { "id": "4", "name": "寒假", "usable": false, "selected": false },
     ]
   },
 
